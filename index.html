@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WiFi Wise Guys — Smart Home Help That Actually Makes Sense</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #0076c0; --blue-dark: #005a92; --blue-light: #e8f4fc; --blue-mid: #cce8f7;
+      --white: #ffffff; --ink: #111111; --ink-soft: #444444; --ink-muted: #888888;
+      --border: #d6eaf8; --eol-bg: #fff8f0; --eol-border: #f4d0a8; --eol-badge: #c4621a;
+      --radius: 12px; --radius-lg: 20px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Outfit', sans-serif; background: var(--white); color: var(--ink); overflow-x: hidden; }
+    .page { display: none; } .page.active { display: block; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 70px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; }
+    .nav-logo svg { width: 44px; height: 44px; }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 0.95rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.02em; transition: color 0.2s; position: relative; cursor: pointer; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 2px; background: var(--blue); transform: scaleX(0); transition: transform 0.2s; }
+    .nav-links a:hover { color: var(--blue); } .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links a.active { color: var(--blue); } .nav-links a.active::after { transform: scaleX(1); }
+    .nav-cta { background: var(--blue) !important; color: var(--white) !important; padding: 10px 22px; border-radius: 8px; } .nav-cta::after { display: none !important; } .nav-cta:hover { background: var(--blue-dark) !important; }
+
+    /* BUTTONS */
+    .btn-primary { background: var(--blue); color: var(--white); padding: 16px 32px; border-radius: 10px; font-weight: 700; font-size: 1rem; transition: background 0.2s, transform 0.15s; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: none; font-family: 'Outfit', sans-serif; text-decoration: none; }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--ink); padding: 16px 32px; border-radius: 10px; font-weight: 600; font-size: 1rem; border: 2px solid var(--border); transition: border-color 0.2s, color 0.2s, transform 0.15s; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-family: 'Outfit', sans-serif; text-decoration: none; }
+    .btn-ghost:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
+    .btn-white { background: var(--white); color: var(--blue); padding: 16px 32px; border-radius: 10px; font-weight: 700; font-size: 1rem; transition: transform 0.15s, box-shadow 0.2s; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); cursor: pointer; border: none; font-family: 'Outfit', sans-serif; text-decoration: none; }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+    .btn-outline-white { background: transparent; color: var(--white); padding: 14px 28px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; border: 2px solid rgba(255,255,255,0.4); transition: border-color 0.2s, transform 0.15s; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-family: 'Outfit', sans-serif; text-decoration: none; }
+    .btn-outline-white:hover { border-color: rgba(255,255,255,0.9); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { background: var(--ink); color: rgba(255,255,255,0.6); padding: 60px 40px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; }
+    .footer-brand p { font-size: 0.9rem; line-height: 1.7; margin-top: 16px; max-width: 280px; }
+    .footer-col h4 { font-size: 0.85rem; font-weight: 700; color: var(--white); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { text-decoration: none; color: rgba(255,255,255,0.5); font-size: 0.9rem; transition: color 0.2s; cursor: pointer; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom { max-width: 1200px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; flex-wrap: wrap; gap: 12px; }
+    .footer-logo-text { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; }
+
+    /* HOME */
+    .hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; background: var(--white); padding-top: 70px; }
+    .hero::before { content: ''; position: absolute; top: 0; right: -5%; width: 52%; height: 100%; background: var(--blue); clip-path: polygon(12% 0%, 100% 0%, 100% 100%, 0% 100%); z-index: 0; }
+    .hero::after { content: ''; position: absolute; top: 0; right: -5%; width: 52%; height: 100%; background-image: radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px); background-size: 28px 28px; clip-path: polygon(12% 0%, 100% 0%, 100% 100%, 0% 100%); z-index: 1; }
+    .hero-inner { position: relative; z-index: 2; width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .hero-text { animation: fadeUp 0.7s ease both; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; font-weight: 600; color: var(--blue); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 20px; background: var(--blue-light); padding: 6px 14px; border-radius: 100px; border: 1px solid var(--blue-mid); }
+    h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.08; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 24px; }
+    h1 em { font-style: normal; color: var(--blue); }
+    .hero-sub { font-family: 'Lora', serif; font-size: 1.15rem; color: var(--ink-soft); line-height: 1.7; margin-bottom: 40px; max-width: 480px; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero-visual { display: flex; align-items: center; justify-content: center; animation: fadeUp 0.7s 0.15s ease both; }
+    .hero-card { background: rgba(255,255,255,0.15); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.3); border-radius: var(--radius-lg); padding: 36px; width: 100%; max-width: 380px; }
+    .hero-card-label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: rgba(255,255,255,0.6); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
+    .hero-stat-row { display: flex; flex-direction: column; gap: 16px; }
+    .hero-stat { display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,0.1); border-radius: 10px; padding: 14px 18px; border: 1px solid rgba(255,255,255,0.15); }
+    .hero-stat-icon { width: 38px; height: 38px; background: rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.2rem; }
+    .hero-stat-text { color: var(--white); } .hero-stat-text strong { display: block; font-size: 1rem; font-weight: 700; } .hero-stat-text span { font-size: 0.82rem; opacity: 0.7; }
+    .what-section { background: var(--white); padding: 100px 40px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-label { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 600; color: var(--blue); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 14px; }
+    .section-title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 20px; }
+    .section-sub { font-family: 'Lora', serif; font-size: 1.1rem; color: var(--ink-soft); line-height: 1.75; max-width: 600px; margin-bottom: 60px; }
+    .what-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .what-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 36px 30px; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; position: relative; overflow: hidden; }
+    .what-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
+    .what-card:hover { border-color: var(--blue-mid); box-shadow: 0 12px 40px rgba(0,118,192,0.1); transform: translateY(-4px); } .what-card:hover::before { transform: scaleX(1); }
+    .what-icon { width: 52px; height: 52px; background: var(--blue-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 22px; font-size: 1.5rem; }
+    .what-card h3 { font-size: 1.2rem; font-weight: 700; color: var(--ink); margin-bottom: 12px; } .what-card p { font-size: 0.95rem; color: var(--ink-soft); line-height: 1.7; }
+    .posts-section { background: var(--blue-light); padding: 100px 40px; }
+    .posts-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px; flex-wrap: wrap; gap: 20px; }
+    .view-all { font-weight: 700; color: var(--blue); text-decoration: none; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 6px; transition: gap 0.2s; cursor: pointer; } .view-all:hover { gap: 12px; }
+    .posts-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 24px; }
+    .post-card { background: var(--white); border-radius: var(--radius-lg); overflow: hidden; border: 1.5px solid var(--border); text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: box-shadow 0.2s, transform 0.2s; cursor: pointer; }
+    .post-card:hover { box-shadow: 0 16px 48px rgba(0,118,192,0.12); transform: translateY(-4px); }
+    .post-thumb { aspect-ratio: 16/9; background: var(--blue); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .post-thumb-pattern { position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 20px 20px; }
+    .post-thumb-label { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: rgba(255,255,255,0.8); letter-spacing: 0.1em; text-transform: uppercase; position: relative; z-index: 1; }
+    .post-card.featured .post-thumb { aspect-ratio: 4/3; }
+    .post-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .post-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 600; color: var(--blue); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+    .post-card h3 { font-size: 1.1rem; font-weight: 700; line-height: 1.35; color: var(--ink); margin-bottom: 12px; } .post-card.featured h3 { font-size: 1.35rem; }
+    .post-card p { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.65; flex: 1; margin-bottom: 20px; }
+    .post-meta { font-size: 0.8rem; color: var(--ink-muted); display: flex; align-items: center; gap: 8px; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border); }
+    .dashboard-cta { background: var(--blue); padding: 100px 40px; position: relative; overflow: hidden; }
+    .dashboard-cta::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px); background-size: 32px 32px; }
+    .dashboard-cta-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 60px; }
+    .dashboard-cta h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 800; color: var(--white); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 16px; }
+    .dashboard-cta p { font-family: 'Lora', serif; font-size: 1.05rem; color: rgba(255,255,255,0.8); line-height: 1.7; max-width: 520px; }
+
+    /* ABOUT */
+    .page-header { background: var(--blue); padding: 140px 40px 100px; position: relative; overflow: hidden; }
+    .page-header::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px); background-size: 28px 28px; }
+    .page-header::after { content: '"'; position: absolute; right: 8%; top: 50%; transform: translateY(-50%); font-family: 'Lora', serif; font-size: 28rem; color: rgba(255,255,255,0.05); line-height: 1; pointer-events: none; }
+    .page-header-inner { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
+    .page-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 600; color: rgba(255,255,255,0.55); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 20px; }
+    .page-header h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 900; color: var(--white); letter-spacing: -0.025em; line-height: 1.08; margin-bottom: 28px; }
+    .page-header h1 em { font-style: italic; font-family: 'Lora', serif; font-weight: 400; color: rgba(255,255,255,0.85); }
+    .header-lead { font-family: 'Lora', serif; font-size: 1.2rem; color: rgba(255,255,255,0.82); line-height: 1.8; max-width: 620px; }
+    .wave-divider { background: var(--blue); line-height: 0; } .wave-divider svg { display: block; width: 100%; }
+    .about-main { max-width: 800px; margin: 0 auto; padding: 80px 40px 100px; }
+    .statement-block { margin-bottom: 72px; }
+    .statement-label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 600; color: var(--blue); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .statement-label::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 60px; }
+    .statement-block h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 20px; }
+    .statement-block h2 em { font-style: italic; font-family: 'Lora', serif; font-weight: 600; color: var(--blue); }
+    .statement-block p { font-family: 'Lora', serif; font-size: 1.08rem; color: var(--ink-soft); line-height: 1.85; margin-bottom: 16px; }
+    .pull-quote { border-left: 4px solid var(--blue); padding: 20px 28px; margin: 36px 0; background: var(--blue-light); border-radius: 0 var(--radius) var(--radius) 0; }
+    .pull-quote p { font-family: 'Lora', serif; font-size: 1.15rem; color: var(--ink); line-height: 1.75; font-style: italic; margin: 0; }
+    .beliefs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 36px; }
+    .belief-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 28px 24px; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; position: relative; overflow: hidden; }
+    .belief-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
+    .belief-card:hover { border-color: var(--blue-mid); box-shadow: 0 8px 32px rgba(0,118,192,0.08); transform: translateY(-3px); } .belief-card:hover::before { transform: scaleX(1); }
+    .belief-icon { font-size: 1.8rem; margin-bottom: 14px; display: block; }
+    .belief-card h3 { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+    .belief-card p { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.65; margin: 0; }
+    .section-divider { border: none; border-top: 1.5px solid var(--border); margin: 72px 0; }
+    .about-cta { background: var(--blue); border-radius: var(--radius-lg); padding: 48px 44px; position: relative; overflow: hidden; margin-top: 80px; }
+    .about-cta::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px); background-size: 24px 24px; }
+    .about-cta-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 40px; }
+    .about-cta h3 { font-size: 1.5rem; font-weight: 800; color: var(--white); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 10px; }
+    .about-cta p { font-family: 'Lora', serif; font-size: 0.98rem; color: rgba(255,255,255,0.8); line-height: 1.65; margin: 0; }
+    .cta-buttons { display: flex; flex-direction: column; gap: 12px; }
+
+    /* DASHBOARD */
+    .dash-page-header { background: var(--blue); padding: 120px 40px 60px; position: relative; overflow: hidden; }
+    .dash-page-header::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px); background-size: 28px 28px; }
+    .dash-page-header::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 60px; background: var(--white); clip-path: ellipse(55% 100% at 50% 100%); }
+    .dash-header-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+    .controls-bar { background: var(--white); padding: 32px 40px; position: sticky; top: 70px; z-index: 50; border-bottom: 1px solid var(--border); box-shadow: 0 4px 24px rgba(0,118,192,0.06); }
+    .controls-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .search-wrap { position: relative; flex: 1; min-width: 240px; }
+    .search-wrap svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--ink-muted); pointer-events: none; }
+    #search-input { width: 100%; padding: 14px 16px 14px 46px; border: 2px solid var(--border); border-radius: 10px; font-family: 'Outfit', sans-serif; font-size: 0.95rem; color: var(--ink); background: var(--white); transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+    #search-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(0,118,192,0.1); } #search-input::placeholder { color: var(--ink-muted); }
+    .filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-tab { padding: 10px 18px; border-radius: 8px; border: 2px solid var(--border); background: var(--white); font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); cursor: pointer; transition: all 0.2s; }
+    .filter-tab:hover { border-color: var(--blue-mid); color: var(--blue); } .filter-tab.active { background: var(--blue); border-color: var(--blue); color: var(--white); }
+    .results-count { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--ink-muted); white-space: nowrap; }
+    .dashboard-main { max-width: 1200px; margin: 0 auto; padding: 48px 40px 100px; }
+    .brand-section { margin-bottom: 12px; }
+    .brand-card { border: 1.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: border-color 0.2s; background: var(--white); }
+    .brand-card.eol { border-color: var(--eol-border); background: var(--eol-bg); }
+    .brand-card:hover { border-color: var(--blue-mid); } .brand-card.eol:hover { border-color: #e0a070; }
+    .brand-header { display: flex; align-items: center; gap: 20px; padding: 22px 28px; cursor: pointer; user-select: none; transition: background 0.2s; }
+    .brand-header:hover { background: var(--blue-light); } .brand-card.eol .brand-header:hover { background: #fef0e0; }
+    .brand-icon { width: 48px; height: 48px; border-radius: 10px; background: var(--blue-light); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; border: 1.5px solid var(--blue-mid); }
+    .brand-card.eol .brand-icon { background: #fde8d0; border-color: var(--eol-border); }
+    .brand-info { flex: 1; }
+    .brand-name { font-size: 1.1rem; font-weight: 700; color: var(--ink); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .badge { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border-radius: 100px; }
+    .badge-active { background: #e0f5e9; color: #1a7a3a; border: 1px solid #b0dfc0; }
+    .badge-eol { background: #fde8d0; color: var(--eol-badge); border: 1px solid var(--eol-border); }
+    .badge-preferred { background: var(--blue-light); color: var(--blue-dark); border: 1px solid var(--blue-mid); }
+    .brand-meta { font-size: 0.85rem; color: var(--ink-muted); margin-top: 4px; }
+    .brand-toggle { width: 32px; height: 32px; border-radius: 8px; background: var(--blue-light); border: 1.5px solid var(--blue-mid); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s, transform 0.3s; color: var(--blue); }
+    .brand-card.eol .brand-toggle { background: #fde8d0; border-color: var(--eol-border); color: var(--eol-badge); }
+    .brand-card.open .brand-toggle { transform: rotate(180deg); }
+    .brand-body { display: none; border-top: 1.5px solid var(--border); padding: 28px; }
+    .brand-card.eol .brand-body { border-top-color: var(--eol-border); }
+    .brand-card.open .brand-body { display: block; animation: slideDown 0.25s ease; }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    .device-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .device-item { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 18px 20px; transition: border-color 0.2s, box-shadow 0.2s; }
+    .brand-card.eol .device-item { background: rgba(255,255,255,0.6); }
+    .device-item:hover { border-color: var(--blue-mid); box-shadow: 0 4px 16px rgba(0,118,192,0.08); }
+    .device-model { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--blue); margin-bottom: 6px; font-weight: 600; }
+    .brand-card.eol .device-model { color: var(--eol-badge); }
+    .device-name { font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+    .device-desc { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.6; margin-bottom: 14px; }
+    .device-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .device-btn { font-family: 'Outfit', sans-serif; font-size: 0.78rem; font-weight: 600; padding: 6px 12px; border-radius: 6px; text-decoration: none; transition: all 0.15s; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 5px; }
+    .device-btn-primary { background: var(--blue); color: var(--white); } .device-btn-primary:hover { background: var(--blue-dark); }
+    .device-btn-ghost { background: var(--blue-light); color: var(--blue); border: 1px solid var(--blue-mid); } .device-btn-ghost:hover { background: var(--blue-mid); }
+    .device-btn-mfr { background: var(--white); color: var(--ink-soft); border: 1px solid var(--border); } .device-btn-mfr:hover { border-color: var(--ink-muted); color: var(--ink); }
+    .device-btn-eol { background: #fde8d0; color: var(--eol-badge); border: 1px solid var(--eol-border); } .device-btn-eol:hover { background: #f9d4b0; }
+    .eol-notice { background: rgba(255,255,255,0.7); border: 1.5px solid var(--eol-border); border-radius: var(--radius); padding: 18px 22px; margin-bottom: 20px; display: flex; gap: 14px; align-items: flex-start; }
+    .eol-notice-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+    .eol-notice-text { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.65; }
+    .eol-notice-text strong { color: var(--eol-badge); display: block; margin-bottom: 4px; }
+    .brand-mfr-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 600; color: var(--ink-muted); text-decoration: none; border: 1px solid var(--border); padding: 8px 14px; border-radius: 8px; transition: color 0.2s, border-color 0.2s; margin-top: 8px; }
+    .brand-mfr-link:hover { color: var(--blue); border-color: var(--blue-mid); }
+    .no-results { text-align: center; padding: 80px 20px; display: none; }
+    .no-results-icon { font-size: 3rem; margin-bottom: 16px; } .no-results h3 { font-size: 1.3rem; font-weight: 700; color: var(--ink); margin-bottom: 8px; } .no-results p { color: var(--ink-muted); font-size: 0.95rem; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 900px) {
+      nav { padding: 0 20px; } .nav-links { display: none; }
+      .hero::before, .hero::after { width: 100%; clip-path: none; top: auto; bottom: 0; height: 40%; right: 0; }
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 60px 20px 40px; } .hero-visual { display: none; }
+      .what-section, .posts-section, .dashboard-cta { padding: 60px 20px; }
+      .what-grid, .posts-grid { grid-template-columns: 1fr; }
+      .dashboard-cta-inner { grid-template-columns: 1fr; gap: 32px; }
+      .page-header { padding: 110px 20px 80px; } .page-header::after { display: none; }
+      .about-main { padding: 48px 20px 60px; } .beliefs-grid { grid-template-columns: 1fr; }
+      .about-cta-inner { grid-template-columns: 1fr; } .cta-buttons { flex-direction: row; flex-wrap: wrap; }
+      .dash-page-header { padding: 100px 20px 60px; } .controls-bar { padding: 20px; }
+      .controls-inner { flex-direction: column; align-items: stretch; }
+      .dashboard-main { padding: 32px 20px 80px; } .device-list { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 40px; } h1 { font-size: 2.2rem; }
+    }
+  </style>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" onclick="showPage('home')">
+      <svg viewBox="0 0 44 44" fill="none"><path d="M6 20L22 7L38 20V38H28V28H16V38H6V20Z" stroke="#0076c0" stroke-width="2.5" stroke-linejoin="round" fill="none"/><circle cx="6" cy="20" r="2.5" fill="#0076c0"/><circle cx="22" cy="7" r="2.5" fill="#0076c0"/><circle cx="38" cy="20" r="2.5" fill="#0076c0"/><circle cx="22" cy="30" r="2.5" fill="#0076c0"/><path d="M17 10.5 Q22 5 27 10.5" stroke="#0076c0" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+    </a>
+    <ul class="nav-links">
+      <li><a onclick="showPage('home')" id="nav-home" class="active">How-To's</a></li>
+      <li><a onclick="showPage('dashboard')" id="nav-dashboard">Setup Dashboard</a></li>
+      <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+      <li><a onclick="showPage('home')" class="nav-cta">Browse How-To's →</a></li>
+    </ul>
+  </nav>
+
+  <!-- HOME -->
+  <div id="page-home" class="page active">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <div class="hero-eyebrow"><span>⚡</span> Smart Home Resources &amp; How-To Guides</div>
+          <h1>Your smart home<br/>should actually be<br/><em>smart.</em></h1>
+          <p class="hero-sub">Real guides, honest answers, and a full device library — so you spend less time troubleshooting and more time enjoying the tech you bought.</p>
+          <div class="hero-actions">
+            <button class="btn-primary" onclick="showPage('home')">Browse How-To's →</button>
+            <button class="btn-ghost" onclick="showPage('dashboard')">Setup Dashboard</button>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card">
+            <div class="hero-card-label">// What's inside</div>
+            <div class="hero-stat-row">
+              <div class="hero-stat"><div class="hero-stat-icon">📖</div><div class="hero-stat-text"><strong>Step-by-Step How-To's</strong><span>Plain English. No jargon.</span></div></div>
+              <div class="hero-stat"><div class="hero-stat-icon">📡</div><div class="hero-stat-text"><strong>30+ Brands Covered</strong><span>Active &amp; end-of-life devices</span></div></div>
+              <div class="hero-stat"><div class="hero-stat-icon">🔍</div><div class="hero-stat-text"><strong>Setup Dashboard</strong><span>Find any device, fast</span></div></div>
+              <div class="hero-stat"><div class="hero-stat-icon">💬</div><div class="hero-stat-text"><strong>Community Q&amp;A</strong><span>Ask. Get real answers.</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="what-section">
+      <div class="section-inner">
+        <p class="section-label">// What We Do</p>
+        <h2 class="section-title">Smart home help that<br/>doesn't talk down to you.</h2>
+        <p class="section-sub">Whether you're setting up your first smart bulb or wiring together a full Homey Pro ecosystem — we've got the guides, the device library, and the answers.</p>
+        <div class="what-grid">
+          <div class="what-card"><div class="what-icon">🛠️</div><h3>How-To Guides</h3><p>Step-by-step walkthroughs for setup, reset, troubleshooting, and integration. Quick answers at the top, deep dives when you need them.</p></div>
+          <div class="what-card"><div class="what-icon">📋</div><h3>Setup Dashboard</h3><p>A searchable library of 30+ brands organized by manufacturer and model. Active devices, archived products, and end-of-life guides all in one place.</p></div>
+          <div class="what-card"><div class="what-icon">⚠️</div><h3>End-of-Life Tracker</h3><p>Bought a Wemo? Insteon? We document what still works, what doesn't, and what your real options are — no sugarcoating.</p></div>
+        </div>
+      </div>
+    </section>
+    <section class="posts-section">
+      <div class="section-inner">
+        <div class="posts-header">
+          <div><p class="section-label">// Latest How-To's</p><h2 class="section-title" style="margin-bottom:0">Fresh from the guides.</h2></div>
+          <span class="view-all">View all guides →</span>
+        </div>
+        <div class="posts-grid">
+          <div class="post-card featured"><div class="post-thumb"><div class="post-thumb-pattern"></div><span class="post-thumb-label">End of Life · Wemo</span></div><div class="post-body"><div class="post-tag">End of Life</div><h3>What Happened to Wemo? Understanding Smart Home End-of-Life Support</h3><p>Belkin pulled the plug on the Wemo app ecosystem. Here's exactly what your device can still do, what it can't, and whether it's worth replacing.</p><div class="post-meta"><span>📅</span> WiFi Wise Guys · First Post</div></div></div>
+          <div class="post-card"><div class="post-thumb"><div class="post-thumb-pattern"></div><span class="post-thumb-label">Coming Soon</span></div><div class="post-body"><div class="post-tag">Smart Home 101</div><h3>How Smart Is YOUR Smart Home, Really?</h3><p>Alexa turning on lights is just the beginning. Here are the safety and automation features most people never discover.</p><div class="post-meta"><span>📅</span> Coming Soon</div></div></div>
+          <div class="post-card"><div class="post-thumb"><div class="post-thumb-pattern"></div><span class="post-thumb-label">Coming Soon</span></div><div class="post-body"><div class="post-tag">Setup Guide</div><h3>Kasa Smart Plug Setup: The Complete Walkthrough</h3><p>TP-Link's Kasa line is one of the most reliable in the game. Here's how to get it set up right the first time.</p><div class="post-meta"><span>📅</span> Coming Soon</div></div></div>
+        </div>
+      </div>
+    </section>
+    <section class="dashboard-cta">
+      <div class="dashboard-cta-inner">
+        <div><h2>Need info on a specific device?<br/>That's what the Setup Dashboard is for.</h2><p>Search by brand or model number. Find setup guides, reset instructions, app links, and compatibility notes — for current devices and the ones manufacturers forgot about.</p></div>
+        <button class="btn-white" onclick="showPage('dashboard')">Open Setup Dashboard →</button>
+      </div>
+    </section>
+    <footer><div class="footer-inner"><div class="footer-brand"><div class="footer-logo-text">WIFI WISE GUYS</div><p>Real smart home guides from people who actually do this. Here to help — not just say we are.</p></div><div class="footer-col"><h4>Site</h4><ul><li><a onclick="showPage('home')">How-To's</a></li><li><a onclick="showPage('dashboard')">Setup Dashboard</a></li><li><a onclick="showPage('about')">About</a></li></ul></div><div class="footer-col"><h4>Popular Topics</h4><ul><li><a onclick="showPage('dashboard')">Wemo End-of-Life</a></li><li><a onclick="showPage('dashboard')">Kasa Setup Guides</a></li><li><a onclick="showPage('dashboard')">Homey Pro</a></li><li><a onclick="showPage('dashboard')">Mesh WiFi</a></li></ul></div></div><div class="footer-bottom"><span>© 2025 WiFi Wise Guys. All rights reserved.</span><span class="footer-logo-text">wifiwiseguys.com</span></div></footer>
+  </div>
+
+  <!-- ABOUT -->
+  <div id="page-about" class="page">
+    <div class="page-header"><div class="page-header-inner"><p class="page-eyebrow">// wifiwiseguys.com / about</p><h1>We built this because<br/><em>talk is cheap.</em></h1><p class="header-lead">There's no shortage of people who say they want to help. WiFi Wise Guys exists to actually do it — with real guides, straight answers, and resources that don't disappear when you need them most.</p></div></div>
+    <div class="wave-divider"><svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60"><path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z" fill="#ffffff"/></svg></div>
+    <main class="about-main">
+      <div class="statement-block"><div class="statement-label">// The Problem</div><h2>Smart home tech got complicated.<br/>The help <em>didn't keep up.</em></h2><p>Manufacturers write setup guides for ideal conditions. Forums are full of half-answers from three years ago. Support pages vanish when companies pivot or close. And the people who actually know this stuff? They're hard to find.</p><p>Meanwhile, real people are sitting with devices they can't get working, apps that no longer exist, and no clear answer on what to do next.</p><div class="pull-quote"><p>"Most smart home problems aren't complicated — they just don't have a clear, honest resource pointing you in the right direction. That's the gap we're here to fill."</p></div></div>
+      <hr class="section-divider"/>
+      <div class="statement-block"><div class="statement-label">// Why We Exist</div><h2>Not here to impress you.<br/>Here to <em>actually help.</em></h2><p>WiFi Wise Guys was built out of a simple frustration: too many people claiming to offer help, and not enough people following through on it. This site exists to be the resource that doesn't let you down.</p><p>No fluff. No content written to rank on Google and say nothing. No guides that stop halfway through and tell you to "consult a professional." Just real information, written clearly, for people who want to understand what they're working with.</p><p>Whether you're setting up your first smart plug or integrating a full Homey Pro ecosystem — you deserve guides that actually get you to the finish line.</p></div>
+      <hr class="section-divider"/>
+      <div class="statement-block"><div class="statement-label">// What We Believe</div><h2>A few things we won't<br/><em>compromise on.</em></h2><div class="beliefs-grid"><div class="belief-card"><span class="belief-icon">🎯</span><h3>Straight answers only</h3><p>If the answer is simple, we give you the simple answer. If it's complicated, we explain why — and walk you through it.</p></div><div class="belief-card"><span class="belief-icon">🔒</span><h3>We host what we know</h3><p>Manufacturer links break. Companies close. We keep the information here so you're not chasing dead pages when you need help most.</p></div><div class="belief-card"><span class="belief-icon">📴</span><h3>Honest about end-of-life</h3><p>If a device is dead, we'll tell you. We document what still works, what doesn't, and what your real options are — no sugarcoating.</p></div><div class="belief-card"><span class="belief-icon">🤝</span><h3>Help first, everything else second</h3><p>This site exists to be useful. That's the whole point. Everything else — the design, the content strategy, the structure — serves that one goal.</p></div></div></div>
+      <hr class="section-divider"/>
+      <div class="statement-block"><div class="statement-label">// What's Here</div><h2>Three things worth<br/><em>knowing about.</em></h2><p><strong>How-To Guides</strong> — step-by-step walkthroughs for setup, reset, troubleshooting, and integration across 30+ brands. Quick answers up top, deeper dives when you need them.</p><p><strong>Setup Dashboard</strong> — a searchable library organized by brand and model number. Active devices, archived products, and end-of-life guides — all in one place, all maintained here.</p><p><strong>Community Q&amp;A</strong> — ask questions, get real answers. Moderated so it stays useful. No bots, no spam, no noise.</p></div>
+      <div class="about-cta"><div class="about-cta-inner"><div><h3>Ready to find what you're looking for?</h3><p>Start with the guides, search the dashboard, or ask a question. We're here to help — not just say we are.</p></div><div class="cta-buttons"><button class="btn-white" onclick="showPage('home')">Browse How-To's →</button><button class="btn-outline-white" onclick="showPage('dashboard')">Setup Dashboard</button></div></div></div>
+    </main>
+    <footer><div class="footer-inner"><div class="footer-brand"><div class="footer-logo-text">WIFI WISE GUYS</div><p>Real smart home guides from people who actually do this. Here to help — not just say we are.</p></div><div class="footer-col"><h4>Site</h4><ul><li><a onclick="showPage('home')">How-To's</a></li><li><a onclick="showPage('dashboard')">Setup Dashboard</a></li><li><a onclick="showPage('about')">About</a></li></ul></div><div class="footer-col"><h4>Popular Topics</h4><ul><li><a onclick="showPage('dashboard')">Wemo End-of-Life</a></li><li><a onclick="showPage('dashboard')">Kasa Setup Guides</a></li><li><a onclick="showPage('dashboard')">Homey Pro</a></li></ul></div></div><div class="footer-bottom"><span>© 2025 WiFi Wise Guys. All rights reserved.</span><span class="footer-logo-text">wifiwiseguys.com</span></div></footer>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="page-dashboard" class="page">
+    <div class="dash-page-header"><div class="dash-header-inner"><p class="page-eyebrow">// wifiwiseguys.com / setup-dashboard</p><h1 style="color:white;font-size:clamp(2rem,4vw,3rem);font-weight:900;letter-spacing:-0.02em;line-height:1.1;margin-bottom:16px;">Setup Dashboard</h1><p style="font-family:'Lora',serif;font-size:1.05rem;color:rgba(255,255,255,0.8);line-height:1.7;max-width:560px;">Every brand we cover — setup guides, reset procedures, app info, and compatibility notes. Active devices and archived ones too. Search or scroll.</p></div></div>
+    <div class="controls-bar"><div class="controls-inner"><div class="search-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="search-input" placeholder="Search brand, model, or device type..." autocomplete="off"/></div><div class="filter-tabs"><button class="filter-tab active" data-filter="all">All Brands</button><button class="filter-tab" data-filter="active">Active</button><button class="filter-tab" data-filter="preferred">⭐ Preferred</button><button class="filter-tab" data-filter="eol">End of Life</button></div><span class="results-count" id="results-count">Showing all brands</span></div></div>
+    <main class="dashboard-main">
+      <div id="brand-list">
+        <div class="brand-section" data-brand="ring" data-status="active" data-preferred="true"><div class="brand-card"><div class="brand-header" onclick="toggleBrand(this)"><div class="brand-icon">🔔</div><div class="brand-info"><div class="brand-name">Ring <span class="badge badge-active">Active</span><span class="badge badge-preferred">⭐ Preferred</span></div><div class="brand-meta">Security cameras · Video doorbells · Alarm systems · App: Ring</div></div><div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="brand-body"><div class="device-list"><div class="device-item"><div class="device-model">B08N5NQ869</div><div class="device-name">Ring Spotlight Cam Plus (Battery)</div><div class="device-desc">1080p HD camera with color night vision, motion detection, built-in spotlight and siren. Solar panel compatible.</div><div class="device-actions"><button class="device-btn device-btn-primary">📖 Setup Guide</button><button class="device-btn device-btn-ghost">🔄 Reset</button><a href="https://support.ring.com" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a></div></div><div class="device-item"><div class="device-model">8VD1S7-0EN0</div><div class="device-name">Ring Video Doorbell 4</div><div class="device-desc">1080p HD video, color pre-roll, advanced motion detection. Hardwired or battery powered.</div><div class="device-actions"><button class="device-btn device-btn-primary">📖 Setup Guide</button><button class="device-btn device-btn-ghost">🔄 Reset</button><a href="https://support.ring.com" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a></div></div></div><a href="https://support.ring.com" target="_blank" class="brand-mfr-link">↗ Visit Ring Support</a></div></div></div>
+        <div class="brand-section" data-brand="kasa tp-link" data-status="active" data-preferred="true"><div class="brand-card"><div class="brand-header" onclick="toggleBrand(this)"><div class="brand-icon">🔌</div><div class="brand-info"><div class="brand-name">Kasa (TP-Link) <span class="badge badge-active">Active</span><span class="badge badge-preferred">⭐ Preferred</span></div><div class="brand-meta">Smart plugs · Switches · Bulbs · Cameras · App: Kasa Smart</div></div><div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="brand-body"><div class="device-list"><div class="device-item"><div class="device-model">EP25</div><div class="device-name">Kasa Smart Plug w/ Energy Monitoring</div><div class="device-desc">Wi-Fi smart plug with real-time energy monitoring. Works with Alexa, Google Home, and SmartThings.</div><div class="device-actions"><button class="device-btn device-btn-primary">📖 Setup Guide</button><button class="device-btn device-btn-ghost">🔄 Reset</button><a href="https://www.kasasmart.com/us/support" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a></div></div></div><a href="https://www.kasasmart.com/us/support" target="_blank" class="brand-mfr-link">↗ Visit Kasa Support</a></div></div></div>
+        <div class="brand-section" data-brand="eero" data-status="active" data-preferred="true"><div class="brand-card"><div class="brand-header" onclick="toggleBrand(this)"><div class="brand-icon">📶</div><div class="brand-info"><div class="brand-name">eero <span class="badge badge-active">Active</span><span class="badge badge-preferred">⭐ Preferred</span></div><div class="brand-meta">Mesh WiFi systems · App: eero</div></div><div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="brand-body"><div class="device-list"><div class="device-item"><div class="device-model">J010001</div><div class="device-name">eero 6+</div><div class="device-desc">Dual-band WiFi 6 mesh router. Up to 1,500 sq ft per unit. Zigbee hub built in.</div><div class="device-actions"><button class="device-btn device-btn-primary">📖 Setup Guide</button><button class="device-btn device-btn-ghost">🔄 Reset</button><a href="https://support.eero.com" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a></div></div></div><a href="https://support.eero.com" target="_blank" class="brand-mfr-link">↗ Visit eero Support</a></div></div></div>
+        <div class="brand-section" data-brand="ecobee" data-status="active" data-preferred="true"><div class="brand-card"><div class="brand-header" onclick="toggleBrand(this)"><div class="brand-icon">🌡️</div><div class="brand-info"><div class="brand-name">ecobee <span class="badge badge-active">Active</span><span class="badge badge-preferred">⭐ Preferred</span></div><div class="brand-meta">Smart thermostats · Sensors · App: ecobee</div></div><div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="brand-body"><div class="device-list"><div class="device-item"><div class="device-model">EB-STATE6-01</div><div class="device-name">ecobee SmartThermostat Premium</div><div class="device-desc">Built-in Alexa, air quality monitor, smoke/CO alarm detection. Works with Apple Home, Google, SmartThings.</div><div class="device-actions"><button class="device-btn device-btn-primary">📖 Setup Guide</button><button class="device-btn device-btn-ghost">🔄 Reset</button><a href="https://support.ecobee.com" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a></div></div></div><a href="https://support.ecobee.com" target="_blank" class="brand-mfr-link">↗ Visit ecobee Support</a></div></div></div>
+        <div class="brand-section" data-brand="leviton myleviton" data-status="active" data-preferred="true"><div class="brand-card"><div class="brand-header" onclick="toggleBrand(this)"><div class="brand-icon">💡</div><div class="brand-info"><div class="brand-name">My Leviton <span class="badge badge-active">Active</span><span class="badge badge-preferred">⭐ Preferred</span></div><div class="brand-meta">Smart switches · Dimmers · Outlets · App: My Leviton</div></div><div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="brand-body"><div class="device-list"><div class="device-item"><div class="device-model">D215S</div><div class="device-name">Decora Smart Switch (Wi-Fi 2nd Gen)</div><div class="device-desc">No-neutral wire option available. Works with Alexa, Google, Apple Home. No hub required.</div><div class="device-actions"><button class="device-btn device-btn-primary">📖 Setup Guide</button><button class="device-btn device-btn-ghost">🔄 Reset</button><a href="https://www.leviton.com/en/support" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a></div></div></div><a href="https://www.leviton.com/en/support" target="_blank" class="brand-mfr-link">↗ Visit Leviton Support</a></div></div></div>
+        <div class="brand-section" data-brand="philips hue" data-status="active" data-preferred="false"><div class="brand-card"><div class="brand-header" onclick="toggleBrand(this)"><div class="brand-icon">🌈</div><div class="brand-info"><div class="brand-name">Philips Hue <span class="badge badge-active">Active</span></div><div class="brand-meta">Smart bulbs · Light strips · Sensors · Bridge hub · App: Philips Hue</div></div><div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="brand-body"><div class="device-list"><div class="device-item"><div class="device-model">BSB002</div><div class="device-name">Hue Bridge (v2)</div><div class="device-desc">Required hub for full Hue ecosystem. Controls up to 50 lights.</div><div class="device-actions"><button class="device-btn device-btn-primary">📖 Setup Guide</button><button class="device-btn device-btn-ghost">🔄 Reset</button><a href="https://support.philips-hue.com" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a></div></div></div><a href="https://support.philips-hue.com" target="_blank" class="brand-mfr-link">↗ Visit Philips Hue Support</a></div></div></div>
+        <div class="brand-section" data-brand="homey homey pro" data-status="active" data-preferred="false"><div class="brand-card"><div class="brand-header" onclick="toggleBrand(this)"><div class="brand-icon">🏠</div><div class="brand-info"><div class="brand-name">Homey <span class="badge badge-active">Active</span></div><div class="brand-meta">Smart home hub · Zigbee · Z-Wave · Matter · Thread · App: Homey</div></div><div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="brand-body"><div class="device-list"><div class="device-item"><div class="device-model">ATH-1000</div><div class="device-name">Homey Pro (Early 2023)</div><div class="device-desc">Supports 50,000+ devices across Zigbee, Z-Wave, Matter, Thread, BLE, IR, and Wi-Fi. Local processing only.</div><div class="device-actions"><button class="device-btn device-btn-primary">📖 Setup Guide</button><button class="device-btn device-btn-ghost">🔄 Reset</button><a href="https://support.homey.app" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a></div></div></div><a href="https://support.homey.app" target="_blank" class="brand-mfr-link">↗ Visit Homey Support</a></div></div></div>
+        <div class="brand-section" data-brand="samsung smartthings" data-status="active" data-preferred="false"><div class="brand-card"><div class="brand-header" onclick="toggleBrand(this)"><div class="brand-icon">🔵</div><div class="brand-info"><div class="brand-name">Samsung SmartThings <span class="badge badge-active">Active</span></div><div class="brand-meta">Smart home platform · Hub · App: SmartThings</div></div><div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="brand-body"><div class="device-list"><div class="device-item"><div class="device-model">GP-U999SJVLGDA</div><div class="device-name">SmartThings Hub v3</div><div class="device-desc">Zigbee, Z-Wave, LAN, and cloud-connected hub. Matter support added via update.</div><div class="device-actions"><button class="device-btn device-btn-primary">📖 Setup Guide</button><button class="device-btn device-btn-ghost">🔄 Reset</button><a href="https://support.smartthings.com" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a></div></div></div><a href="https://support.smartthings.com" target="_blank" class="brand-mfr-link">↗ Visit SmartThings Support</a></div></div></div>
+        <div class="brand-section" data-brand="chamberlain myq garage" data-status="active" data-preferred="false"><div class="brand-card"><div class="brand-header" onclick="toggleBrand(this)"><div class="brand-icon">🚗</div><div class="brand-info"><div class="brand-name">Chamberlain myQ <span class="badge badge-active">Active</span></div><div class="brand-meta">Garage door controllers · App: myQ</div></div><div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="brand-body"><div class="device-list"><div class="device-item"><div class="device-model">MYQ-G0401</div><div class="device-name">myQ Smart Garage Hub</div><div class="device-desc">Adds smart control to most garage door openers made after 1993. Monitor and control from anywhere.</div><div class="device-actions"><button class="device-btn device-btn-primary">📖 Setup Guide</button><button class="device-btn device-btn-ghost">🔄 Reset</button><a href="https://www.myq.com/support" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a></div></div></div><a href="https://www.myq.com/support" target="_blank" class="brand-mfr-link">↗ Visit myQ Support</a></div></div></div>
+        <div class="brand-section" data-brand="nest google nest" data-status="active" data-preferred="false"><div class="brand-card"><div class="brand-header" onclick="toggleBrand(this)"><div class="brand-icon">🌿</div><div class="brand-info"><div class="brand-name">Google Nest <span class="badge badge-active">Active</span></div><div class="brand-meta">Thermostats · Cameras · Doorbells · App: Google Home</div></div><div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="brand-body"><div class="device-list"><div class="device-item"><div class="device-model">T3021US</div><div class="device-name">Nest Learning Thermostat (4th Gen)</div><div class="device-desc">Learns your schedule, programs itself. Matter support included. Works with Alexa, Google, Apple Home.</div><div class="device-actions"><button class="device-btn device-btn-primary">📖 Setup Guide</button><button class="device-btn device-btn-ghost">🔄 Reset</button><a href="https://support.google.com/googlenest" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a></div></div></div><a href="https://support.google.com/googlenest" target="_blank" class="brand-mfr-link">↗ Visit Google Nest Support</a></div></div></div>
+        <div class="brand-section" data-brand="schlage lock" data-status="active" data-preferred="false"><div class="brand-card"><div class="brand-header" onclick="toggleBrand(this)"><div class="brand-icon">🔒</div><div class="brand-info"><div class="brand-name">Schlage <span class="badge badge-active">Active</span></div><div class="brand-meta">Smart locks · Deadbolts · App: Schlage Home</div></div><div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="brand-body"><div class="device-list"><div class="device-item"><div class="device-model">BE489WB</div><div class="device-name">Schlage Encode Plus Smart WiFi Deadbolt</div><div class="device-desc">Built-in WiFi, no hub required. Apple Home Key compatible. Up to 100 access codes.</div><div class="device-actions"><button class="device-btn device-btn-primary">📖 Setup Guide</button><button class="device-btn device-btn-ghost">🔄 Reset</button><a href="https://www.schlage.com/en/home/support.html" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a></div></div></div><a href="https://www.schlage.com/en/home/support.html" target="_blank" class="brand-mfr-link">↗ Visit Schlage Support</a></div></div></div>
+        <div class="brand-section" data-brand="wemo belkin" data-status="eol" data-preferred="false"><div class="brand-card eol"><div class="brand-header" onclick="toggleBrand(this)"><div class="brand-icon">⚠️</div><div class="brand-info"><div class="brand-name">Wemo (Belkin) <span class="badge badge-eol">End of Life</span></div><div class="brand-meta">Smart plugs · Switches · App discontinued · Manual control only</div></div><div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="brand-body"><div class="eol-notice"><div class="eol-notice-icon">📴</div><div class="eol-notice-text"><strong>App Support Discontinued</strong>Belkin shut down the Wemo app ecosystem. These devices no longer connect to any app or voice assistant. They function as manual switches only.</div></div><div class="device-list"><div class="device-item"><div class="device-model">F7C030</div><div class="device-name">Wemo Mini Smart Plug</div><div class="device-desc">Still works as a manual plug. App control no longer available.</div><div class="device-actions"><button class="device-btn device-btn-ghost">📋 What Still Works</button><button class="device-btn device-btn-eol">📦 EOL Info</button></div></div><div class="device-item"><div class="device-model">F7C063</div><div class="device-name">Wemo Smart Light Switch</div><div class="device-desc">Manual on/off only. No app, no voice control, no scheduling.</div><div class="device-actions"><button class="device-btn device-btn-ghost">📋 What Still Works</button><button class="device-btn device-btn-eol">📦 EOL Info</button></div></div></div></div></div></div>
+      </div>
+      <div class="no-results" id="no-results"><div class="no-results-icon">🔍</div><h3>No results found</h3><p>Try a different search term or clear your filters.</p></div>
+    </main>
+    <footer><div class="footer-inner"><div class="footer-brand"><div class="footer-logo-text">WIFI WISE GUYS</div><p>Real smart home guides from people who actually do this. Here to help — not just say we are.</p></div><div class="footer-col"><h4>Site</h4><ul><li><a onclick="showPage('home')">How-To's</a></li><li><a onclick="showPage('dashboard')">Setup Dashboard</a></li><li><a onclick="showPage('about')">About</a></li></ul></div><div class="footer-col"><h4>On the Dashboard</h4><ul><li><a onclick="showPage('dashboard')">Ring</a></li><li><a onclick="showPage('dashboard')">Kasa / TP-Link</a></li><li><a onclick="showPage('dashboard')">Wemo (EOL)</a></li></ul></div></div><div class="footer-bottom"><span>© 2025 WiFi Wise Guys. All rights reserved.</span><span class="footer-logo-text">wifiwiseguys.com</span></div></footer>
+  </div>
+
+  <script>
+    function showPage(page) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + page).classList.add('active');
+      document.querySelectorAll('.nav-links a[id^="nav-"]').forEach(a => a.classList.remove('active'));
+      const el = document.getElementById('nav-' + page);
+      if (el) el.classList.add('active');
+      window.scrollTo(0, 0);
+    }
+    function toggleBrand(header) {
+      const card = header.closest('.brand-card');
+      const isOpen = card.classList.contains('open');
+      document.querySelectorAll('.brand-card.open').forEach(c => c.classList.remove('open'));
+      if (!isOpen) card.classList.add('open');
+    }
+    const searchInput = document.getElementById('search-input');
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const brandSections = document.querySelectorAll('.brand-section');
+    const noResults = document.getElementById('no-results');
+    const resultsCount = document.getElementById('results-count');
+    let currentFilter = 'all';
+    function updateDashboard() {
+      let visible = 0;
+      const q = searchInput.value.toLowerCase();
+      brandSections.forEach(s => {
+        const match = q === '' || s.dataset.brand.toLowerCase().includes(q);
+        const filter = currentFilter === 'all' || (currentFilter === 'active' && s.dataset.status === 'active') || (currentFilter === 'eol' && s.dataset.status === 'eol') || (currentFilter === 'preferred' && s.dataset.preferred === 'true');
+        if (match && filter) { s.style.display = ''; visible++; } else { s.style.display = 'none'; s.querySelector('.brand-card').classList.remove('open'); }
+      });
+      noResults.style.display = visible === 0 ? 'block' : 'none';
+      resultsCount.textContent = visible === brandSections.length ? 'Showing all brands' : `Showing ${visible} of ${brandSections.length} brands`;
+    }
+    searchInput.addEventListener('input', updateDashboard);
+    filterTabs.forEach(tab => { tab.addEventListener('click', () => { filterTabs.forEach(t => t.classList.remove('active')); tab.classList.add('active'); currentFilter = tab.dataset.filter; updateDashboard(); }); });
+  </script>
+</body>
+</html>
