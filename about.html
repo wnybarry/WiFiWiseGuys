@@ -3,672 +3,2099 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About — WiFi Wise Guys</title>
+  <title>Setup Dashboard — WiFi Wise Guys</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --blue: #0076c0;
-      --blue-dark: #005a92;
-      --blue-light: #e8f4fc;
-      --blue-mid: #cce8f7;
-      --white: #ffffff;
-      --ink: #111111;
-      --ink-soft: #444444;
-      --ink-muted: #888888;
-      --border: #d6eaf8;
-      --radius: 12px;
-      --radius-lg: 20px;
+      --blue: #0076c0; --blue-dark: #005a92; --blue-light: #e8f4fc; --blue-mid: #cce8f7;
+      --white: #ffffff; --ink: #111111; --ink-soft: #444444; --ink-muted: #888888;
+      --border: #d6eaf8; --eol-bg: #fff8f0; --eol-border: #f4d0a8; --eol-badge: #c4621a;
+      --radius: 12px; --radius-lg: 20px;
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Outfit', sans-serif;
-      background: var(--white);
-      color: var(--ink);
-      overflow-x: hidden;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 40px;
-      height: 70px;
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-
+    body { font-family: 'Outfit', sans-serif; background: var(--white); color: var(--ink); overflow-x: hidden; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 70px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
     .nav-logo svg { width: 44px; height: 44px; }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 0.95rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.02em; transition: color 0.2s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 2px; background: var(--blue); transform: scaleX(0); transition: transform 0.2s; }
+    .nav-links a:hover { color: var(--blue); } .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links a.active { color: var(--blue); } .nav-links a.active::after { transform: scaleX(1); }
+    .nav-cta { background: var(--blue); color: var(--white) !important; padding: 10px 22px; border-radius: 8px; }
+    .nav-cta::after { display: none !important; } .nav-cta:hover { background: var(--blue-dark) !important; }
+    .page-header { background: var(--blue); padding: 120px 40px 80px; position: relative; overflow: hidden; }
+    .page-header::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px); background-size: 28px 28px; }
+    .page-header::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 60px; background: var(--white); clip-path: ellipse(55% 100% at 50% 100%); }
+    .page-header-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+    .page-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 600; color: rgba(255,255,255,0.6); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 14px; }
+    .page-header h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: var(--white); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 16px; }
+    .page-header p { font-family: 'Lora', serif; font-size: 1.05rem; color: rgba(255,255,255,0.8); line-height: 1.7; max-width: 560px; }
+    .ad-wrap { display: flex; justify-content: center; padding: 24px 40px; }
+    .ad-slot { background: var(--blue-light); border: 1.5px dashed var(--blue-mid); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--ink-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.08em; }
+    .ad-728 { width: 728px; max-width: 100%; height: 90px; }
+    .ad-feed { width: 100%; height: 90px; margin: 8px 0; }
+    .legend-bar { background: var(--white); border-bottom: 1px solid var(--border); padding: 20px 40px; }
+    .legend-inner { max-width: 1200px; margin: 0 auto; }
+    .legend-title { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 600; color: var(--blue); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+    .legend-grid { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.81rem; color: var(--ink-soft); }
+    .lb { font-size: 0.65rem; padding: 2px 8px; border-radius: 100px; font-weight: 600; font-family: 'JetBrains Mono', monospace; white-space: nowrap; }
+    .lb-wifi{background:#e3f0ff;color:#1a5fa8;border:1px solid #b3d4f5}
+    .lb-zigbee{background:#fff3e0;color:#b45309;border:1px solid #fcd9a0}
+    .lb-zwave{background:#f0fdf4;color:#166534;border:1px solid #a7f3d0}
+    .lb-thread{background:#fdf4ff;color:#7c3aed;border:1px solid #e9d5ff}
+    .lb-matter{background:#f0f9ff;color:#0369a1;border:1px solid #bae6fd}
+    .lb-ble{background:#fff0f6;color:#9d174d;border:1px solid #fbcfe8}
+    .lb-nohub{background:#dcfce7;color:#14532d;border:1px solid #86efac}
+    .lb-hub{background:#fef9c3;color:#854d0e;border:1px solid #fde68a}
+    .lb-sub{background:#fff1f2;color:#9f1239;border:1px solid #fecdd3}
+    .lb-voice{background:#f0f9ff;color:#0c4a6e;border:1px solid #bae6fd}
+    .lb-battery{background:#f5f3ff;color:#5b21b6;border:1px solid #ddd6fe}
+    .lb-wired{background:#f8fafc;color:#334155;border:1px solid #cbd5e1}
+    .lb-solar{background:#fefce8;color:#713f12;border:1px solid #fef08a}
+    .legend-star{color:var(--eol-badge);font-weight:700;font-size:0.9rem}
+    .legend-note{font-size:0.75rem;color:var(--ink-muted);margin-top:10px;font-family:'JetBrains Mono',monospace}
+    .controls-bar { background: var(--white); padding: 20px 40px; position: sticky; top: 70px; z-index: 50; border-bottom: 1px solid var(--border); box-shadow: 0 4px 24px rgba(0,118,192,0.06); }
+    .controls-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .search-wrap { position: relative; flex: 1; min-width: 240px; }
+    .search-wrap svg { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--ink-muted); pointer-events: none; }
+    #search-input { width: 100%; padding: 14px 16px 14px 46px; border: 2px solid var(--border); border-radius: 10px; font-family: 'Outfit', sans-serif; font-size: 0.95rem; color: var(--ink); background: var(--white); transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+    #search-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(0,118,192,0.1); }
+    #search-input::placeholder { color: var(--ink-muted); }
+    .filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-tab { padding: 10px 18px; border-radius: 8px; border: 2px solid var(--border); background: var(--white); font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); cursor: pointer; transition: all 0.2s; }
+    .filter-tab:hover { border-color: var(--blue-mid); color: var(--blue); }
+    .filter-tab.active { background: var(--blue); border-color: var(--blue); color: var(--white); }
+    .results-count { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--ink-muted); white-space: nowrap; }
+    .dashboard-main { max-width: 1200px; margin: 0 auto; padding: 40px 40px 100px; }
+    .brand-section { margin-bottom: 12px; }
+    .brand-card { border: 1.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: border-color 0.2s; background: var(--white); }
+    .brand-card.eol { border-color: var(--eol-border); background: var(--eol-bg); }
+    .brand-card:hover { border-color: var(--blue-mid); }
+    .brand-card.eol:hover { border-color: #e0a070; }
+    .brand-header { display: flex; align-items: center; gap: 20px; padding: 22px 28px; cursor: pointer; user-select: none; transition: background 0.2s; }
+    .brand-header:hover { background: var(--blue-light); }
+    .brand-card.eol .brand-header:hover { background: #fef0e0; }
+    .brand-icon { width: 48px; height: 48px; border-radius: 10px; background: var(--blue-light); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; border: 1.5px solid var(--blue-mid); }
+    .brand-card.eol .brand-icon { background: #fde8d0; border-color: var(--eol-border); }
+    .brand-info { flex: 1; }
+    .brand-name { font-size: 1.1rem; font-weight: 700; color: var(--ink); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 5px; }
+    .badge { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; }
+    .badge-active { background: #e0f5e9; color: #1a7a3a; border: 1px solid #b0dfc0; }
+    .badge-eol { background: #fde8d0; color: var(--eol-badge); border: 1px solid var(--eol-border); }
+    .badge-preferred { background: var(--blue-light); color: var(--blue-dark); border: 1px solid var(--blue-mid); }
+    .brand-meta { font-size: 0.85rem; color: var(--ink-muted); }
+    .brand-toggle { width: 32px; height: 32px; border-radius: 8px; background: var(--blue-light); border: 1.5px solid var(--blue-mid); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s, transform 0.3s; color: var(--blue); }
+    .brand-card.eol .brand-toggle { background: #fde8d0; border-color: var(--eol-border); color: var(--eol-badge); }
+    .brand-card.open .brand-toggle { transform: rotate(180deg); }
+    .brand-body { display: none; border-top: 1.5px solid var(--border); padding: 28px; }
+    .brand-card.eol .brand-body { border-top-color: var(--eol-border); }
+    .brand-card.open .brand-body { display: block; animation: slideDown 0.25s ease; }
+    .device-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; margin-bottom: 20px; }
+    .device-item { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 20px; transition: border-color 0.2s, box-shadow 0.2s; }
+    .brand-card.eol .device-item { background: rgba(255,255,255,0.6); }
+    .device-item:hover { border-color: var(--blue-mid); box-shadow: 0 4px 16px rgba(0,118,192,0.08); }
+    .brand-card.eol
+    .device-model { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--blue); margin-bottom: 4px; font-weight: 600; }
+    .brand-card.eol .device-model { color: var(--eol-badge); }
+    .device-name { font-size: 0.98rem; font-weight: 700; color: var(--ink); margin-bottom: 8px; line-height: 1.3; }
+    .device-desc { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.65; margin-bottom: 12px; }
+    .device-badges { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
+    .db { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 600; padding: 3px 8px; border-radius: 100px; white-space: nowrap; }
+    .db-wifi{background:#e3f0ff;color:#1a5fa8;border:1px solid #b3d4f5}
+    .db-zigbee{background:#fff3e0;color:#b45309;border:1px solid #fcd9a0}
+    .db-zwave{background:#f0fdf4;color:#166534;border:1px solid #a7f3d0}
+    .db-thread{background:#fdf4ff;color:#7c3aed;border:1px solid #e9d5ff}
+    .db-matter{background:#f0f9ff;color:#0369a1;border:1px solid #bae6fd}
+    .db-ble{background:#fff0f6;color:#9d174d;border:1px solid #fbcfe8}
+    .db-nohub{background:#dcfce7;color:#14532d;border:1px solid #86efac}
+    .db-hub{background:#fef9c3;color:#854d0e;border:1px solid #fde68a}
+    .db-sub{background:#fff1f2;color:#9f1239;border:1px solid #fecdd3}
+    .db-voice{background:#f0f9ff;color:#0c4a6e;border:1px solid #bae6fd}
+    .db-battery{background:#f5f3ff;color:#5b21b6;border:1px solid #ddd6fe}
+    .db-wired{background:#f8fafc;color:#334155;border:1px solid #cbd5e1}
+    .db-solar{background:#fefce8;color:#713f12;border:1px solid #fef08a}
+    .db-star{background:#fff7ed;color:var(--eol-badge);border:1px solid var(--eol-border)}
+    .device-release { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--ink-muted); margin-bottom: 12px; }
+    .device-actions { display: flex; gap: 7px; flex-wrap: wrap; }
+    .device-btn { font-family: 'Outfit', sans-serif; font-size: 0.78rem; font-weight: 600; padding: 7px 13px; border-radius: 6px; text-decoration: none; transition: all 0.15s; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 5px; }
+    .device-btn-primary{background:var(--blue);color:var(--white)} .device-btn-primary:hover{background:var(--blue-dark)}
+    .device-btn-ghost{background:var(--blue-light);color:var(--blue);border:1px solid var(--blue-mid)} .device-btn-ghost:hover{background:var(--blue-mid)}
+    .device-btn-mfr{background:var(--white);color:var(--ink-soft);border:1px solid var(--border)} .device-btn-mfr:hover{border-color:var(--ink-muted);color:var(--ink)}
+    .device-btn-eol{background:#fde8d0;color:var(--eol-badge);border:1px solid var(--eol-border)} .device-btn-eol:hover{background:#f9d4b0}
+    .eol-notice{background:rgba(255,255,255,0.7);border:1.5px solid var(--eol-border);border-radius:var(--radius);padding:18px 22px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start}
+    .eol-notice-icon{font-size:1.3rem;flex-shrink:0;margin-top:2px}
+    .eol-notice-text{font-size:0.9rem;color:var(--ink-soft);line-height:1.65}
+    .eol-notice-text strong{color:var(--eol-badge);display:block;margin-bottom:4px}
+    .brand-mfr-link{display:inline-flex;align-items:center;gap:6px;font-size:0.85rem;font-weight:600;color:var(--ink-muted);text-decoration:none;border:1px solid var(--border);padding:8px 14px;border-radius:8px;transition:color 0.2s,border-color 0.2s;margin-top:8px}
+    .brand-mfr-link:hover{color:var(--blue);border-color:var(--blue-mid)}
+    .no-results{text-align:center;padding:80px 20px;display:none}
+    .no-results-icon{font-size:3rem;margin-bottom:16px}
+    .no-results h3{font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:8px}
+    .no-results p{color:var(--ink-muted);font-size:0.95rem}
+    footer{background:var(--ink);color:rgba(255,255,255,0.6);padding:60px 40px}
+    .footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:60px}
+    .footer-brand p{font-size:0.9rem;line-height:1.7;margin-top:16px;max-width:280px}
+    .footer-col h4{font-size:0.85rem;font-weight:700;color:var(--white);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+    .footer-col a{text-decoration:none;color:rgba(255,255,255,0.5);font-size:0.9rem;transition:color 0.2s}
+    .footer-col a:hover{color:var(--white)}
+    .footer-bottom{max-width:1200px;margin:40px auto 0;padding-top:24px;border-top:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:space-between;font-size:0.82rem;flex-wrap:wrap;gap:12px}
+    .footer-logo-text{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:rgba(255,255,255,0.3);letter-spacing:0.08em}
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 36px;
-      list-style: none;
-    }
 
-    .nav-links a {
-      text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--ink-soft);
-      letter-spacing: 0.02em;
-      transition: color 0.2s;
-      position: relative;
-    }
 
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px; left: 0; right: 0;
-      height: 2px;
-      background: var(--blue);
-      transform: scaleX(0);
-      transition: transform 0.2s;
-    }
+    /* COMING SOON LOCK */
+    .brand-card.locked .brand-header { cursor: default; }
+    .brand-card.locked .brand-header:hover { background: var(--white); }
+    .brand-card.locked .brand-toggle { background: var(--gray, #f5f5f5); border-color: var(--border); color: var(--ink-muted); cursor: default; }
+    .coming-soon-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 600; padding: 2px 10px; border-radius: 100px; background: #f5f5f5; color: var(--ink-muted); border: 1px solid var(--border); letter-spacing: 0.08em; }
 
-    .nav-links a:hover { color: var(--blue); }
-    .nav-links a:hover::after { transform: scaleX(1); }
-    .nav-links a.active { color: var(--blue); }
-    .nav-links a.active::after { transform: scaleX(1); }
-
-    .nav-cta {
-      background: var(--blue);
-      color: var(--white) !important;
-      padding: 10px 22px;
-      border-radius: 8px;
-      transition: background 0.2s !important;
-    }
-    .nav-cta::after { display: none !important; }
-    .nav-cta:hover { background: var(--blue-dark) !important; }
-
-    /* ── PAGE HEADER ── */
-    .page-header {
-      background: var(--blue);
-      padding: 140px 40px 100px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .page-header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
-      background-size: 28px 28px;
-    }
-
-    /* Large decorative quote mark */
-    .page-header::after {
-      content: '"';
-      position: absolute;
-      right: 8%;
-      top: 50%;
-      transform: translateY(-50%);
-      font-family: 'Lora', serif;
-      font-size: 28rem;
-      color: rgba(255,255,255,0.05);
-      line-height: 1;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .page-header-inner {
-      max-width: 800px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    .page-eyebrow {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: rgba(255,255,255,0.55);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-
-    .page-header h1 {
-      font-size: clamp(2.2rem, 5vw, 3.6rem);
-      font-weight: 900;
-      color: var(--white);
-      letter-spacing: -0.025em;
-      line-height: 1.08;
-      margin-bottom: 28px;
-    }
-
-    .page-header h1 em {
-      font-style: italic;
-      font-family: 'Lora', serif;
-      font-weight: 400;
-      color: rgba(255,255,255,0.85);
-    }
-
-    .header-lead {
-      font-family: 'Lora', serif;
-      font-size: 1.2rem;
-      color: rgba(255,255,255,0.82);
-      line-height: 1.8;
-      max-width: 620px;
-    }
-
-    /* Wave divider */
-    .wave-divider {
-      background: var(--blue);
-      line-height: 0;
-    }
-
-    .wave-divider svg {
-      display: block;
-      width: 100%;
-    }
-
-    /* ── MAIN CONTENT ── */
-    .about-main {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 80px 40px 100px;
-    }
-
-    /* ── STATEMENT BLOCKS ── */
-    .statement-block {
-      margin-bottom: 72px;
-      animation: fadeUp 0.6s ease both;
-    }
-
-    .statement-block:nth-child(2) { animation-delay: 0.1s; }
-    .statement-block:nth-child(3) { animation-delay: 0.2s; }
-    .statement-block:nth-child(4) { animation-delay: 0.3s; }
-
-    .statement-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--blue);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .statement-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-      max-width: 60px;
-    }
-
-    .statement-block h2 {
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 800;
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      margin-bottom: 20px;
-    }
-
-    .statement-block h2 em {
-      font-style: italic;
-      font-family: 'Lora', serif;
-      font-weight: 600;
-      color: var(--blue);
-    }
-
-    .statement-block p {
-      font-family: 'Lora', serif;
-      font-size: 1.08rem;
-      color: var(--ink-soft);
-      line-height: 1.85;
-      margin-bottom: 16px;
-    }
-
-    .statement-block p:last-child { margin-bottom: 0; }
-
-    /* Pull quote */
-    .pull-quote {
-      border-left: 4px solid var(--blue);
-      padding: 20px 28px;
-      margin: 36px 0;
-      background: var(--blue-light);
-      border-radius: 0 var(--radius) var(--radius) 0;
-    }
-
-    .pull-quote p {
-      font-family: 'Lora', serif;
-      font-size: 1.15rem;
-      color: var(--ink);
-      line-height: 1.75;
-      font-style: italic;
-      margin: 0;
-    }
-
-    /* ── WHAT WE BELIEVE GRID ── */
-    .beliefs-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-top: 36px;
-    }
-
-    .belief-card {
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 28px 24px;
-      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .belief-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--blue);
-      transform: scaleX(0);
-      transition: transform 0.3s;
-      transform-origin: left;
-    }
-
-    .belief-card:hover {
-      border-color: var(--blue-mid);
-      box-shadow: 0 8px 32px rgba(0,118,192,0.08);
-      transform: translateY(-3px);
-    }
-
-    .belief-card:hover::before { transform: scaleX(1); }
-
-    .belief-icon {
-      font-size: 1.8rem;
-      margin-bottom: 14px;
-      display: block;
-    }
-
-    .belief-card h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 8px;
-    }
-
-    .belief-card p {
-      font-size: 0.88rem;
-      color: var(--ink-soft);
-      line-height: 1.65;
-      margin: 0;
-    }
-
-    /* ── DIVIDER ── */
-    .section-divider {
-      border: none;
-      border-top: 1.5px solid var(--border);
-      margin: 72px 0;
-    }
-
-    /* ── CTA STRIP ── */
-    .about-cta {
-      background: var(--blue);
-      border-radius: var(--radius-lg);
-      padding: 48px 44px;
-      position: relative;
-      overflow: hidden;
-      margin-top: 80px;
-    }
-
-    .about-cta::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
-      background-size: 24px 24px;
-    }
-
-    .about-cta-inner {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 40px;
-    }
-
-    .about-cta h3 {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--white);
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-      margin-bottom: 10px;
-    }
-
-    .about-cta p {
-      font-family: 'Lora', serif;
-      font-size: 0.98rem;
-      color: rgba(255,255,255,0.8);
-      line-height: 1.65;
-      margin: 0;
-    }
-
-    .cta-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .btn-white {
-      background: var(--white);
-      color: var(--blue);
-      padding: 14px 28px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.95rem;
-      white-space: nowrap;
-      transition: transform 0.15s, box-shadow 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-      text-align: center;
-      justify-content: center;
-    }
-
-    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
-
-    .btn-outline-white {
-      background: transparent;
-      color: var(--white);
-      padding: 14px 28px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      white-space: nowrap;
-      border: 2px solid rgba(255,255,255,0.4);
-      transition: border-color 0.2s, transform 0.15s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      text-align: center;
-      justify-content: center;
-    }
-
-    .btn-outline-white:hover { border-color: rgba(255,255,255,0.9); transform: translateY(-2px); }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--ink);
-      color: rgba(255,255,255,0.6);
-      padding: 60px 40px;
-      margin-top: 100px;
-    }
-
-    .footer-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr;
-      gap: 60px;
-    }
-
-    .footer-brand p {
-      font-size: 0.9rem;
-      line-height: 1.7;
-      margin-top: 16px;
-      max-width: 280px;
-    }
-
-    .footer-col h4 {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--white);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-
-    .footer-col a {
-      text-decoration: none;
-      color: rgba(255,255,255,0.5);
-      font-size: 0.9rem;
-      transition: color 0.2s;
-    }
-    .footer-col a:hover { color: var(--white); }
-
-    .footer-bottom {
-      max-width: 1200px;
-      margin: 40px auto 0;
-      padding-top: 24px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.82rem;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .footer-logo-text {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.3);
-      letter-spacing: 0.08em;
-    }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── MOBILE ── */
-    @media (max-width: 768px) {
-      nav { padding: 0 20px; }
-      .nav-links { display: none; }
-      .page-header { padding: 110px 20px 80px; }
-      .page-header::after { display: none; }
-      .about-main { padding: 48px 20px 60px; }
-      .beliefs-grid { grid-template-columns: 1fr; }
-      .about-cta-inner { grid-template-columns: 1fr; }
-      .cta-buttons { flex-direction: row; flex-wrap: wrap; }
-      .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+    .brand-section{animation:fadeUp 0.4s ease both}
+    @media(max-width:900px){
+      nav{padding:0 20px}.nav-links{display:none}
+      .page-header{padding:100px 20px 60px}
+      .legend-bar,.controls-bar{padding:16px 20px}
+      .controls-inner{flex-direction:column;align-items:stretch}
+      .dashboard-main{padding:24px 20px 80px}
+      .device-list{grid-template-columns:1fr}
+      .brand-header{padding:16px 20px}
+      .brand-body{padding:20px}
+      .footer-inner{grid-template-columns:1fr;gap:40px}
+      .ad-728{width:100%}
     }
   </style>
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <a href="index.html" class="nav-logo" aria-label="WiFi Wise Guys Home">
-      <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M6 20L22 7L38 20V38H28V28H16V38H6V20Z" stroke="#0076c0" stroke-width="2.5" stroke-linejoin="round" fill="none"/>
-        <circle cx="6" cy="20" r="2.5" fill="#0076c0"/>
-        <circle cx="22" cy="7" r="2.5" fill="#0076c0"/>
-        <circle cx="38" cy="20" r="2.5" fill="#0076c0"/>
-        <circle cx="22" cy="30" r="2.5" fill="#0076c0"/>
-        <path d="M17 10.5 Q22 5 27 10.5" stroke="#0076c0" stroke-width="2" fill="none" stroke-linecap="round"/>
-      </svg>
-    </a>
-    <ul class="nav-links">
-      <li><a href="how-tos.html">How-To's</a></li>
-      <li><a href="setup-dashboard.html">Setup Dashboard</a></li>
-      <li><a href="about.html" class="active">About</a></li>
-      <li><a href="how-tos.html" class="nav-cta">Browse How-To's →</a></li>
-    </ul>
-  </nav>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg viewBox="0 0 44 44" fill="none"><path d="M6 20L22 7L38 20V38H28V28H16V38H6V20Z" stroke="#0076c0" stroke-width="2.5" stroke-linejoin="round" fill="none"/><circle cx="6" cy="20" r="2.5" fill="#0076c0"/><circle cx="22" cy="7" r="2.5" fill="#0076c0"/><circle cx="38" cy="20" r="2.5" fill="#0076c0"/><circle cx="22" cy="30" r="2.5" fill="#0076c0"/><path d="M17 10.5 Q22 5 27 10.5" stroke="#0076c0" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="how-tos.html">How-To's</a></li>
+    <li><a href="setup-dashboard.html" class="active">Setup Dashboard</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="how-tos.html" class="nav-cta">Browse How-To's</a></li>
+  </ul>
 
-  <!-- PAGE HEADER -->
-  <div class="page-header">
-    <div class="page-header-inner">
-      <p class="page-eyebrow">// wifiwiseguys.com / about</p>
-      <h1>We built this because<br/><em>talk is cheap.</em></h1>
-      <p class="header-lead">
-        There's no shortage of people who say they want to help. WiFi Wise Guys exists to actually do it — with real guides, straight answers, and resources that don't disappear when you need them most.
-      </p>
+  </div></nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <p class="page-eyebrow">// wifiwiseguys.com / setup-dashboard</p>
+    <h1>Setup Dashboard</h1>
+    <p>Every brand we cover — setup guides, reset procedures, app info, and compatibility notes. Search by brand or model. Active devices and archived ones too.</p>
+  </div>
+</div>
+
+<div class="ad-wrap"><div class="ad-slot ad-728">AD SPACE — 728x90</div></div>
+
+<div class="legend-bar">
+  <div class="legend-inner">
+    <div class="legend-title">// Badge Legend</div>
+    <div class="legend-grid">
+      <div class="legend-item"><span class="lb lb-wifi">📶 WiFi</span> Connects via home WiFi</div>
+      <div class="legend-item"><span class="lb lb-zigbee">🔶 Zigbee</span> Zigbee mesh</div>
+      <div class="legend-item"><span class="lb lb-zwave">🟢 Z-Wave</span> Z-Wave mesh</div>
+      <div class="legend-item"><span class="lb lb-thread">🟣 Thread</span> Thread mesh</div>
+      <div class="legend-item"><span class="lb lb-matter">🔷 Matter</span> Matter standard</div>
+      <div class="legend-item"><span class="lb lb-ble">🩷 BLE</span> Bluetooth Low Energy</div>
+      <div class="legend-item"><span class="lb lb-nohub">✅ No Hub</span> No hub needed</div>
+      <div class="legend-item"><span class="lb lb-hub">🟡 Hub Req.</span> Hub required</div>
+      <div class="legend-item"><span class="lb lb-sub">💳 Subscription</span> Sub for full features</div>
+      <div class="legend-item"><span class="lb lb-voice">🗣️ Voice</span> Works with major assistants*</div>
+      <div class="legend-item"><span class="lb lb-battery">🔋 Battery</span> Battery powered</div>
+      <div class="legend-item"><span class="lb lb-wired">🔌 Wired</span> Wired/hardwired</div>
+      <div class="legend-item"><span class="lb lb-solar">☀️ Solar</span> Solar compatible</div>
+      <div class="legend-item"><span class="legend-star">⭐</span> Additional hardware or cost may be required</div>
+    </div>
+    <p class="legend-note">*Major voice assistants: Amazon Alexa, Google Home, Apple HomeKit, Samsung SmartThings — unless otherwise noted.</p>
+  </div>
+</div>
+
+<div class="controls-bar">
+  <div class="controls-inner">
+    <div class="search-wrap">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="search-input" placeholder="Search brand, model, or device type..." id="search-input-el" autocomplete="off"/>
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all">All Brands</button>
+      <button class="filter-tab" data-filter="active">Active</button>
+      <button class="filter-tab" data-filter="preferred">⭐ Preferred</button>
+      <button class="filter-tab" data-filter="eol">End of Life</button>
+    </div>
+    <span class="results-count" id="results-count">Loading...</span>
+  </div>
+</div>
+
+<main class="dashboard-main">
+<div id="brand-list">
+
+<!-- RING -->
+<div class="brand-section" data-brand="ring doorbell camera security spotlight stick up floodlight alarm chime sensor lighting accessories" data-status="active" data-preferred="true">
+<div class="brand-card">
+  <div class="brand-header" onclick="toggleBrand(this)">
+    <div class="brand-icon">🔔</div>
+    <div class="brand-info">
+      <div class="brand-name">Ring <span class="badge badge-active">Active</span><span class="badge badge-preferred">⭐ Preferred</span></div>
+      <div class="brand-meta">Security cameras · Video doorbells · Alarm · Smart lighting · Accessories · App: Ring</div>
+    </div>
+    <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+  </div>
+  <div class="brand-body">
+    <p style="font-size:0.82rem;color:var(--ink-muted);font-family:'JetBrains Mono',monospace;margin-bottom:20px;">ℹ️ Manual PDF links open directly from Ring's CDN. Setup and Reset links go to Ring's support pages.</p>
+    <h4 style="font-size:0.8rem;font-weight:700;color:var(--blue);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;margin:20px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border);">// Battery Doorbells</h4>
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Video Doorbell (1st Gen)</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/54MXLeGgzkuBKshYjN3Ft1/cb620574b64bf8651392f09e3ce989d3/VideoDoorbell_Gen1_UserManual_US-Eng.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Video Doorbell (2nd Gen)</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/58v7j4QSXWjTUZGgIZiutJ/f2f4a56544efcb82f926df803ba51856/NALA_Video_Doorbell_Gen-2_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Video Doorbell 2</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/M0LQGsB1jt3YTPabpphNT/c2584a4af141bb0709dbb6f095a60d27/115016351046_RVD2_manual_English.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Video Doorbell 3</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/2WFvrqkidtpWxEDA7M4eer/1afd6741bf4a52ea444867c4b039f8ae/RVD3_UserManual_US_CAN.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Video Doorbell 3 Plus</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/7hKQtlxEoc4JzAGplHlfwJ/2e3118c9fd439a8c09848de1777e2123/360074442231_RVD3_Plus_manual_US-ANZ_English_v2-1_web.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Video Doorbell 4</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/4nJaQQcwdFh542ipWOZg3x/6355f27a5d714ede1bffd0fc4aace12b/VideoDoorbell-4_Gen1_HSG_NALA.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Battery Doorbell</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/1mQ2adwf7iC1zPIU0jhVpT/626695c9e8456e9a7b4c7d8242353e99/BatteryDoorbell_Gen1_HSG_US-NALA.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Battery Doorbell Plus</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/5eTeUg5BVvXxq1w45pUTB/93feda8327eb321acc24530d527d6fa9/NALA_Battery_Doorbell_Plus_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Battery Doorbell Pro</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/4u8ZW0M3m7jEfcm9hQbQSo/625baa73149b841de751931d51e6bfcd/Ring_TPUB_Doorbells_BatteryDoorbellPro_MEA_HSG.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Peephole Cam (Door View Cam)</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/55fT6SOQyCTHcgoVvuzZFD/1ed0295d1783878bdd806031c21099ac/NALA_Peephole-Door_View_Cam_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Video Doorbell Wired</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/38kFFyxgGxkiFAIrXBOHic/1e8faa41613d3d8388acbdba46382c1e/22-002711-08_Ring_TPUB_Doorbells_Graham_DoorbellWired-2G_US_UserGuide_i5f_MP_Preview.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Wired Doorbell Plus (formerly Video Doorbell Pro)</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/qTzlQvU4nV1O2GJpcvZtx/8c17e3784e19f6691250560e3b8280b4/US_Video_Doorbell_Pro_Installation-Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Wired Doorbell Plus (2nd Gen)</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/1nDQii1dvoJcP6x1ByXr6U/cea504d5be24f1f712e2081a80bb2842/Ring_TPUB_Doorbells_Phantom_WiredDoorbellPro_Wired_PiezoBuzzer_EN_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Wired Doorbell Pro (formerly Video Doorbell Pro 2)</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/75sxQoZHcwRGL9UFobBNJk/24e3d1872913f80a372bd324f352bacf/VideoDoorbellPro2_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Wired Doorbell Pro (3rd Gen) Hardwired</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/6KzFEaQ8xl3ZsxluraDS5V/cdc2a5a430787f6f1e3c2041807ec653/Wired_Doorbell_Pro__3rd_Gen_.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Wired Doorbell Pro (3rd Gen) PoE</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/4qDnCqneEkQ8RSDxVprPLC/67d69497c1a8a6926ffa972ab4e106ae/Ring_Doorbells_WiredDoorbellPro_3rdGen_PoE_Global_HSG_ENG_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Wired Doorbell Elite (2nd Gen)</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/YArToLCrhhGlE17ymZCLM/b1e16a22c2f316603936baf1ae054dc0/Ring_TPUB_Doorbells_Cinco_DoorbellElite_2ndGen_PoE_US_NALA_HSG_v1h_CC.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Video Doorbell Elite</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/ONdnad2y3p2rrvK8sBxjM/fc41073d25ef005f07f7cc567fc66e6b/360075546471_Ring_Elite_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+    </div>
+    <h4 style="font-size:0.8rem;font-weight:700;color:var(--blue);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;margin:20px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border);">// Indoor Cameras</h4>
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Indoor Cam (1st Gen)</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/7D7z3gWsneVZvabrHpvbIM/4ece9159ce89f38582059bc718fd554d/IndoorCam_Manual_ENG_US_20220122.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Indoor Cam (2nd Gen)</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/1k9cU5KTL7QwV2Z9vpQpRq/87650faa9eed1c35f295eb19db6f1696/NALA_Indoor_Cam_Gen-2_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Pan-Tilt Indoor Cam</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/2i2r0KMOIa6RfN4GbKNM7G/3508571455a5d49fc102a84401b50983/Pan-TiltIndoorCam_Gen1_Plug-in_HSG_ANZ_EUK_MEA.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Indoor Cam Plus</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/4azo2GZzO3KPK17NajEcPU/8264e1d311f1665be72103847a6a9a6d/Ring_Cams_IndoorCamPlus_Plug-In_GLOBAL_HSG_ENG_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+    </div>
+    <h4 style="font-size:0.8rem;font-weight:700;color:var(--blue);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;margin:20px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border);">// Outdoor Cameras</h4>
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Outdoor Cam</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-solar">☀️ Solar ⭐</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/g2P2WdkuGi83naFU42oCk/3ec7f57476de00d43f0c4cb67750ce31/NALA_Stick_Up_Cam_Battery_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Outdoor Cam Plus Battery</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-solar">☀️ Solar ⭐</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/5pKBuqYeG4covCHEAhPcc2/d84572889c5aa485b6cd0e8b6acf161c/Ring_Cams_OutdoorCamPlus_Battery_US-NALA_HSG__2_.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Outdoor Cam Plus Plug-In</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-solar">☀️ Solar ⭐</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/1GWvgPEHBYbHP9BaG7S1Lm/a996d7d2a2dc8a424552a9244c4bfd22/Ring_Cams_OutdoorCamPlus_Plug-In_EUK-MEA_HSG.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Outdoor Cam Pro Plug-In</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-solar">☀️ Solar ⭐</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/3I0zRJThb70pNGBE9Ju6vU/f8f21421f1a8ca60b736830dacc797d9/Ring_Cams_OutdoorCamPro_Plug-In_US_NALA_HSG.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Outdoor Cam Pro POE</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-solar">☀️ Solar ⭐</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/4Y6Z06H5MsHTwTKa4v2TEw/67c09eaf1b17b03604fe34a1e770e686/Ring_Cams_OutdoorCamPro_PoE_US_HSG.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+    </div>
+    <h4 style="font-size:0.8rem;font-weight:700;color:var(--blue);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;margin:20px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border);">// Stick Up Cameras</h4>
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Stick Up Cam (1st Gen)</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-solar">☀️ Solar ⭐</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/16wa27gDLHSl6IPj1W5PTI/6318ffd01614bc22664e997565995fcf/StickUpCam-G1_UserManual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Stick Up Cam Battery (2nd Gen)</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-solar">☀️ Solar ⭐</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/5SVgwg04POMIihupId3mVW/d276019217c867f3710614caea28bd15/Stick_Up_Cam_Battery_MANUAL_Eng.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Stick Up Cam Elite</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-solar">☀️ Solar ⭐</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/6DGSnPAlnqkc84qH2ykrog/5a00d21e2b1fbaff893178bc9aaf2925/NALA_Stick_Up_Cam_Elite_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Stick Up Cam Pro Battery</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-solar">☀️ Solar ⭐</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/1ZyjBBDsJ5B3dI07ywjtQt/775a9f4af95b05ad469e5c19c8eadef3/NALA_Stick_Up_Cam_Pro_Battery_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Stick Up Cam Pro Plug-In</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-solar">☀️ Solar ⭐</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/80Ehde1bKJc93TH3L96Om/9c4bc8c6fdaed7958e42eaf34658e8ab/NALA_Stick_Up_Cam_Pro_PlugIn_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+    </div>
+    <h4 style="font-size:0.8rem;font-weight:700;color:var(--blue);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;margin:20px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border);">// Spotlight Cameras</h4>
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Spotlight Cam Battery</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-solar">☀️ Solar ⭐</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/35oOpUoLzXI0mNQ1zrwtfB/61a43bfd358e45415f41ce58a361b39f/SpotlightCamBattery_Gen1_ENG_US_20210316.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Spotlight Cam Wired</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-solar">☀️ Solar ⭐</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/zghJerqGjfuF9KKFnl8mu/0f87df3aee71f8c32b449ba6dad4737a/Spotlight_Cam__1st_Gen__Wired_User_Manual_US.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Spotlight Cam Mount</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-solar">☀️ Solar ⭐</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/7aqhOt5Yvl5EDsiTA7PZOC/5ac6449bbf672a8f6544e2dd8d29e650/Spotlight_Cam_Mount_MANUAL.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Spotlight Cam Plus Battery</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-solar">☀️ Solar ⭐</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/36gfjlc2nMaLFRMlyPtjv7/6e864fe5cf36cf80d8704567e21bff84/NALA_Spotlight_Cam_Plus_Battery_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Spotlight Cam Plus Plug-In</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-solar">☀️ Solar ⭐</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/5h4H6DUsovJqe2SAZXXKTQ/1ba4ec36bc23b35f6808053b0d541c36/NALA_Spotlight_Cam_Plus_Plugin_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Spotlight Cam Pro Battery</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-solar">☀️ Solar ⭐</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/32CAY8w6B44zcPTjJjVaE0/f41b978261f3823dbe72e98a31632456/NALA_Spotlight_Cam_Pro_Battery_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Spotlight Cam Pro Plug-In</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-solar">☀️ Solar ⭐</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/1MAb5dP2AqV38QIyC4es2Q/bd26b5c6d20978d3feb6966160f5c950/NALA_Spotlight_Cam_Pro_PlugIn_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Spotlight Cam Pro (2nd Gen) Plug-In</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-solar">☀️ Solar ⭐</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/4Muig5OZURy6ejetzk5XYR/5feef2160aa5a22a514debdfd48e1c86/Ring_Cameras_SpotlightCamPro_Plug-In_2ndGen_HSG_EN_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Spotlight Cam Pro (2nd Gen) PoE</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery</span><span class="db db-solar">☀️ Solar ⭐</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/dOT9TXfZcQjgUVrmTHypQ/72f29a068b5d9918dbfe1fae0a3e189f/Ring_Cameras_SpotlightCamPro_PoE_2ndGen_HSG_US_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+    </div>
+    <h4 style="font-size:0.8rem;font-weight:700;color:var(--blue);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;margin:20px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border);">// Floodlight Cameras</h4>
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Floodlight Cam</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span><span class="db db-star">⭐ Wiring Required</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/KaZdD6n94lslSRb1sKjgd/f8e7c63246f01f563807c89c39330809/Ring_manual_Floodlight_Cam_02_MANUAL_web__1_.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Floodlight Cam Wired Plus</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span><span class="db db-star">⭐ Wiring Required</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/1UGCgNwYMOWVET9y8mPHWk/f81d70e9b78a2a5f8946695795d10616/NALA_Floodlight_Cam_Plus_Wired_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Floodlight Cam Wired Pro</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span><span class="db db-star">⭐ Wiring Required</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/5A6uUGVReJBpuyhM3iS9zo/9b076aadbba1c288adb8220357414692/NALA_Floodlight_Cam_Pro_Wired_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Floodlight Cam Pro (2nd Gen)</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span><span class="db db-star">⭐ Wiring Required</span></div>
+        <div class="device-actions">
+          <a href="https://ring.com/support/articles/lc4kn/reset-or-power-cycle-your-ring-device" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/3qMRKUfF0WjwGpcbNJ53lF/4338ab0557ab7dc12c3029efdbe458ab/Ring_TPUB_Cams_Hapuka_Hardwired_US-NALA_HSG_v1g_AL__1_.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+    </div>
+    <h4 style="font-size:0.8rem;font-weight:700;color:var(--blue);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;margin:20px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border);">// Car Cam</h4>
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Car Cam</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/2CNe0HUXwG54lOEPNGfaGU/5e0b8c9a64ec568f61eddb2e6a480222/Car_Cam_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+    </div>
+    <h4 style="font-size:0.8rem;font-weight:700;color:var(--blue);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;margin:20px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border);">// Ring Alarm — Base Station</h4>
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Ring Alarm Base Station (1st Gen)</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/2JRkD7agFK8mJgU30Bl8Ii/ae5fdedf32a7eacaf54bc97f2d935ed4/Ring_Alarm_Kit_1st_Gen_User_Manual_US.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Ring Alarm Base Station (2nd Gen)</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/7mUPoizHcwEmBa09UAqhgw/49fb86e6b34ea01b96469ec63a654647/360055831491_Ring_Alarm_manual_2nd_generation_web.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Ring Alarm Pro Base Station</div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/176xabwZuajUXJNDmwc6LT/4a6f3914194db10b89c5d99d9f6befa0/Ring_Alarm_Pro_user_guide.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+    </div>
+    <h4 style="font-size:0.8rem;font-weight:700;color:var(--blue);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;margin:20px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border);">// Ring Alarm — Sensors & Components</h4>
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Contact Sensor (1st Gen)</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/tIriNqCOSFm6q2EKvRfwQ/1d9b62785b5dafc0ed6430457b3bc9dd/Ring_Contact_Sensor_Manual_EN.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Contact Sensor (2nd Gen)</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/25xtMCnw1m8ehPi2CgcErx/c917b31cdf51753d4d88e76dc14fcdea/Ring_Alarm_Contact_Sensor_2gen_quick_start_guide_NA.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Outdoor Contact Sensor</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/dsDS7YL5MroVXnBZoLCHI/6458e95c22093cc236a183c00824e592/Outdoor_Contact_Sensor_manual_EMEA" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Glass Break Sensor</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/pQfYKqNe2u8fAOQ6KIeLa/6433fda5adbc40f8d5d84c857ff68473/Ring_TPUB_Alarm_Bear_GlassBreakSensor_US-CA_UserGuide_i1b_MP_v1_Preview.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Keypad (1st Gen)</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/6PwjydJGzB2q7fYwdZOkRQ/94b63151d05ad6ba72b1f9a40cbaee1e/Ring_Keypad_manual_web_1stGen_NA.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Keypad (2nd Gen)</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/5o081Iz9Q1ekx4v8Ra5uQy/b83ef0210ee55aa62c54b2fe0be6d192/Ring_Alarm_Keypad_2gen_quick_start_guide_north_america.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Motion Detector (1st Gen)</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/3qhl8f0v1qmiRvFyZTW4hl/ba712f4469a6a720f73f856e26784eb3/Ring_Motion_Detector_Manual_web_1st_Gen.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Motion Detector (2nd Gen)</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/14ZLGYMMVOoeO4DkC15FkX/48b61e93594e74b641446de3e3b944ee/Ring_Alarm_Motion_Detector_2gen_quick_start_guide_North_America.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Range Extender (1st Gen)</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/52VXRTOxtQ9yLAovcdl3vi/e04356158f1d4a117510526582ed9536/Ring_Range_Extender_manual_web.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Range Extender (2nd Gen)</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/5g6kEqZuVKzmUnoxp1zd3z/26f2869566d35c7aa8824cfa081d2c2a/Ring_Alarm_Range_Extender_2gen_quick_start_guide_US.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Flood and Freeze Sensor</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/5c16VPjFaK53ALUd9CaTuJ/6b675b7098925aeebb01dee5701c0434/Ring_Flood_Freeze_Sensor_manual_web_NA.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Outdoor Siren</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/6kvjjfnVxGRbfSq5g2KWx1/ff10cf25c36e2052da37ecc16a861983/360091261791_Ring_Alarm_Outdoor_Siren_print_guide.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Panic Button (1st Gen)</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/6ui25EJIpJcxahZcWTxb8l/60b73dccc95cbe31520f8b036b4ca639/Ring_Panic_Button_manual_web.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Panic Button (2nd Gen)</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/6Z42g0ZFPzws7rdwKW9LmL/bc3ee3b788633559b544b0401c60589b/Ring_Alarm_Panic_Button_Gen_2_Zwave.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Power Packs</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/1ba6FYfy9RSEuagywlkLzv/522983abbcca468bfa86c741d5e78160/Ring_TPUB_Alarm_Kibo_PowerPack_US_UserGuide_i2c_MP_v1_Preview.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Ring Retrofit Alarm Kit</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/78q7cpVlBnFH5fRNPd9K6H/c29e615b33f50c2c3a6689b136c82297/Retrofit_Alarm_Kit_Installation_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Smoke and CO Listener</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/5D3h8zJFHXrj1cBE9H7BKa/67eb6cff1bc6401da807b9f1a461ddfa/Ring_Smoke_CO_Listener_manual_web.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Ring Bridge</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/7onbV2LJZ4ZZ6Yfpzg2RIW/c99aa2e20c02c169e1eda338666bbf69/Ring_Smart_Lighting_Bridge_Manual_EN.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Floodlight Battery</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/6fFbE4TBpqApdV65s6CJsh/b20028732036ce35d2050f683eb167c1/Ring_Smart_Lighting_Floodlight_Battery_Manual_EN.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Floodlight Wired</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/61NveKeGI0bvDPMsUPiaWb/fc013d984ef0f7609e8fbccda9efe05a/Ring_Smart_Lighting_Floodlight_Wired_Manual_EN.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Floodlight Solar</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/6Z6APWAwtPtjXbp5ACXbac/9bdc34bd0444e86f05f91c1d2a66fced/360053528671_02_Solar_Floodlight_MANUAL_web.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Spotlight Battery</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/22rANmB00KSAzJifY1i6Cb/18e1363fd86af084741578d6e4d78fa5/Ring_Smart_Lighting_Spotlight_Manual_EN.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Motion Sensor</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/nUL2PUGkBbXUmLHUZlWEW/1a7efb2f29dc96fd881a4319a9d80e16/Ring_Smart_Lighting_Motion_Sensor_Manual_EN.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Steplight Battery</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/2qjGNbc31kaI4K8R80yfSS/a61dc798238e34dfeee26c5f6dec236b/Ring_Smart_Lighting_Steplight_Manual_EN.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Steplight Solar</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/7o91754sRGXue1F8k0KJXH/513b1ef874ff341eb37ee97370225c97/360053386332_02_Solar_Steplight_MANUAL_web.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Pathlight Battery</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/49g9PcCJuPOahuXE3kM3wB/d0c999eac31e7775b147a6239e974724/Ring_Smart_Lighting_Pathlight_Manual_EN.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Pathlight Solar</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/1aBxViMivGqbeJOs3wcWNR/299a73027ead4a781fac3445fd677196/02_Solar_Pathlight_MANUAL_web.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Wall Light Solar</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/67qMnJjPiz311evcrvKG9n/5a9857b7909f009143cdbc5d3ee62cf8/Ring_TPUB_Lighting_Cosmo_WallPackSolar_Retail_QSG_i1b_MP_v2_Preview.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Ring Smart Lighting A19 Lightbulb</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/WGF1PcaPp5w7DkRHgwgwK/0693acc8777f4879ff9a07be51a18a47/Ring_Smart_Lighting_A19_User_Manual_US-Eng.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Ring Smart Lighting PAR38 Lightbulb</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/39Y7ZQZtu1VqIkkh3pWZZn/0b01d4a1c45a4a0333eb5feef4e8922d/Ring_Smart_Lighting_PAR38_User_Manual_US-Eng.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Smart Lighting Transformer</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/2B8RSpwunE0u5bZiWOpo8Y/6cb7598778d0791e6e381153939cefed/Ring_Smart_Lighting_Transformer_Manual_EN.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Outdoor Smart Plug</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/4WjCnIr2PIO9cZwGXaawqE/d53ae17cd17b279e98f5a51c4ea265d0/Ring_TPUB_Lighting_Bingo_OutdoorSmartPlug_Wired_Blk_Retail_QSG_i1b_MP_v1.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Access Controller Pro</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/4BiGKaHx6nuptWTpKyPoGF/b533e1ec61029a46d9792dd2d6794650/Ring_Alarm_AccessControllerPro_UserManual_i3b_MP_v1_Preview.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Access Controller Pro 2</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/zRHeFA96zEhdLCz1vz5B5/9a4581a3668dc853a3cc0247699291a1/22-003794-02_RING_TPUB_Acc_Leo-Lite_UserGuide_RACP2_US_i3i_MP.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Chime (1st Gen)</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/5P4C3mZhRL8nypX4CWRJok/0be8e3db1352f16ad915cb9e66da3551/Chime_manual_English.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Chime (2nd Gen)</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/7JqbNjv9bu1ZPt9Dphkl4l/62cc67acd432f62b050b1ea4eb744bc3/chime-gen2-US-manual-75x135-web07.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Chime Pro (1st Gen)</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/3Fj3jMEZlXIhtBSxfzJsnG/44635345ea0f9b1e3df4eea60bafe4b0/ENG_Ring_manual_ChimePro-min.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Chime Pro (2nd Gen)</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/4W02zO8jr2VqgVt8gp3b1H/2ba8a3b9a659efadaca25650590b2c2e/NALA_Chime_Pro_Gen-2_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Hardwired Kit for Cameras</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/1qobFJqQBkRYMmV5saTLVy/f3b707f8db0dd71c879bf954391dbba6/22-004559-03_Ring_TPUB_Acc_Hornbill_US-NALA_DSG_i2h_MP__1_.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Intercom Kit for Video Doorbells</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/1sWAXY6h9t6uoCphijc25X/71485b0ae25d1fa11a43583b77d95f1e/Intercom_Kit_for_Video_Doorbells_Installation_Guide_-_Ring.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Jumper Cable</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/6J0ShDFPrrIaXHVlEzJbXb/72eb610c1d22ba4cb17370a8cf05c6a2/Ring_TPUB_UserGuide_Acc_WiredDoorbell_Jumper_Cable_v1a.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Mailbox Sensor</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/2Nfy83PCsG7aRgOBJeCf6R/3356fc864bcff13ef0b1a1b6a920f921/22-005257-01_Ring_TPUB_Lighting_Pluto_MailboxSensor_DSG-WSL_i3d_MP.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">No-Drill Mount for Battery Doorbells</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/7s9LlbsqMyoSqzp7TN3Who/80637de7010677afb83b89497f3fad15/NoDrillMount-BatteryDoorbells_Gen2_HSG_Global.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Pan-Tilt Mount</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/2YceCWczkiCd9Kxl8HNQjG/a58cc8bca5182f188493baa0a88842bd/PanTiltMount_Manual_Global.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Plug-In Adapter (1st Gen)</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/7hzxMEBQGomALJFUexXYar/909d461ec7bd8d20d2b6a183a1587658/360000179603_Plug_in_adapter_MANUAL_web.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Plug-In Adapter (2nd Gen)</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/24YXfwSQHbYshhnZDww8Ft/29ebf9f8a2b3ad63bf0d8682b083dfd9/22-003095-02_RINGACCPLUG_IN_ADAPTER_2ND_GENERATIONUSER_GUIDE_INSERT.._20210930.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Pole and Wall Mount for cameras and solar panels</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/45pgJM1OHcfxJ53pyDPVQk/9d110faba20cf0838b60bf2d3c37e5f8/Ring_Acc_PoleAndWallMount_Global_HSG.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Pro Power Kit (V2 and V3)</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/3VC6rN48LCHiYLASjFjqP8/d8d5fea1e045d3862cf1af79570ffebf/PPK_v2_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Solar Charger</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/gfdY8pVVxxA0wWTDtU34u/043d246200386ced9d182503500e7976/Ring_TPUB_Acc_SeaDragon_DSG_WSL_Global_i1k_MP_v1.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Solar Panel (with barrel plug adapter)</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/1cEVRa2ktomMlQgHHcCjub/0b5f0710bc29292a2bd3ca7b7216d6cf/International_Solar_Panel_Barrel_Plug_Manual.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Solar Panel (with USB-C adapter)</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/6UkAnkWfJDVrnkhcfwmWIo/9b7f427fcc2139a3a1532362ab2b1781/Ring_Solar_Panel_USB-C_Manual_EMEA.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Solar Security Sign</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/3fVdJ7E8qgIyeBvG4Noy99/f7afed9b62fd83035dbbfd395cd3b074/Ring_TPUB_Acc_SolarYardSign_e2_UserGuide_i2i_MP_v1_Preview.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Ring</div>
+        <div class="device-name">Super Solar Panel</div>
+        <div class="device-badges"><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-battery">🔋 Battery</span><span class="db db-sub">💳 Subscription ⭐</span></div>
+        <div class="device-actions">
+          
+          <a href="https://ring.com/support/categories/ring-app-help?page=1" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+          <a href="https://d1kusojqr3t85q.cloudfront.net/jrz4hnnvdyct/13VtApluVALPULXVSS4038/ddfae8126c0c5ef06eedde93a4d3085e/Ring_UserGuide_SuperSolarPanel_v2_web.pdf" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+        </div>
+      </div>
+    </div>
+    <a href="https://support.ring.com/hc/en-us/articles/360050108052-Ring-Device-Manuals-" target="_blank" class="brand-mfr-link">↗ Ring Device Manuals — All PDFs</a>
+  </div>
+</div>
+</div>
+
+<!-- LEGRAND -->
+<div class="brand-section" data-brand="legrand radiant smart switch dimmer plug outlet matter wifi" data-status="active" data-preferred="false">
+<div class="brand-card">
+  <div class="brand-header" onclick="toggleBrand(this)">
+    <div class="brand-icon">💡</div>
+    <div class="brand-info">
+      <div class="brand-name">Legrand / radiant® <span class="badge badge-active">Active</span></div>
+      <div class="brand-meta">Smart switches · Dimmers · Outlets · Plugs · Matter-enabled · App: Legrand</div>
+    </div>
+    <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+  </div>
+  <div class="brand-body">
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">Legrand</div>
+        <div class="device-name">Smart 15A Plug-In Switch with Wi-Fi, Matter-Enabled </div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-matter">🔷 Matter</span><span class="db db-wired">🔌 Wired</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://www.legrand.us/p/view-asset?downloadUrl=https%3a%2f%2flegrand.webdamdb.com%2fdirectdownload.php%3fti%3d334467488%26tok%3dHRCoB5W2cp0sSdd7xhA19gRR%26token%3d%242y%2410%24Divwq%2f6RaZufTADmSq0tUuxywH%2fJUVG8lTrk397CTnwiClVT%2fBhCO&title=Smart+Plug-In+Switch%2c+Matter-Enabled+with+Wi-Fi+Installation+Instructions" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+          <a href="https://www.legrand.us/p/view-asset?downloadUrl=https%3a%2f%2flegrand.webdamdb.com%2fdirectdownload.php%3fti%3d334467488%26tok%3dHRCoB5W2cp0sSdd7xhA19gRR%26token%3d%242y%2410%24Divwq%2f6RaZufTADmSq0tUuxywH%2fJUVG8lTrk397CTnwiClVT%2fBhCO&title=Smart+Plug-In+Switch%2c+Matter-Enabled+with+Wi-Fi+Installation+Instructions" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Legrand</div>
+        <div class="device-name">radiant® Smart 15A Receptacle with Wi-Fi, Matter-Enabled, White </div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-matter">🔷 Matter</span><span class="db db-wired">🔌 Wired</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://www.legrand.us/p/view-asset?downloadUrl=https%3a%2f%2flegrand.webdamdb.com%2fdirectdownload.php%3fti%3d376220533%26tok%3dYBx9DCjwTKibjyaXB0d8rwRR%26token%3d%242y%2410%24w.Jile74ZdJA9reVIC.PYe4x%2fLDFpOfnHyh987BdTy.sYsky.YsJe&title=radiant%c2%ae+Smart+15A+Receptacle+with+Wi-Fi%2c+Matter-Enabled+Installation+Instructions" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+          <a href="https://www.legrand.us/p/view-asset?downloadUrl=https%3a%2f%2flegrand.webdamdb.com%2fdirectdownload.php%3fti%3d376220533%26tok%3dYBx9DCjwTKibjyaXB0d8rwRR%26token%3d%242y%2410%24w.Jile74ZdJA9reVIC.PYe4x%2fLDFpOfnHyh987BdTy.sYsky.YsJe&title=radiant%c2%ae+Smart+15A+Receptacle+with+Wi-Fi%2c+Matter-Enabled+Installation+Instructions" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Legrand</div>
+        <div class="device-name">radiant® Smart Switch with Wi-Fi, Matter-Enabled, White </div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-matter">🔷 Matter</span><span class="db db-wired">🔌 Wired</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://www.legrand.us/p/view-asset?downloadUrl=https%3a%2f%2flegrand.webdamdb.com%2fdirectdownload.php%3fti%3d557362403%26tok%3dveqK9zk0%2fkUIThYIMWCDugRR%26token%3d%242y%2410%24N%2f6flUcsqCPRDHScg%2fidgeJUD%2ffknapk5AN0IaiqjYD83SE59D63q&title=radiant%c2%ae+Smart+Switch+with+Wi-Fi+Installation+Instructions" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+          <a href="https://www.legrand.us/p/view-asset?downloadUrl=https%3a%2f%2flegrand.webdamdb.com%2fdirectdownload.php%3fti%3d557362403%26tok%3dveqK9zk0%2fkUIThYIMWCDugRR%26token%3d%242y%2410%24N%2f6flUcsqCPRDHScg%2fidgeJUD%2ffknapk5AN0IaiqjYD83SE59D63q&title=radiant%c2%ae+Smart+Switch+with+Wi-Fi+Installation+Instructions" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Legrand</div>
+        <div class="device-name">radiant® Smart LED Dimmer with Wi-Fi, Matter-Enabled, White </div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-matter">🔷 Matter</span><span class="db db-wired">🔌 Wired</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://www.legrand.us/p/view-asset?downloadUrl=https%3a%2f%2flegrand.webdamdb.com%2fdirectdownload.php%3fti%3d557946561%26tok%3d4tD8WG3BW93LO8iRoLAprQRR%26token%3d%242y%2410%24yZElQ9F.nvC5Z4PQebcwdelIbM4erNd1ShveEBmBK8pNHeuWD9uPO&title=Radiant+Smart+LED+Dimmer+Installation+Instructions" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+          <a href="https://www.legrand.us/p/view-asset?downloadUrl=https%3a%2f%2flegrand.webdamdb.com%2fdirectdownload.php%3fti%3d557946561%26tok%3d4tD8WG3BW93LO8iRoLAprQRR%26token%3d%242y%2410%24yZElQ9F.nvC5Z4PQebcwdelIbM4erNd1ShveEBmBK8pNHeuWD9uPO&title=Radiant+Smart+LED+Dimmer+Installation+Instructions" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Legrand</div>
+        <div class="device-name">Smart Outdoor Dual Output Plug with Wi-Fi, Matter-Enabled </div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-matter">🔷 Matter</span><span class="db db-wired">🔌 Wired</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://www.legrand.us/p/view-asset?downloadUrl=https%3a%2f%2flegrand.webdamdb.com%2fdirectdownload.php%3fti%3d376186658%26tok%3dEqP08JOlwR%2fh0zkAqkrsGQRR%26token%3d%242y%2410%24lpDMZrS7FV2rRmF5z7InP.CxK7RYKRwGSHQudY0xyaI8MS4zjAnYi&title=Smart+Outdoor+Dual+Output+Plug+with+Wi-Fi%2c+Matter-Enabled+Installation+Instructions" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+          <a href="https://www.legrand.us/p/view-asset?downloadUrl=https%3a%2f%2flegrand.webdamdb.com%2fdirectdownload.php%3fti%3d376186658%26tok%3dEqP08JOlwR%2fh0zkAqkrsGQRR%26token%3d%242y%2410%24lpDMZrS7FV2rRmF5z7InP.CxK7RYKRwGSHQudY0xyaI8MS4zjAnYi&title=Smart+Outdoor+Dual+Output+Plug+with+Wi-Fi%2c+Matter-Enabled+Installation+Instructions" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Legrand</div>
+        <div class="device-name">radiant® Smart Tru-Universal Dimmer with Wi-Fi, White </div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-matter">🔷 Matter</span><span class="db db-wired">🔌 Wired</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://www.legrand.us/p/view-asset?downloadUrl=https%3a%2f%2flegrand.webdamdb.com%2fdirectdownload.php%3fti%3d55650883%26tok%3d2scwslYj6chuqZ47OZkXcARR&title=WWRL50+Installation+Instructions" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+          <a href="https://www.legrand.us/p/view-asset?downloadUrl=https%3a%2f%2flegrand.webdamdb.com%2fdirectdownload.php%3fti%3d55651080%26tok%3ddWNWqgMlaE0aAH3X1fxZWQRR&title=Wi-Fi+Reset+Instructions" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://www.legrand.us/p/view-asset?downloadUrl=https%3a%2f%2flegrand.webdamdb.com%2fdirectdownload.php%3fti%3d72801801%26tok%3dAiKuYr6KH0ME8p54OMFIOQRR&title=Alexa+%26+Google+Voice+With+Netatmo+Instructions" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+        </div>
+      </div>
+      <div class="device-item" style="opacity:0.6;">
+        <div class="device-model">Legrand</div>
+        <div class="device-name">Discontinued - radiant® Smart Switch with WiFi, White CC <span class="badge badge-eol">Discontinued</span></div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-matter">🔷 Matter</span><span class="db db-wired">🔌 Wired</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://www.legrand.us/p/view-asset?downloadUrl=https%3a%2f%2flegrand.webdamdb.com%2fdirectdownload.php%3fti%3d55651085%26tok%3dH9gGNlWWLZhbWkdVdIYmyQRR&title=WWRL10+Installation+Instructions" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+          <a href="https://www.legrand.us/p/view-asset?downloadUrl=https%3a%2f%2flegrand.webdamdb.com%2fdirectdownload.php%3fti%3d55651080%26tok%3ddWNWqgMlaE0aAH3X1fxZWQRR&title=Wi-Fi+Reset+Instructions" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://www.legrand.us/p/view-asset?downloadUrl=https%3a%2f%2flegrand.webdamdb.com%2fdirectdownload.php%3fti%3d55651074%26tok%3dN9O1RHvkuRW6BiQeK0kjGwRR&title=Alexa+and+Google+Setup+Instructions" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">Legrand</div>
+        <div class="device-name">radiant® Smart Outlet, Wi-Fi in White </div>
+        <div class="device-badges"><span class="db db-wifi">📶 WiFi</span><span class="db db-nohub">✅ No Hub</span><span class="db db-matter">🔷 Matter</span><span class="db db-wired">🔌 Wired</span><span class="db db-voice">🗣️ Voice</span></div>
+        <div class="device-actions">
+          <a href="https://www.legrand.us/p/view-asset?downloadUrl=https%3a%2f%2flegrand.webdamdb.com%2fdirectdownload.php%3fti%3d55648314%26tok%3dIeb%2fJAmWL68Ep25s3jSwaARR&title=Smart+Outlet%2c+Wi-Fi+Installation+Instructions" target="_blank" class="device-btn device-btn-ghost">📄 Manual PDF</a>
+          <a href="https://www.legrand.us/p/view-asset?downloadUrl=https%3a%2f%2flegrand.webdamdb.com%2fdirectdownload.php%3fti%3d55651080%26tok%3ddWNWqgMlaE0aAH3X1fxZWQRR&title=Wi-Fi+Reset+Instructions" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://www.legrand.us/p/view-asset?downloadUrl=https%3a%2f%2flegrand.webdamdb.com%2fdirectdownload.php%3fti%3d55651074%26tok%3dN9O1RHvkuRW6BiQeK0kjGwRR&title=Alexa+and+Google+Setup+Instructions" target="_blank" class="device-btn device-btn-ghost">📱 App Help</a>
+        </div>
+      </div>
+    </div>
+    <a href="https://www.legrand.us/radiant/smart-home" target="_blank" class="brand-mfr-link">↗ Visit Legrand Smart Home</a>
+  </div>
+</div>
+</div>
+
+<!-- AD IN-FEED
+
+<!-- AD IN-FEED
+
+<!-- AD IN-FEED -->
+<div class="brand-section ad-infeed-slot" data-brand="" data-status="active" data-preferred="false" style="pointer-events:none">
+  <div class="ad-slot ad-feed">AD SPACE — In-Feed 728x90</div>
+</div>
+
+<!-- KASA -->
+<div class="brand-section" data-brand="kasa tp-link smart plug switch ep25 hs200" data-status="active" data-preferred="true">
+<div class="brand-card locked">
+  <div class="brand-header" onclick="return false;">
+    <div class="brand-icon">🔌</div>
+    <div class="brand-info">
+      <div class="brand-name">Kasa (TP-Link) <span class="badge badge-active">Active</span><span class="badge badge-preferred">⭐ Preferred</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
+      <div class="brand-meta">Smart plugs · Switches · Bulbs · Cameras · App: Kasa Smart</div>
+    </div>
+    <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+  </div>
+  <div class="brand-body">
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">EP25</div>
+        <div class="device-name">Kasa Smart Plug w/ Energy Monitoring</div>
+        <div class="device-desc">WiFi smart plug with real-time energy monitoring. No hub required. Works with Alexa, Google Home, and SmartThings. No Apple HomeKit natively.</div>
+        <div class="device-badges">
+          <span class="db db-wifi">📶 WiFi 2.4GHz</span><span class="db db-nohub">✅ No Hub</span><span class="db db-wired">🔌 Wired</span><span class="db db-voice">🗣️ Voice (Alexa/Google)</span>
+        </div>
+        <div class="device-release">Release Date — Circa 2021</div>
+        <div class="device-actions">
+          <a href="https://www.kasasmart.com/us/support" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+          <a href="https://www.kasasmart.com/us/support" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://www.tp-link.com/us/home-networking/smart-plug/ep25/" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">HS200</div>
+        <div class="device-name">Kasa Smart Wi-Fi Light Switch</div>
+        <div class="device-desc">In-wall smart switch, no hub required. Single pole. Works with Alexa and Google Home. No Apple HomeKit. Neutral wire required. Note: 1st Gen — no Matter. Newer 2nd Gen Kasa switches support Matter via firmware update.</div>
+        <div class="device-badges">
+          <span class="db db-wifi">📶 WiFi 2.4GHz</span><span class="db db-nohub">✅ No Hub</span><span class="db db-wired">🔌 Wired</span><span class="db db-voice">🗣️ Voice (Alexa/Google)</span><span class="db db-star">⭐ Neutral Wire Req.</span>
+        </div>
+        <div class="device-release">Release Date — Circa 2016</div>
+        <div class="device-actions">
+          <a href="https://www.kasasmart.com/us/support" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+          <a href="https://www.kasasmart.com/us/support" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://www.tp-link.com/us/home-networking/smart-switch/hs200/" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+        </div>
+      </div>
+    </div>
+    <a href="https://www.kasasmart.com/us/support" target="_blank" class="brand-mfr-link">↗ Visit Kasa Support</a>
+  </div>
+</div>
+</div>
+
+<!-- EERO -->
+<div class="brand-section" data-brand="eero mesh wifi router 6 plus pro 6e" data-status="active" data-preferred="true">
+<div class="brand-card locked">
+  <div class="brand-header" onclick="return false;">
+    <div class="brand-icon">📶</div>
+    <div class="brand-info">
+      <div class="brand-name">eero <span class="badge badge-active">Active</span><span class="badge badge-preferred">⭐ Preferred</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
+      <div class="brand-meta">Mesh WiFi systems · Built-in Zigbee hub · Thread border router · App: eero</div>
+    </div>
+    <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+  </div>
+  <div class="brand-body">
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">J010001</div>
+        <div class="device-name">eero 6+</div>
+        <div class="device-desc">Dual-band WiFi 6, up to 1,500 sq ft per unit, 75+ devices. Built-in Zigbee hub and Thread border router. Functions as a Matter controller. Alexa primary voice assistant. Optional eero Secure+ for advanced security and parental controls.</div>
+        <div class="device-badges">
+          <span class="db db-wifi">📶 WiFi 6</span><span class="db db-zigbee">🔶 Zigbee Hub</span><span class="db db-thread">🟣 Thread</span><span class="db db-matter">🔷 Matter</span><span class="db db-nohub">✅ No Hub Needed</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 Secure+ Optional ⭐</span><span class="db db-voice">🗣️ Voice (Alexa)</span>
+        </div>
+        <div class="device-release">Release Date — Circa 2022</div>
+        <div class="device-actions">
+          <a href="https://support.eero.com/hc/en-us/articles/207621116" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+          <a href="https://support.eero.com/hc/en-us/articles/207621226" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://eero.com/shop/eero-6-plus" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">B010001</div>
+        <div class="device-name">eero Pro 6E</div>
+        <div class="device-desc">Tri-band WiFi 6E (2.4/5/6GHz), up to 2,000 sq ft per unit, 100+ devices. Built-in Zigbee hub, Thread border router, Matter controller. 2.5 GbE port for multi-gig internet plans.</div>
+        <div class="device-badges">
+          <span class="db db-wifi">📶 WiFi 6E Tri-Band</span><span class="db db-zigbee">🔶 Zigbee Hub</span><span class="db db-thread">🟣 Thread</span><span class="db db-matter">🔷 Matter</span><span class="db db-nohub">✅ No Hub Needed</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 Secure+ Optional ⭐</span><span class="db db-voice">🗣️ Voice (Alexa)</span>
+        </div>
+        <div class="device-release">Release Date — Circa 2022</div>
+        <div class="device-actions">
+          <a href="https://support.eero.com/hc/en-us/articles/207621116" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+          <a href="https://support.eero.com/hc/en-us/articles/207621226" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://eero.com/shop/eero-pro-6e" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+        </div>
+      </div>
+    </div>
+    <a href="https://support.eero.com" target="_blank" class="brand-mfr-link">↗ Visit eero Support</a>
+  </div>
+</div>
+</div>
+
+<!-- ECOBEE -->
+<div class="brand-section" data-brand="ecobee thermostat premium eb-state6 smart temperature" data-status="active" data-preferred="true">
+<div class="brand-card locked">
+  <div class="brand-header" onclick="return false;">
+    <div class="brand-icon">🌡️</div>
+    <div class="brand-info">
+      <div class="brand-name">ecobee <span class="badge badge-active">Active</span><span class="badge badge-preferred">⭐ Preferred</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
+      <div class="brand-meta">Smart thermostats · Sensors · App: ecobee</div>
+    </div>
+    <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+  </div>
+  <div class="brand-body">
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">EB-STATE6-01</div>
+        <div class="device-name">ecobee SmartThermostat Premium</div>
+        <div class="device-desc">Built-in Alexa and Siri voice control, air quality monitor, smoke/CO alarm detection, radar occupancy sensing. Works with Alexa, Google Home, Apple HomeKit, and SmartThings. C-wire required or use included Power Extender Kit. Optional Smart Security subscription unlocks additional features.</div>
+        <div class="device-badges">
+          <span class="db db-wifi">📶 WiFi 2.4GHz</span><span class="db db-nohub">✅ No Hub</span><span class="db db-matter">🔷 Matter (via WiFi)</span><span class="db db-wired">🔌 Wired</span><span class="db db-voice">🗣️ Voice</span><span class="db db-star">⭐ C-wire or PEK Req.</span><span class="db db-sub">💳 Smart Security Optional ⭐</span>
+        </div>
+        <div class="device-release">Release Date — Circa May 2022</div>
+        <div class="device-actions">
+          <a href="https://support.ecobee.com/s/articles/Setting-up-your-ecobee-thermostat" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+          <a href="https://support.ecobee.com/s/articles/Resetting-your-ecobee-thermostat" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://www.ecobee.com/en-us/smart-thermostats/smart-thermostat-premium/" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+        </div>
+      </div>
+    </div>
+    <a href="https://support.ecobee.com" target="_blank" class="brand-mfr-link">↗ Visit ecobee Support</a>
+  </div>
+</div>
+</div>
+
+<!-- MY LEVITON -->
+<div class="brand-section" data-brand="leviton myleviton decora smart switch d215s" data-status="active" data-preferred="true">
+<div class="brand-card locked">
+  <div class="brand-header" onclick="return false;">
+    <div class="brand-icon">💡</div>
+    <div class="brand-info">
+      <div class="brand-name">My Leviton <span class="badge badge-active">Active</span><span class="badge badge-preferred">⭐ Preferred</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
+      <div class="brand-meta">Smart switches · Dimmers · Outlets · App: My Leviton</div>
+    </div>
+    <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+  </div>
+  <div class="brand-body">
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">D215S</div>
+        <div class="device-name">Decora Smart Switch (Wi-Fi 2nd Gen)</div>
+        <div class="device-desc">In-wall smart switch, no hub required. Matter support via firmware update through My Leviton app. Works with Alexa, Google Home, Apple HomeKit, SmartThings. Neutral wire required. Single pole or 3-way with optional companion switch (sold separately).</div>
+        <div class="device-badges">
+          <span class="db db-wifi">📶 WiFi 2.4GHz</span><span class="db db-nohub">✅ No Hub</span><span class="db db-matter">🔷 Matter (via update)</span><span class="db db-wired">🔌 Wired</span><span class="db db-voice">🗣️ Voice</span><span class="db db-star">⭐ Neutral Wire Req.</span>
+        </div>
+        <div class="device-release">Release Date — Circa 2021</div>
+        <div class="device-actions">
+          <a href="https://decorasmartsupport.leviton.com/hc/en-us/articles/1260804016869" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+          <a href="https://decorasmartsupport.leviton.com/hc/en-us" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://store.leviton.com/products/decora-smart-wi-fi-switch-2nd-gen-d215s-2rw" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+        </div>
+      </div>
+    </div>
+    <a href="https://www.leviton.com/en/support" target="_blank" class="brand-mfr-link">↗ Visit Leviton Support</a>
+  </div>
+</div>
+</div>
+
+<!-- PHILIPS HUE -->
+<div class="brand-section" data-brand="philips hue bulb bridge hub zigbee light color" data-status="active" data-preferred="false">
+<div class="brand-card locked">
+  <div class="brand-header" onclick="return false;">
+    <div class="brand-icon">🌈</div>
+    <div class="brand-info">
+      <div class="brand-name">Philips Hue <span class="badge badge-active">Active</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
+      <div class="brand-meta">Smart bulbs · Light strips · Sensors · Bridge hub required · App: Philips Hue</div>
+    </div>
+    <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+  </div>
+  <div class="brand-body">
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">BSB002</div>
+        <div class="device-name">Hue Bridge (v2)</div>
+        <div class="device-desc">Required hub for the full Hue ecosystem. Controls up to 50 lights and accessories. Zigbee-based with Matter support via firmware update. Connects via Ethernet (not WiFi) to your router. Enables remote access, automations, and full voice control.</div>
+        <div class="device-badges">
+          <span class="db db-zigbee">🔶 Zigbee</span><span class="db db-matter">🔷 Matter (via update)</span><span class="db db-hub">🟡 IS the Hub</span><span class="db db-wired">🔌 Wired (Ethernet)</span><span class="db db-voice">🗣️ Voice</span>
+        </div>
+        <div class="device-release">Release Date — Circa 2016</div>
+        <div class="device-actions">
+          <a href="https://support.philips-hue.com/s/article/hue-bridge-setup" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+          <a href="https://support.philips-hue.com/s/article/resetting-the-hue-bridge" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://www.philips-hue.com/en-us/p/hue-bridge/046677458478" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">046677563219</div>
+        <div class="device-name">Hue White &amp; Color Ambiance A19</div>
+        <div class="device-desc">16 million colors, tunable white. Zigbee-based. Requires Hue Bridge or a compatible Zigbee hub (Homey Pro, SmartThings, eero, etc.). Multiple generations available — check box for generation.</div>
+        <div class="device-badges">
+          <span class="db db-zigbee">🔶 Zigbee</span><span class="db db-hub">🟡 Hub Required ⭐</span><span class="db db-wired">🔌 Wired (E26)</span><span class="db db-voice">🗣️ Voice</span>
+        </div>
+        <div class="device-release">Release Date — Circa 2016 (various gen)</div>
+        <div class="device-actions">
+          <a href="https://support.philips-hue.com/s/article/bulb-setup" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+          <a href="https://support.philips-hue.com/s/article/resetting-a-hue-bulb" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://www.philips-hue.com/en-us/bulbs" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+        </div>
+      </div>
+    </div>
+    <a href="https://support.philips-hue.com" target="_blank" class="brand-mfr-link">↗ Visit Philips Hue Support</a>
+  </div>
+</div>
+</div>
+
+<!-- HOMEY -->
+<div class="brand-section" data-brand="homey pro hub automation zigbee zwave matter thread ath-1000" data-status="active" data-preferred="false">
+<div class="brand-card locked">
+  <div class="brand-header" onclick="return false;">
+    <div class="brand-icon">🏠</div>
+    <div class="brand-info">
+      <div class="brand-name">Homey <span class="badge badge-active">Active</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
+      <div class="brand-meta">Smart home hub · 8 protocols · 50,000+ devices · App: Homey</div>
+    </div>
+    <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+  </div>
+  <div class="brand-body">
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">ATH-1000</div>
+        <div class="device-name">Homey Pro (Early 2023)</div>
+        <div class="device-desc">The most versatile smart home hub available. Supports 8 protocols: WiFi (2.4/5GHz), Zigbee, Z-Wave Plus, BLE, 433MHz RF, Infrared, Matter, and Thread. 50,000+ compatible devices from 1,000+ brands. Local processing — automations work without internet. No mandatory subscription. Software support guaranteed until June 2031. Optional Ethernet adapter and Homey Bridge satellite available.</div>
+        <div class="device-badges">
+          <span class="db db-wifi">📶 WiFi 2.4/5GHz</span><span class="db db-zigbee">🔶 Zigbee</span><span class="db db-zwave">🟢 Z-Wave Plus</span><span class="db db-thread">🟣 Thread</span><span class="db db-matter">🔷 Matter</span><span class="db db-ble">🩷 BLE</span><span class="db db-hub">🟡 IS the Hub</span><span class="db db-wired">🔌 Wired</span><span class="db db-voice">🗣️ Voice</span>
+        </div>
+        <div class="device-release">Release Date — Circa 2023</div>
+        <div class="device-actions">
+          <a href="https://support.homey.app/hc/en-us/articles/360015350174" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+          <a href="https://support.homey.app/hc/en-us/articles/360015350194" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://homey.app/en-us/homey-pro/" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+        </div>
+      </div>
+    </div>
+    <a href="https://support.homey.app" target="_blank" class="brand-mfr-link">↗ Visit Homey Support</a>
+  </div>
+</div>
+</div>
+
+<!-- SAMSUNG SMARTTHINGS -->
+<div class="brand-section" data-brand="samsung smartthings hub gp-u999 zigbee zwave automation" data-status="active" data-preferred="false">
+<div class="brand-card locked">
+  <div class="brand-header" onclick="return false;">
+    <div class="brand-icon">🔵</div>
+    <div class="brand-info">
+      <div class="brand-name">Samsung SmartThings <span class="badge badge-active">Active</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
+      <div class="brand-meta">Smart home platform · Hub · App: SmartThings</div>
+    </div>
+    <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+  </div>
+  <div class="brand-body">
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">GP-U999SJVLGDA</div>
+        <div class="device-name">SmartThings Hub v3 (2018)</div>
+        <div class="device-desc">Zigbee, Z-Wave, and WiFi/LAN hub. Works with thousands of devices. Matter support added via firmware update. First SmartThings hub with WiFi — no Ethernet required. Local processing for Z-Wave/Zigbee automations reduces latency.</div>
+        <div class="device-badges">
+          <span class="db db-wifi">📶 WiFi</span><span class="db db-zigbee">🔶 Zigbee</span><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-matter">🔷 Matter (via update)</span><span class="db db-hub">🟡 IS the Hub</span><span class="db db-wired">🔌 Wired</span><span class="db db-voice">🗣️ Voice</span>
+        </div>
+        <div class="device-release">Release Date — Circa August 2018</div>
+        <div class="device-actions">
+          <a href="https://support.smartthings.com/hc/en-us/articles/205957580" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+          <a href="https://support.smartthings.com/hc/en-us/articles/205956950" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://support.smartthings.com" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+        </div>
+      </div>
+    </div>
+    <a href="https://support.smartthings.com" target="_blank" class="brand-mfr-link">↗ Visit SmartThings Support</a>
+  </div>
+</div>
+</div>
+
+<!-- AD IN-FEED 2 -->
+<div class="brand-section ad-infeed-slot" data-brand="" data-status="active" data-preferred="false" style="pointer-events:none">
+  <div class="ad-slot ad-feed">AD SPACE — In-Feed 728x90</div>
+</div>
+
+<!-- CHAMBERLAIN myQ -->
+<div class="brand-section" data-brand="chamberlain myq garage door controller myq-g0401" data-status="active" data-preferred="false">
+<div class="brand-card locked">
+  <div class="brand-header" onclick="return false;">
+    <div class="brand-icon">🚗</div>
+    <div class="brand-info">
+      <div class="brand-name">Chamberlain myQ <span class="badge badge-active">Active</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
+      <div class="brand-meta">Garage door controllers · App: myQ</div>
+    </div>
+    <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+  </div>
+  <div class="brand-body">
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">MYQ-G0401</div>
+        <div class="device-name">myQ Smart Garage Hub</div>
+        <div class="device-desc">Adds smart control to most garage door openers made after 1993. Monitor and control from anywhere. Basic open/close monitoring is free. Note: Alexa voice control limited to opening only — closing requires an extra $1/month Alexa skill. No native Google Home support.</div>
+        <div class="device-badges">
+          <span class="db db-wifi">📶 WiFi 2.4GHz</span><span class="db db-nohub">✅ No Hub</span><span class="db db-wired">🔌 Wired</span><span class="db db-voice">🗣️ Alexa (limited)</span><span class="db db-sub">💳 Premium Optional ⭐</span>
+        </div>
+        <div class="device-release">Release Date — Circa 2016</div>
+        <div class="device-actions">
+          <a href="https://www.myq.com/support/myq-smart-garage-hub" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+          <a href="https://www.myq.com/support" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://www.myq.com/support" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+        </div>
+      </div>
+    </div>
+    <a href="https://www.myq.com/support" target="_blank" class="brand-mfr-link">↗ Visit myQ Support</a>
+  </div>
+</div>
+</div>
+
+<!-- GOOGLE NEST -->
+<div class="brand-section" data-brand="google nest thermostat camera doorbell t3021us learning" data-status="active" data-preferred="false">
+<div class="brand-card locked">
+  <div class="brand-header" onclick="return false;">
+    <div class="brand-icon">🌿</div>
+    <div class="brand-info">
+      <div class="brand-name">Google Nest <span class="badge badge-active">Active</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
+      <div class="brand-meta">Thermostats · Cameras · Doorbells · Speakers · App: Google Home</div>
+    </div>
+    <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+  </div>
+  <div class="brand-body">
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">T3021US</div>
+        <div class="device-name">Nest Learning Thermostat (4th Gen)</div>
+        <div class="device-desc">Learns your schedule and programs itself automatically. Matter support included. Works with Alexa, Google Home, and Apple HomeKit. Senses when you're home or away. Energy history and usage reports. C-wire recommended — adapter available if not present.</div>
+        <div class="device-badges">
+          <span class="db db-wifi">📶 WiFi</span><span class="db db-matter">🔷 Matter</span><span class="db db-nohub">✅ No Hub</span><span class="db db-wired">🔌 Wired</span><span class="db db-voice">🗣️ Voice</span><span class="db db-star">⭐ C-wire may be req.</span>
+        </div>
+        <div class="device-release">Release Date — Circa 2024</div>
+        <div class="device-actions">
+          <a href="https://support.google.com/googlenest/answer/9246257" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+          <a href="https://support.google.com/googlenest/answer/9247296" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://store.google.com/us/product/nest_learning_thermostat_4th_gen" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+        </div>
+      </div>
+    </div>
+    <a href="https://support.google.com/googlenest" target="_blank" class="brand-mfr-link">↗ Visit Google Nest Support</a>
+  </div>
+</div>
+</div>
+
+<!-- SCHLAGE -->
+<div class="brand-section" data-brand="schlage lock deadbolt door be489wb encode plus" data-status="active" data-preferred="false">
+<div class="brand-card locked">
+  <div class="brand-header" onclick="return false;">
+    <div class="brand-icon">🔒</div>
+    <div class="brand-info">
+      <div class="brand-name">Schlage <span class="badge badge-active">Active</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
+      <div class="brand-meta">Smart locks · Deadbolts · App: Schlage Home</div>
+    </div>
+    <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+  </div>
+  <div class="brand-body">
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">BE489WB</div>
+        <div class="device-name">Schlage Encode Plus Smart WiFi Deadbolt</div>
+        <div class="device-desc">Built-in WiFi, no hub required. Apple Home Key compatible — unlock with iPhone or Apple Watch tap. Up to 100 access codes. Works with Alexa, Google, and Apple HomeKit. Thread protocol for Matter. Door prep (bore holes) required for installation.</div>
+        <div class="device-badges">
+          <span class="db db-wifi">📶 WiFi</span><span class="db db-thread">🟣 Thread</span><span class="db db-matter">🔷 Matter</span><span class="db db-nohub">✅ No Hub</span><span class="db db-battery">🔋 Battery (4AA)</span><span class="db db-voice">🗣️ Voice</span><span class="db db-star">⭐ Door prep req.</span>
+        </div>
+        <div class="device-release">Release Date — Circa 2021</div>
+        <div class="device-actions">
+          <a href="https://www.schlage.com/en/home/support/product-support/encode-plus.html" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+          <a href="https://www.schlage.com/en/home/support/product-support/encode-plus.html" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://www.schlage.com/en/home/support.html" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+        </div>
+      </div>
+    </div>
+    <a href="https://www.schlage.com/en/home/support.html" target="_blank" class="brand-mfr-link">↗ Visit Schlage Support</a>
+  </div>
+</div>
+</div>
+
+<!-- AMAZON ALEXA -->
+<div class="brand-section" data-brand="amazon alexa echo show hub astro robot display smart speaker" data-status="active" data-preferred="false">
+<div class="brand-card locked">
+  <div class="brand-header" onclick="return false;">
+    <div class="brand-icon">🔵</div>
+    <div class="brand-info">
+      <div class="brand-name">Amazon Alexa / Echo <span class="badge badge-active">Active</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
+      <div class="brand-meta">Smart displays · Smart speakers · Home robot · Smart home hub · App: Amazon Alexa</div>
+    </div>
+    <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+  </div>
+  <div class="brand-body">
+    <div class="device-list">
+
+      <div class="device-item">
+        <div class="device-model">B0CQKNDWX9</div>
+        <div class="device-name">Amazon Echo Show 21</div>
+        <div class="device-desc">Amazon's largest smart display at 21". Full-HD touchscreen with Fire TV built-in, auto-framing camera, WiFi 6E. Functions as a full smart home hub — Zigbee, Thread border router, and Matter controller built in. Wall-mountable with included hardware. Alexa Voice Remote included. Subscription required for some streaming services.</div>
+        <div class="device-badges">
+          <span class="db db-wifi">📶 WiFi 6E</span>
+          <span class="db db-zigbee">🔶 Zigbee Hub</span>
+          <span class="db db-thread">🟣 Thread</span>
+          <span class="db db-matter">🔷 Matter</span>
+          <span class="db db-ble">🩷 BLE</span>
+          <span class="db db-nohub">✅ No Hub Needed</span>
+          <span class="db db-wired">🔌 Wired</span>
+          <span class="db db-sub">💳 Streaming Sub ⭐</span>
+          <span class="db db-voice">🗣️ Alexa Built-In</span>
+        </div>
+        <div class="device-release">Release Date — Circa November 2024</div>
+        <div class="device-actions">
+          <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=GHU3G36PULQQMZ7G" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+          <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=G9SLHHQHGF6DVJNL" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://www.amazon.com/dp/B0CQKNDWX9" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+        </div>
+      </div>
+
+      <div class="device-item">
+        <div class="device-model">B0BLS3Y632</div>
+        <div class="device-name">Amazon Echo Show 15 (2nd Gen)</div>
+        <div class="device-desc">15.6" Full-HD smart display. Fire TV built-in with Alexa Voice Remote. WiFi 6E for fast streaming. Built-in Zigbee hub, Thread border router, and Matter controller. Designed for wall-mounting or use with optional stand (sold separately). Family calendar, widgets, and smart home controls.</div>
+        <div class="device-badges">
+          <span class="db db-wifi">📶 WiFi 6E</span>
+          <span class="db db-zigbee">🔶 Zigbee Hub</span>
+          <span class="db db-thread">🟣 Thread</span>
+          <span class="db db-matter">🔷 Matter</span>
+          <span class="db db-ble">🩷 BLE</span>
+          <span class="db db-nohub">✅ No Hub Needed</span>
+          <span class="db db-wired">🔌 Wired</span>
+          <span class="db db-sub">💳 Streaming Sub ⭐</span>
+          <span class="db db-star">⭐ Stand Sold Separately</span>
+          <span class="db db-voice">🗣️ Alexa Built-In</span>
+        </div>
+        <div class="device-release">Release Date — Circa November 2024</div>
+        <div class="device-actions">
+          <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=GHU3G36PULQQMZ7G" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+          <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=G9SLHHQHGF6DVJNL" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://www.amazon.com/dp/B0BLS3Y632" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+        </div>
+      </div>
+
+      <div class="device-item">
+        <div class="device-model">B09B2SBHQK</div>
+        <div class="device-name">Amazon Echo Show 8 (3rd/4th Gen)</div>
+        <div class="device-desc">8" HD smart display with spatial audio, 13MP auto-framing camera, and built-in smart home hub. Supports Zigbee, Thread, Matter, and Bluetooth. One of the most capable mid-size Echo displays. 3rd Gen released 2023; 4th Gen (2025) adds redesigned look, Omnisense, and AZ3 Pro chip.</div>
+        <div class="device-badges">
+          <span class="db db-wifi">📶 WiFi</span>
+          <span class="db db-zigbee">🔶 Zigbee Hub</span>
+          <span class="db db-thread">🟣 Thread</span>
+          <span class="db db-matter">🔷 Matter</span>
+          <span class="db db-ble">🩷 BLE</span>
+          <span class="db db-nohub">✅ No Hub Needed</span>
+          <span class="db db-wired">🔌 Wired</span>
+          <span class="db db-sub">💳 Streaming Sub ⭐</span>
+          <span class="db db-voice">🗣️ Alexa Built-In</span>
+        </div>
+        <div class="device-release">Release Date — Circa 2023 (3rd Gen) / 2025 (4th Gen)</div>
+        <div class="device-actions">
+          <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=GHU3G36PULQQMZ7G" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+          <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=G9SLHHQHGF6DVJNL" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://www.amazon.com/dp/B09B2SBHQK" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+        </div>
+      </div>
+
+      <div class="device-item">
+        <div class="device-model">B0BCR7MFBB</div>
+        <div class="device-name">Amazon Echo Hub</div>
+        <div class="device-desc">Amazon's first dedicated smart home control panel — not an entertainment device. 8" touchscreen purpose-built for managing your smart home. No camera, no Fire TV, no distractions. UI is front-loaded with device controls, cameras, and automations. Supports Zigbee, Thread border router, Matter, Bluetooth, WiFi, and optional Power-over-Ethernet (PoE). Wall-mountable with included bracket or stand sold separately.</div>
+        <div class="device-badges">
+          <span class="db db-wifi">📶 WiFi</span>
+          <span class="db db-zigbee">🔶 Zigbee Hub</span>
+          <span class="db db-thread">🟣 Thread</span>
+          <span class="db db-matter">🔷 Matter</span>
+          <span class="db db-ble">🩷 BLE</span>
+          <span class="db db-hub">🟡 IS the Hub</span>
+          <span class="db db-wired">🔌 Wired / PoE ⭐</span>
+          <span class="db db-star">⭐ Stand Sold Separately</span>
+          <span class="db db-voice">🗣️ Alexa Built-In</span>
+        </div>
+        <div class="device-release">Release Date — Circa February 2024</div>
+        <div class="device-actions">
+          <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=GHU3G36PULQQMZ7G" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+          <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=G9SLHHQHGF6DVJNL" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          <a href="https://www.amazon.com/dp/B0BCR7MFBB" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+        </div>
+      </div>
+
+      <div class="device-item">
+        <div class="device-model">B078NSDFSB</div>
+        <div class="device-name">Amazon Astro</div>
+        <div class="device-desc">Alexa on wheels. Amazon's home robot for monitoring, remote care, and companionship. 10" rotating display with expressive animated eyes, telescoping periscope camera (extends to 42"), autonomous room navigation and mapping, rear cargo bay for delivering items. Works with Ring for full home patrol and monitoring. Currently invite-only — not available for standard retail purchase. Battery charges in ~45 minutes. Ring Home subscription required for advanced patrol features.</div>
+        <div class="device-badges">
+          <span class="db db-wifi">📶 WiFi</span>
+          <span class="db db-ble">🩷 BLE</span>
+          <span class="db db-nohub">✅ No Hub</span>
+          <span class="db db-battery">🔋 Battery (self-charging)</span>
+          <span class="db db-sub">💳 Ring Sub for Patrol ⭐</span>
+          <span class="db db-voice">🗣️ Alexa Built-In</span>
+          <span class="db db-star">⭐ Invite-Only Purchase</span>
+        </div>
+        <div class="device-release">Release Date — Circa 2021 (Day 1 Edition — Limited Availability)</div>
+        <div class="device-actions">
+          <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=GMLBH3T5RBKZ9H2M" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+          <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=GMLBH3T5RBKZ9H2M" target="_blank" class="device-btn device-btn-ghost">🔄 Info</a>
+          <a href="https://www.amazon.com/introducing-amazon-astro/dp/B078NSDFSB" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+        </div>
+      </div>
+
+    </div>
+    <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=GSWPU79XMFZJKEK7" target="_blank" class="brand-mfr-link">↗ Visit Amazon Echo Support</a>
+  </div>
+</div>
+</div>
+
+<!-- ════ EOL ════ -->
+
+<!-- WEMO EOL -->
+<div class="brand-section" data-brand="wemo belkin plug switch f7c030 f7c063 end of life" data-status="eol" data-preferred="false">
+<div class="brand-card eol locked">
+  <div class="brand-header" onclick="return false;">
+    <div class="brand-icon">⚠️</div>
+    <div class="brand-info">
+      <div class="brand-name">Wemo (Belkin) <span class="badge badge-eol">End of Life</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
+      <div class="brand-meta">Smart plugs · Switches · App discontinued — Manual control only</div>
+    </div>
+    <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+  </div>
+  <div class="brand-body">
+    <div class="eol-notice">
+      <div class="eol-notice-icon">📴</div>
+      <div class="eol-notice-text">
+        <strong>App Support Discontinued — Circa 2023</strong>
+        Belkin shut down the Wemo cloud infrastructure and app ecosystem. These devices no longer connect to any app or voice assistant. They function as manual switches only. Some limited third-party workarounds exist via Home Assistant local integration, but severely limit functionality. Replacement with an active brand is recommended.
+        <br/><br/>
+        <a href="archived.html" class="device-btn device-btn-eol" style="display:inline-flex;margin-top:10px;">📦 Learn About EOL Devices</a>
+      </div>
+    </div>
+    <div class="device-list">
+      <div class="device-item">
+        <div class="device-model">F7C030</div>
+        <div class="device-name">Wemo Mini Smart Plug</div>
+        <div class="device-desc">Still functions as a manual plug — devices connected receive power when the physical button is pressed. App control, scheduling, voice control, and remote access are no longer available.</div>
+        <div class="device-badges">
+          <span class="db db-wifi">📶 WiFi (inactive)</span><span class="db db-wired">🔌 Wired</span>
+        </div>
+        <div class="device-release">Release Date — Circa 2016 | EOL — Circa 2023</div>
+        <div class="device-actions">
+          <button class="device-btn device-btn-ghost">📋 What Still Works</button>
+          <a href="archived.html" class="device-btn device-btn-eol">📦 EOL Info</a>
+        </div>
+      </div>
+      <div class="device-item">
+        <div class="device-model">F7C063</div>
+        <div class="device-name">Wemo Smart Light Switch</div>
+        <div class="device-desc">In-wall switch still toggles power manually. No app, no voice control, no scheduling. Operates as a standard dumb switch only.</div>
+        <div class="device-badges">
+          <span class="db db-wifi">📶 WiFi (inactive)</span><span class="db db-wired">🔌 Wired</span>
+        </div>
+        <div class="device-release">Release Date — Circa 2013 | EOL — Circa 2023</div>
+        <div class="device-actions">
+          <button class="device-btn device-btn-ghost">📋 What Still Works</button>
+          <a href="archived.html" class="device-btn device-btn-eol">📦 EOL Info</a>
+        </div>
+      </div>
     </div>
   </div>
+</div>
+</div>
 
-  <div class="wave-divider">
-    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60">
-      <path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z" fill="#ffffff"/>
-    </svg>
+</div><!-- end #brand-list -->
+
+<div class="no-results" id="no-results">
+  <div class="no-results-icon">🔍</div>
+  <h3>No results found</h3>
+  <p>Try a different search term or clear your filters.</p>
+</div>
+
+<div style="display:flex;justify-content:center;margin-top:40px;">
+  <div class="ad-slot ad-728">AD SPACE — Footer 728x90</div>
+</div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo-text">WIFI WISE GUYS</div>
+      <p>Real smart home guides from people who actually do this. Here to help — not just say we are.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Site</h4>
+      <ul>
+        <li><a href="how-tos.html">How-To's</a></li>
+        <li><a href="setup-dashboard.html">Setup Dashboard</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>On the Dashboard</h4>
+      <ul>
+        <li><a href="#" onclick="jumpTo('ring');return false;">Ring</a></li>
+        <li><a href="#" onclick="jumpTo('kasa');return false;">Kasa / TP-Link</a></li>
+        <li><a href="#" onclick="jumpTo('homey');return false;">Homey Pro</a></li>
+        <li><a href="#" onclick="jumpTo('wemo');return false;">Wemo (EOL)</a></li>
+      </ul>
+    </div>
   </div>
+  <div class="footer-bottom">
+    <span>&copy; 2025 WiFi Wise Guys. All rights reserved.</span>
+    <span class="footer-logo-text">wifiwiseguys.com</span>
+  </div>
+</footer>
 
-  <!-- MAIN CONTENT -->
-  <main class="about-main">
+<script>
 
-    <!-- BLOCK 1: The Problem -->
-    <div class="statement-block">
-      <div class="statement-label">// The Problem</div>
-      <h2>Smart home tech got complicated.<br/>The help <em>didn't keep up.</em></h2>
-      <p>
-        Manufacturers write setup guides for ideal conditions. Forums are full of half-answers from three years ago. Support pages vanish when companies pivot or close. And the people who actually know this stuff? They're hard to find.
-      </p>
-      <p>
-        Meanwhile, real people are sitting with devices they can't get working, apps that no longer exist, and no clear answer on what to do next.
-      </p>
-      <div class="pull-quote">
-        <p>"Most smart home problems aren't complicated — they just don't have a clear, honest resource pointing you in the right direction. That's the gap we're here to fill."</p>
-      </div>
-    </div>
 
-    <hr class="section-divider" />
+  function lockBrand(header) {
+    // Do nothing — brand is locked pending link verification
+    return false;
+  }
 
-    <!-- BLOCK 2: Why We Exist -->
-    <div class="statement-block">
-      <div class="statement-label">// Why We Exist</div>
-      <h2>Not here to impress you.<br/>The Technology does that.<br/> We're here to <em>actually help.</em></h2>
-      <p>
-        WiFi Wise Guys was built out of a simple frustration: too many people claiming to offer help, and not enough people following through on it. This site exists to be the resource that doesn't let you down.
-      </p>
-      <p>
-        No fluff. No content written to rank on Google and say nothing. No guides that stop halfway through and tell you to "consult a professional." Just real information, written clearly, for people who want to understand what they're working with.
-      </p>
-      <p>
-        Whether you're setting up your first smart plug or integrating a full Homey Pro ecosystem — you deserve guides that actually get you to the finish line.
-      </p>
-    </div>
 
-    <hr class="section-divider" />
+function toggleBrand(header) {
+  const card = header.closest('.brand-card');
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.brand-card.open').forEach(c => c.classList.remove('open'));
+  if (!isOpen) card.classList.add('open');
+}
 
-    <!-- BLOCK 3: What We Believe -->
-    <div class="statement-block">
-      <div class="statement-label">// What We Believe</div>
-      <h2>A few things we won't<br/><em>compromise on.</em></h2>
+const searchInput = document.getElementById('search-input');
+const filterTabs = document.querySelectorAll('.filter-tab');
+const brandSections = document.querySelectorAll('.brand-section[data-brand]:not(.ad-infeed-slot)');
+const adSlots = document.querySelectorAll('.ad-infeed-slot');
+const noResults = document.getElementById('no-results');
+const resultsCount = document.getElementById('results-count');
+let currentFilter = 'all';
 
-      <div class="beliefs-grid">
-        <div class="belief-card">
-          <span class="belief-icon">🎯</span>
-          <h3>Straight answers only</h3>
-          <p>If the answer is simple, we give you the simple answer. If it's complicated, we explain why — and walk you through it.</p>
-        </div>
-        <div class="belief-card">
-          <span class="belief-icon">🔒</span>
-          <h3>We host what we know</h3>
-          <p>Manufacturer links break. Companies close. We keep the information here so you're not chasing dead pages when you need help most.</p>
-        </div>
-        <div class="belief-card">
-          <span class="belief-icon">📴</span>
-          <h3>Honest about end-of-life</h3>
-          <p>If a device is dead, we'll tell you. We document what still works, what doesn't, and what your real options are — no sugarcoating.</p>
-        </div>
-        <div class="belief-card">
-          <span class="belief-icon">🤝</span>
-          <h3>Help first, everything else second</h3>
-          <p>This site exists to be useful. That's the whole point. Everything else — the design, the content strategy, the structure — serves that one goal.</p>
-        </div>
-      </div>
-    </div>
+function updateDashboard() {
+  let visible = 0;
+  const q = searchInput.value.toLowerCase().trim();
+  brandSections.forEach(section => {
+    const matchSearch = q === '' || section.dataset.brand.toLowerCase().includes(q);
+    const status = section.dataset.status;
+    const preferred = section.dataset.preferred === 'true';
+    const matchFilter =
+      currentFilter === 'all' ||
+      (currentFilter === 'active' && status === 'active') ||
+      (currentFilter === 'eol' && status === 'eol') ||
+      (currentFilter === 'preferred' && preferred);
+    if (matchSearch && matchFilter) {
+      section.style.display = '';
+      visible++;
+    } else {
+      section.style.display = 'none';
+      const card = section.querySelector('.brand-card');
+      if (card) card.classList.remove('open');
+    }
+  });
+  adSlots.forEach(ad => ad.style.display = visible > 0 ? '' : 'none');
+  noResults.style.display = visible === 0 ? 'block' : 'none';
+  resultsCount.textContent = visible === brandSections.length
+    ? 'Showing all ' + brandSections.length + ' brands'
+    : 'Showing ' + visible + ' of ' + brandSections.length + ' brands';
+}
 
-    <hr class="section-divider" />
+searchInput.addEventListener('input', updateDashboard);
 
-    <!-- BLOCK 4: What's Here -->
-    <div class="statement-block">
-      <div class="statement-label">// What's Here</div>
-      <h2>Three things worth<br/><em>knowing about.</em></h2>
-      <p>
-        <strong>How-To Guides</strong> — step-by-step walkthroughs for setup, reset, troubleshooting, and integration across 30+ brands. Quick answers up top, deeper dives when you need them.
-      </p>
-      <p>
-        <strong>Setup Dashboard</strong> — a searchable library organized by brand and model number. Active devices, archived products, and end-of-life guides — all in one place, all maintained here.
-      </p>
-      <p>
-        <strong>Community Q&A</strong> — ask questions, get real answers. Moderated so it stays useful. No bots, no spam, no noise.
-      </p>
-    </div>
+filterTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    filterTabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentFilter = tab.dataset.filter;
+    updateDashboard();
+  });
+});
 
-    <!-- CTA -->
-    <div class="about-cta">
-      <div class="about-cta-inner">
-        <div>
-          <h3>Ready to find what you're looking for?</h3>
-          <p>Start with the guides, search the dashboard, or ask a question. We're here to help — not just say we are.</p>
-        </div>
-        <div class="cta-buttons">
-          <a href="how-tos.html" class="btn-white">Browse How-To's →</a>
-          <a href="setup-dashboard.html" class="btn-outline-white">Setup Dashboard</a>
-        </div>
-      </div>
-    </div>
+function jumpTo(term) {
+  searchInput.value = term;
+  currentFilter = 'all';
+  filterTabs.forEach(t => t.classList.remove('active'));
+  document.querySelector('[data-filter="all"]').classList.add('active');
+  updateDashboard();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="footer-logo-text">WIFI WISE GUYS</div>
-        <p>Real smart home guides from people who actually do this. Here to help — not just say we are.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Site</h4>
-        <ul>
-          <li><a href="how-tos.html">How-To's</a></li>
-          <li><a href="setup-dashboard.html">Setup Dashboard</a></li>
-          <li><a href="about.html">About</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Popular Topics</h4>
-        <ul>
-          <li><a href="#">Wemo End-of-Life</a></li>
-          <li><a href="#">Kasa Setup Guides</a></li>
-          <li><a href="#">Homey Pro</a></li>
-          <li><a href="#">Mesh WiFi</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2025 WiFi Wise Guys. All rights reserved.</span>
-      <span class="footer-logo-text">wifiwiseguys.com</span>
-    </div>
-  </footer>
-
+updateDashboard();
+</script>
 </body>
 </html>
