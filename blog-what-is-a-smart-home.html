@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>What Is a Smart Home? | WiFi Wise Guys Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&family=Space+Mono&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --blue: #1a6fc4; --blue-dark: #0d4a8a; --blue-light: #e8f1fb;
+      --white: #ffffff; --text: #1a1a2e; --muted: #5a6a7a; --rule: #c8d8ea;
+      --border: #d6eaf8; --blue-mid: #cce8f7; --ink: #111111; --ink-soft: #444444; --ink-muted: #888888;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--text); line-height: 1.75; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 70px; font-family: 'DM Sans', sans-serif; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo svg { width: 44px; height: 44px; }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 0.95rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.02em; transition: color 0.2s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 2px; background: var(--blue); transform: scaleX(0); transition: transform 0.2s; }
+    .nav-links a:hover { color: var(--blue); } .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links a.active { color: var(--blue); } .nav-links a.active::after { transform: scaleX(1); }
+    .nav-cta { background: var(--blue) !important; color: var(--white) !important; padding: 10px 22px; border-radius: 8px; }
+    .nav-cta::after { display: none !important; } .nav-cta:hover { background: var(--blue-dark) !important; }
+    .affiliate-bar { background: var(--blue-light); border-bottom: 1px solid var(--blue-mid); text-align: center; padding: 10px 24px; font-size: 0.78rem; color: var(--ink-soft); font-family: 'Space Mono', monospace; line-height: 1.5; margin-top: 70px; }
+    .blog-header { background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%); color: var(--white); padding: 60px 24px 48px; text-align: center; }
+    .blog-header .label { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-bottom: 16px; }
+    .blog-header h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 7vw, 4rem); line-height: 1.05; letter-spacing: 0.02em; margin-bottom: 20px; }
+    .blog-header .sub { font-size: 1rem; color: rgba(255,255,255,0.75); max-width: 520px; margin: 0 auto; }
+    article { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+    article p { margin-bottom: 1.5rem; font-size: 1.05rem; color: var(--text); }
+    article h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.04em; color: var(--blue-dark); margin: 2.5rem 0 1rem; border-left: 4px solid var(--blue); padding-left: 14px; }
+    .pullquote { border-left: 3px solid var(--blue); background: var(--blue-light); padding: 18px 22px; margin: 2rem 0; font-family: 'Space Mono', monospace; font-size: 0.92rem; color: var(--blue-dark); line-height: 1.6; }
+    .example-box { background: var(--blue-light); border: 1px solid var(--rule); border-radius: 6px; padding: 20px 24px; margin: 1.5rem 0; }
+    .example-box .device { font-family: 'Space Mono', monospace; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--blue); margin-bottom: 6px; }
+    .example-box p { margin-bottom: 0; font-size: 0.97rem; }
+    hr.section-rule { border: none; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 600; color: var(--blue); text-decoration: none; margin: 32px 24px 0; }
+    .back-link:hover { color: var(--blue-dark); }
+    footer { background: var(--ink); color: rgba(255,255,255,0.6); padding: 60px 40px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; }
+    .footer-brand p { font-size: 0.9rem; line-height: 1.7; margin-top: 16px; max-width: 280px; }
+    .footer-col h4 { font-size: 0.85rem; font-weight: 700; color: var(--white); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { text-decoration: none; color: rgba(255,255,255,0.5); font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom { max-width: 1200px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; flex-wrap: wrap; gap: 12px; }
+    .footer-logo-text { font-family: 'Space Mono', monospace; font-size: 0.78rem; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; }
+    .footer-affiliate { font-size: 0.75rem; color: rgba(255,255,255,0.3); max-width: 1200px; margin: 16px auto 0; font-family: 'Space Mono', monospace; }
+    @media(max-width:900px) {
+      nav { padding: 0 20px; } .nav-links { display: none; }
+      .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg viewBox="0 0 44 44" fill="none"><path d="M6 20L22 7L38 20V38H28V28H16V38H6V20Z" stroke="#0076c0" stroke-width="2.5" stroke-linejoin="round" fill="none"/><circle cx="6" cy="20" r="2.5" fill="#0076c0"/><circle cx="22" cy="7" r="2.5" fill="#0076c0"/><circle cx="38" cy="20" r="2.5" fill="#0076c0"/><circle cx="22" cy="30" r="2.5" fill="#0076c0"/><path d="M17 10.5 Q22 5 27 10.5" stroke="#0076c0" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="setup-dashboard.html">Setup Dashboard</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="blog.html" class="nav-cta">Read the Blog</a></li>
+  </ul>
+</nav>
+
+<div class="affiliate-bar">
+  Just a heads up — links on this site may earn WiFi Wise Guys a small commission if you make a purchase, at zero cost to you. Those commissions help keep the site updated with new products and devices. We only link to stuff we'd actually recommend.
+</div>
+
+<a href="blog.html" class="back-link">← Back to Blog</a>
+
+<header class="blog-header">
+  <div class="label">WiFi Wise Guys — Blog</div>
+  <h1>What Is a Smart Home?<br>What Makes It Smart?<br>When Did Smart Homes Begin?</h1>
+  <p class="sub">The answer might be a lot older — and a lot simpler — than you think.</p>
+</header>
+
+<article>
+
+  <p>Let's start with something ridiculous: a bucket of water balanced over an open door. Someone opens the door, the bucket tips, and they get soaked. No electricity. No app. No Wi-Fi. But something happened automatically, triggered by an event, without any human in the loop at that moment. Is that smart?</p>
+
+  <p>That's not just a joke opener — it's actually the right place to start this conversation. Because the word "smart" gets thrown around constantly in the tech world, and most people assume it means connected to the internet, controlled by an app, or compatible with Alexa. But that definition leaves out a lot of devices that have been doing impressive things for decades.</p>
+
+  <h2>Before "Smart" Was a Word</h2>
+
+  <p>The term "smart home" was actually coined in 1984 by the American Association of House Builders. But automated home functions go back much further than that. The real question isn't when someone labeled it — it's when things started happening on their own.</p>
+
+  <p>Think about the manual punch-code door lock. No key required. Anyone with the right code gets in. That technology has been around in commercial buildings for decades — long before smartphones, long before apps. Is that a smart lock? It's keyless, code-based, and access-controlled. It's doing exactly what a modern smart lock does. The only thing it's missing is Bluetooth and a notification on your phone.</p>
+
+  <div class="pullquote">
+    "Smart" doesn't require the internet. It requires automation — something responding to a condition, a trigger, or a rule, without needing a human to flip the switch in real time.
+  </div>
+
+  <h2>The Trigger Is Everything</h2>
+
+  <p>Here's the thread that connects all of these devices, old and new: the trigger.</p>
+
+  <p>A dusk-to-dawn light bulb turns on when it gets dark enough outside and turns off when daylight returns. No app. No Wi-Fi. No subscription. A tiny photosensor reads the light level, and when it crosses a threshold, it acts. That's automation. That's a trigger doing exactly what you'd tell it to do if you were standing there yourself.</p>
+
+  <div class="example-box">
+    <div class="device">Example — Holiday Light Timer</div>
+    <p>Those dial timers you'd plug your Christmas lights into? Some used a built-in clock — hit a set time, lights come on; hit another, they go off. Others had a photosensor, same as the dusk-to-dawn bulb. No Wi-Fi. No app. But they were responding to a condition and taking action. Sound familiar?</p>
+  </div>
+
+  <div class="example-box">
+    <div class="device">Example — Old-School Thermostat</div>
+    <p>The basic thermostat — the round dial kind that's been on walls since the 1950s — had a thermometer built in. When the temperature dropped below your setting, it triggered the heat to come on. When it hit your target, it shut off. No voice control. No app. No internet. But it was reading a condition and responding automatically. By any logical definition, that's a smart function.</p>
+  </div>
+
+  <hr class="section-rule"/>
+
+  <h2>So Does It Need an App to Be Smart?</h2>
+
+  <p>No. But here's where it gets interesting.</p>
+
+  <p>Modern thermostats — your Nest, your Ecobee — do everything the old dial thermostat did, and then layer on top of it: Wi-Fi connectivity, a companion app, usage history, scheduling, geofencing, voice assistant integration. The core function is the same. The intelligence is the same. What's new is the <em>reach</em> — the ability to interact with that device when you're not standing in front of it.</p>
+
+  <p>That's the real evolution of the smart home: not the automation itself, but remote awareness and control. The device was already reacting to the world. Now it can also talk to you about it — and you can talk back from anywhere on the planet.</p>
+
+  <h2>When Did "Smart Home" Go Mainstream?</h2>
+
+  <p>The term existed in 1984, but it lived in trade publications and custom-built homes for wealthy buyers. It didn't hit everyday households until two things happened together: broadband internet became common in the early 2000s, and smartphones put a connected computer in everyone's pocket after 2007.</p>
+
+  <p>Once you had always-on internet and a touchscreen in your hand, the concept exploded. Suddenly the gap between "device on my wall" and "device I can control from my couch, my car, or my vacation" became bridgeable for regular people — not just tech enthusiasts with custom wiring and a dedicated server room in the basement.</p>
+
+  <p>The last ten years have accelerated it further. Matter and Thread protocols are now creating a common language between devices from different manufacturers. Mesh Wi-Fi means the network itself is smarter. And hubs like Homey Pro can tie together Zigbee, Z-Wave, Wi-Fi, Bluetooth, and infrared devices under one roof, in one app, without everything needing to be the same brand.</p>
+
+  <h2>So What Actually Makes a Home "Smart"?</h2>
+
+  <p>Here's the honest answer: any device that responds to a condition, a schedule, or a trigger without requiring you to manually operate it in that moment is doing something smart. The dusk-to-dawn bulb. The old dial timer. The thermostat from 1970. They were all smart in function, even if no one called them that.</p>
+
+  <p>What the modern smart home adds is three things: connectivity (the device can communicate with other devices and with you remotely), awareness (you know what it's doing and when), and integration (devices work together, not just individually). That's the leap from a clever appliance to a home ecosystem.</p>
+
+  <p>But never let anyone tell you that smart home tech is brand new. We've had devices reacting to the world around them for longer than most people realize. The internet just made us aware of it — and gave us the ability to be part of the conversation, even from a thousand miles away.</p>
+
+</article>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo-text">WIFI WISE GUYS</div>
+      <p>Real smart home guides from people who actually do this. Here to help — not just say we are.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Site</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="setup-dashboard.html">Setup Dashboard</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>More Posts</h4>
+      <ul>
+        <li><a href="blog.html">← All Posts</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 WiFi Wise Guys. All rights reserved.</span>
+    <span class="footer-logo-text">wifiwiseguys.com</span>
+  </div>
+  <div class="footer-affiliate">Affiliate disclosure: Some links on this site may earn a commission at no cost to you.</div>
+</footer>
+
+</body>
+</html>
