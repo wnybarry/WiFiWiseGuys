@@ -213,23 +213,26 @@
       .dashboard-main { padding: 32px 20px 80px; } .device-list { grid-template-columns: 1fr; }
       .footer-inner { grid-template-columns: 1fr; gap: 40px; } h1 { font-size: 2.2rem; }
     }
+    .affiliate-bar { background: var(--blue-light); border-bottom: 1px solid var(--blue-mid); text-align: center; padding: 10px 24px; font-size: 0.78rem; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; line-height: 1.5; }
   </style>
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
 
   <nav>
-    <a class="nav-logo" onclick="showPage('home')">
+    <a class="nav-logo" href="index.html">
       <svg viewBox="0 0 44 44" fill="none"><path d="M6 20L22 7L38 20V38H28V28H16V38H6V20Z" stroke="#0076c0" stroke-width="2.5" stroke-linejoin="round" fill="none"/><circle cx="6" cy="20" r="2.5" fill="#0076c0"/><circle cx="22" cy="7" r="2.5" fill="#0076c0"/><circle cx="38" cy="20" r="2.5" fill="#0076c0"/><circle cx="22" cy="30" r="2.5" fill="#0076c0"/><path d="M17 10.5 Q22 5 27 10.5" stroke="#0076c0" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
     </a>
     <ul class="nav-links">
-      <a href="blog.html">How-To's</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
       <li><a href="setup-dashboard.html">Setup Dashboard</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="blog.html" class="nav-cta">Read the Blog</a></li>
-      
     </ul>
   </nav>
+<div class="affiliate-bar">
+  Just a heads up — links on this site may earn WiFi Wise Guys a small commission if you make a purchase, at zero cost to you. Those commissions help keep the site updated with new products and devices. We only link to stuff we'd actually recommend.
+</div>
 
   <!-- HOME -->
   <div id="page-home" class="page active">
@@ -241,8 +244,7 @@
           <p class="hero-sub">Real guides, honest answers, and a full device library — so you spend less time troubleshooting and more time enjoying the tech you bought.</p>
           <div class="hero-actions">
             <a href="blog.html" class="btn-primary">Read the Blog →</a>
-            <a href="setup-dashboard.html" class="btn-ghost">Setup Dashboard</a>
-         
+            <button class="btn-ghost" href="setup-dashboard.html">Setup Dashboard</button>
           </div>
         </div>
         <div class="hero-visual">
@@ -274,7 +276,7 @@
       <div class="section-inner">
         <div class="posts-header">
           <div><p class="section-label">// Latest How-To's</p><h2 class="section-title" style="margin-bottom:0">Fresh from the guides.</h2></div>
-          <span class="view-all">View all guides →</span>
+          <a href="blog.html" class="view-all">View all guides →</a>
         </div>
         <div class="posts-grid">
           <div class="post-card featured"><div class="post-thumb"><div class="post-thumb-pattern"></div><span class="post-thumb-label">End of Life · Wemo</span></div><div class="post-body"><div class="post-tag">End of Life</div><h3>What Happened to Wemo? Understanding Smart Home End-of-Life Support</h3><p>Belkin pulled the plug on the Wemo app ecosystem. Here's exactly what your device can still do, what it can't, and whether it's worth replacing.</p><div class="post-meta"><span>📅</span> WiFi Wise Guys · First Post</div></div></div>
@@ -286,10 +288,10 @@
     <section class="dashboard-cta">
       <div class="dashboard-cta-inner">
         <div><h2>Need info on a specific device?<br/>That's what the Setup Dashboard is for.</h2><p>Search by brand or model number. Find setup guides, reset instructions, app links, and compatibility notes — for current devices and the ones manufacturers forgot about.</p></div>
-        <button class="btn-white" onclick="showPage('dashboard')">Open Setup Dashboard →</button>
+        <a href="setup-dashboard.html" class="btn-white">Open Setup Dashboard →</a>
       </div>
     </section>
-    <footer><div class="footer-inner"><div class="footer-brand"><div class="footer-logo-text">WIFI WISE GUYS</div><p>Real smart home guides from people who actually do this. Here to help — not just say we are.</p></div><div class="footer-col"><h4>Site</h4><ul><li><a onclick="showPage('home')">How-To's</a></li><li><a onclick="showPage('dashboard')">Setup Dashboard</a></li><li><a onclick="showPage('about')">About</a></li></ul></div><div class="footer-col"><h4>Popular Topics</h4><ul><li><a onclick="showPage('dashboard')">Wemo End-of-Life</a></li><li><a onclick="showPage('dashboard')">Kasa Setup Guides</a></li><li><a onclick="showPage('dashboard')">Homey Pro</a></li><li><a onclick="showPage('dashboard')">Mesh WiFi</a></li></ul></div></div><div class="footer-bottom"><span>© 2025 WiFi Wise Guys. All rights reserved.</span><span class="footer-logo-text">wifiwiseguys.com</span></div></footer>
+    <footer><div class="footer-inner"><div class="footer-brand"><div class="footer-logo-text">WIFI WISE GUYS</div><p>Real smart home guides from people who actually do this. Here to help — not just say we are.</p></div><div class="footer-col"><h4>Site</h4><ul><li><a href="blog.html">Blog</a></li><li><a href="setup-dashboard.html">Setup Dashboard</a></li><li><a href="about.html">About</a></li></ul></div><div class="footer-col"><h4>Popular Topics</h4><ul><li><a href="setup-dashboard.html">Wemo End-of-Life</a></li><li><a href="setup-dashboard.html">Kasa Setup Guides</a></li><li><a href="setup-dashboard.html">Homey Pro</a></li><li><a href="setup-dashboard.html">Mesh WiFi</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 WiFi Wise Guys. All rights reserved.</span><span class="footer-logo-text">wifiwiseguys.com</span></div></footer>
   </div>
 
   <!-- ABOUT -->
@@ -304,9 +306,9 @@
       <div class="statement-block"><div class="statement-label">// What We Believe</div><h2>A few things we won't<br/><em>compromise on.</em></h2><div class="beliefs-grid"><div class="belief-card"><span class="belief-icon">🎯</span><h3>Straight answers only</h3><p>If the answer is simple, we give you the simple answer. If it's complicated, we explain why — and walk you through it.</p></div><div class="belief-card"><span class="belief-icon">🔒</span><h3>We host what we know</h3><p>Manufacturer links break. Companies close. We keep the information here so you're not chasing dead pages when you need help most.</p></div><div class="belief-card"><span class="belief-icon">📴</span><h3>Honest about end-of-life</h3><p>If a device is dead, we'll tell you. We document what still works, what doesn't, and what your real options are — no sugarcoating.</p></div><div class="belief-card"><span class="belief-icon">🤝</span><h3>Help first, everything else second</h3><p>This site exists to be useful. That's the whole point. Everything else — the design, the content strategy, the structure — serves that one goal.</p></div></div></div>
       <hr class="section-divider"/>
       <div class="statement-block"><div class="statement-label">// What's Here</div><h2>Three things worth<br/><em>knowing about.</em></h2><p><strong>How-To Guides</strong> — step-by-step walkthroughs for setup, reset, troubleshooting, and integration across 30+ brands. Quick answers up top, deeper dives when you need them.</p><p><strong>Setup Dashboard</strong> — a searchable library organized by brand and model number. Active devices, archived products, and end-of-life guides — all in one place, all maintained here.</p><p><strong>Community Q&amp;A</strong> — ask questions, get real answers. Moderated so it stays useful. No bots, no spam, no noise.</p></div>
-      <div class="about-cta"><div class="about-cta-inner"><div><h3>Ready to find what you're looking for?</h3><p>Start with the guides, search the dashboard, or ask a question. We're here to help — not just say we are.</p></div><div class="cta-buttons"><button class="btn-white" onclick="showPage('home')">Browse How-To's →</button><button class="btn-outline-white" onclick="showPage('dashboard')">Setup Dashboard</button></div></div></div>
+      <div class="about-cta"><div class="about-cta-inner"><div><h3>Ready to find what you're looking for?</h3><p>Start with the guides, search the dashboard, or ask a question. We're here to help — not just say we are.</p></div><div class="cta-buttons"><a href="blog.html" class="btn-white">Read the Blog →</a><button class="btn-outline-white" href="setup-dashboard.html">Setup Dashboard</button></div></div></div>
     </main>
-    <footer><div class="footer-inner"><div class="footer-brand"><div class="footer-logo-text">WIFI WISE GUYS</div><p>Real smart home guides from people who actually do this. Here to help — not just say we are.</p></div><div class="footer-col"><h4>Site</h4><ul><li><a onclick="showPage('home')">How-To's</a></li><li><a onclick="showPage('dashboard')">Setup Dashboard</a></li><li><a onclick="showPage('about')">About</a></li></ul></div><div class="footer-col"><h4>Popular Topics</h4><ul><li><a onclick="showPage('dashboard')">Wemo End-of-Life</a></li><li><a onclick="showPage('dashboard')">Kasa Setup Guides</a></li><li><a onclick="showPage('dashboard')">Homey Pro</a></li></ul></div></div><div class="footer-bottom"><span>© 2025 WiFi Wise Guys. All rights reserved.</span><span class="footer-logo-text">wifiwiseguys.com</span></div></footer>
+    <footer><div class="footer-inner"><div class="footer-brand"><div class="footer-logo-text">WIFI WISE GUYS</div><p>Real smart home guides from people who actually do this. Here to help — not just say we are.</p></div><div class="footer-col"><h4>Site</h4><ul><li><a href="blog.html">Blog</a></li><li><a href="setup-dashboard.html">Setup Dashboard</a></li><li><a href="about.html">About</a></li></ul></div><div class="footer-col"><h4>Popular Topics</h4><ul><li><a href="setup-dashboard.html">Wemo End-of-Life</a></li><li><a href="setup-dashboard.html">Kasa Setup Guides</a></li><li><a href="setup-dashboard.html">Homey Pro</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 WiFi Wise Guys. All rights reserved.</span><span class="footer-logo-text">wifiwiseguys.com</span></div></footer>
   </div>
 
   <!-- DASHBOARD -->
@@ -330,7 +332,7 @@
       </div>
       <div class="no-results" id="no-results"><div class="no-results-icon">🔍</div><h3>No results found</h3><p>Try a different search term or clear your filters.</p></div>
     </main>
-    <footer><div class="footer-inner"><div class="footer-brand"><div class="footer-logo-text">WIFI WISE GUYS</div><p>Real smart home guides from people who actually do this. Here to help — not just say we are.</p></div><div class="footer-col"><h4>Site</h4><ul><li><a onclick="showPage('home')">How-To's</a></li><li><a onclick="showPage('dashboard')">Setup Dashboard</a></li><li><a onclick="showPage('about')">About</a></li></ul></div><div class="footer-col"><h4>On the Dashboard</h4><ul><li><a onclick="showPage('dashboard')">Ring</a></li><li><a onclick="showPage('dashboard')">Kasa / TP-Link</a></li><li><a onclick="showPage('dashboard')">Wemo (EOL)</a></li></ul></div></div><div class="footer-bottom"><span>© 2025 WiFi Wise Guys. All rights reserved.</span><span class="footer-logo-text">wifiwiseguys.com</span></div></footer>
+    <footer><div class="footer-inner"><div class="footer-brand"><div class="footer-logo-text">WIFI WISE GUYS</div><p>Real smart home guides from people who actually do this. Here to help — not just say we are.</p></div><div class="footer-col"><h4>Site</h4><ul><li><a href="blog.html">Blog</a></li><li><a href="setup-dashboard.html">Setup Dashboard</a></li><li><a href="about.html">About</a></li></ul></div><div class="footer-col"><h4>On the Dashboard</h4><ul><li><a href="setup-dashboard.html">Ring</a></li><li><a href="setup-dashboard.html">Kasa / TP-Link</a></li><li><a href="setup-dashboard.html">Wemo (EOL)</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 WiFi Wise Guys. All rights reserved.</span><span class="footer-logo-text">wifiwiseguys.com</span></div></footer>
   </div>
 
   <script>
