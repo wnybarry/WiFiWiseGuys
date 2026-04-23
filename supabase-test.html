@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Supabase Connection Test — WiFi Wise Guys</title>
+  <style>
+    body {
+      font-family: monospace;
+      background: #0a0a0a;
+      color: #e0e0e0;
+      padding: 40px 24px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    h1 { color: #0076c0; font-size: 1.2rem; margin-bottom: 8px; }
+    .label { color: #888; font-size: 0.85rem; margin-bottom: 24px; }
+    .card {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .success { border-color: #1a7a3a; background: #0a1f0f; }
+    .error   { border-color: #7a1a1a; background: #1f0a0a; }
+    .pending { border-color: #555; }
+    .status {
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .status.ok  { color: #4ade80; }
+    .status.err { color: #f87171; }
+    .status.wait { color: #888; }
+    .detail { font-size: 0.8rem; color: #aaa; line-height: 1.6; }
+    .result-list { list-style: none; padding: 0; margin: 8px 0 0; }
+    .result-list li {
+      padding: 6px 10px;
+      background: #111;
+      border-radius: 4px;
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+      color: #ccc;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      border-radius: 100px;
+      margin-left: 8px;
+      background: #0076c0;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<h1>// WiFi Wise Guys — Supabase Connection Test</h1>
+<div class="label">This page verifies your database is reachable and tables exist.</div>
+
+<div class="card pending" id="card-conn">
+  <div class="status wait" id="status-conn">⏳ Connecting to Supabase...</div>
+  <div class="detail" id="detail-conn">Attempting to reach your project at gzztnlczalfrjxcfhrwi.supabase.co</div>
+</div>
+
+<div class="card pending" id="card-brands">
+  <div class="status wait" id="status-brands">⏳ Querying brands table...</div>
+  <div class="detail" id="detail-brands">Waiting for connection...</div>
+</div>
+
+<div class="card pending" id="card-tables">
+  <div class="status wait" id="status-tables">⏳ Checking all tables...</div>
+  <div class="detail" id="detail-tables">Waiting for connection...</div>
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://gzztnlczalfrjxcfhrwi.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_omx8dy776wtw8Rj7-FHPgw_3FsyqKe2';
+
+  const headers = {
+    'apikey': SUPABASE_KEY,
+    'Authorization': `Bearer ${SUPABASE_KEY}`,
+    'Content-Type': 'application/json'
+  };
+
+  function setCard(id, state, statusText, detailHTML) {
+    const card = document.getElementById('card-' + id);
+    const status = document.getElementById('status-' + id);
+    const detail = document.getElementById('detail-' + id);
+    card.className = 'card ' + (state === 'ok' ? 'success' : state === 'err' ? 'error' : 'pending');
+    status.className = 'status ' + (state === 'ok' ? 'ok' : state === 'err' ? 'err' : 'wait');
+    status.textContent = statusText;
+    detail.innerHTML = detailHTML;
+  }
+
+  async function runTests() {
+    // Test 1 — basic connection via brands table
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/brands?select=id&limit=1`, { headers });
+
+      if (res.ok) {
+        setCard('conn', 'ok', '✅ Connected to Supabase', 
+          `HTTP ${res.status} — Project: gzztnlczalfrjxcfhrwi.supabase.co`);
+      } else {
+        const err = await res.text();
+        setCard('conn', 'err', `❌ Connection failed (HTTP ${res.status})`, err);
+        setCard('brands', 'err', '❌ Skipped', 'Connection failed.');
+        setCard('tables', 'err', '❌ Skipped', 'Connection failed.');
+        return;
+      }
+    } catch (e) {
+      setCard('conn', 'err', '❌ Network error', e.message);
+      return;
+    }
+
+    // Test 2 — query brands table
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/brands?select=*`, { headers });
+      const data = await res.json();
+
+      if (res.ok) {
+        if (data.length === 0) {
+          setCard('brands', 'ok', '✅ Brands table reachable (empty)',
+            'Table exists and is queryable. No rows yet — that\'s expected.');
+        } else {
+          const items = data.map(b => `<li>${b.name || b.id} <span class="tag">id: ${b.id}</span></li>`).join('');
+          setCard('brands', 'ok', `✅ Brands table — ${data.length} row(s) found`,
+            `<ul class="result-list">${items}</ul>`);
+        }
+      } else {
+        setCard('brands', 'err', '❌ Brands query failed', JSON.stringify(data));
+      }
+    } catch (e) {
+      setCard('brands', 'err', '❌ Error querying brands', e.message);
+    }
+
+    // Test 3 — check all 6 tables exist
+    const tables = ['brands', 'categories', 'devices', 'device_badges', 'guides', 'blog_posts'];
+    const results = [];
+
+    for (const table of tables) {
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=id&limit=1`, { headers });
+        results.push({ table, ok: res.ok, status: res.status });
+      } catch (e) {
+        results.push({ table, ok: false, status: 'error' });
+      }
+    }
+
+    const allOk = results.every(r => r.ok);
+    const listHTML = results.map(r =>
+      `<li>${r.ok ? '✅' : '❌'} ${r.table} <span class="tag">HTTP ${r.status}</span></li>`
+    ).join('');
+
+    setCard('tables', allOk ? 'ok' : 'err',
+      allOk ? '✅ All 6 tables verified' : '⚠️ Some tables had issues',
+      `<ul class="result-list">${listHTML}</ul>`);
+  }
+
+  runTests();
+</script>
+</body>
+</html>
