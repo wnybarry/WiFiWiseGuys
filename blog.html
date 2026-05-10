@@ -65,8 +65,28 @@
     .footer-bottom { max-width: 1200px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; flex-wrap: wrap; gap: 12px; }
     .footer-logo-text { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; }
     .footer-affiliate { font-size: 0.75rem; color: rgba(255,255,255,0.3); max-width: 1200px; margin: 16px auto 0; font-family: 'JetBrains Mono', monospace; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; transition: all 0.3s; }
+    .mobile-menu { display: none; position: fixed; top: 70px; left: 0; right: 0; background: var(--white); border-bottom: 1px solid var(--border); z-index: 99; padding: 16px 20px; flex-direction: column; gap: 4px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { text-decoration: none; font-size: 1rem; font-weight: 600; color: var(--ink-soft); padding: 12px 16px; border-radius: 8px; transition: background 0.2s, color 0.2s; }
+    .mobile-menu a:hover { background: var(--blue-light); color: var(--blue); }
+    .mobile-menu a.active { color: var(--blue); }
+    .mobile-menu .mobile-cta { background: var(--blue); color: var(--white) !important; text-align: center; margin-top: 8px; }
+    .mobile-menu .mobile-cta:hover { background: var(--blue-dark) !important; }
+    /* AFFILIATE STRIP */
+    .affiliate-strip { background: var(--blue-light); border-top: 1px solid var(--blue-mid); border-bottom: 1px solid var(--blue-mid); padding: 40px; }
+    .affiliate-strip-inner { max-width: 1200px; margin: 0 auto; }
+    .strip-header { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 600; color: var(--blue); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 6px; }
+    .strip-subhead { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 28px; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
+    .product-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 18px 16px; text-decoration: none; display: flex; flex-direction: column; gap: 8px; transition: border-color 0.2s, box-shadow 0.2s; }
+    .product-card:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(0,118,192,0.1); }
+    .product-name { font-size: 0.87rem; font-weight: 700; color: var(--ink); line-height: 1.3; }
+    .product-price { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--blue); font-weight: 600; }
+    .product-cta { font-size: 0.78rem; font-weight: 700; color: var(--blue-dark); margin-top: auto; padding-top: 4px; }
     @media(max-width:900px) {
-      nav { padding: 0 20px; } .nav-links { display: none; }
+      nav { padding: 0 20px; } .nav-links { display: none; } .hamburger { display: flex; }
       .page-header { padding: 60px 20px 60px; }
       .blog-main { padding: 32px 20px 80px; }
       .post-card-inner { padding: 22px; }
@@ -81,12 +101,22 @@
     <svg viewBox="0 0 44 44" fill="none"><path d="M6 20L22 7L38 20V38H28V28H16V38H6V20Z" stroke="#0076c0" stroke-width="2.5" stroke-linejoin="round" fill="none"/><circle cx="6" cy="20" r="2.5" fill="#0076c0"/><circle cx="22" cy="7" r="2.5" fill="#0076c0"/><circle cx="38" cy="20" r="2.5" fill="#0076c0"/><circle cx="22" cy="30" r="2.5" fill="#0076c0"/><path d="M17 10.5 Q22 5 27 10.5" stroke="#0076c0" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
   </a>
   <ul class="nav-links">
-    <li><a href="setup-dashboard.html">Setup Dashboard</a></li>
     <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="setup-dashboard.html">Setup Dashboard</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="blog.html" class="nav-cta">Read the Blog</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="blog.html" class="active">Blog</a>
+  <a href="setup-dashboard.html">Setup Dashboard</a>
+  <a href="about.html">About</a>
+  <a href="blog.html" class="mobile-cta">Read the Blog</a>
+</div>
 
 <div class="affiliate-bar">
   Just a heads up — links on this site may earn WiFi Wise Guys a small commission if you make a purchase, at zero cost to you. Those commissions help keep the site updated with new products and devices. We only link to stuff we'd actually recommend.
@@ -116,9 +146,24 @@
 
 </main>
 
+<div class="affiliate-strip">
+  <div class="affiliate-strip-inner">
+    <div class="strip-header">// Gear We Actually Use</div>
+    <div class="strip-subhead">Affiliate links — commissions help keep the site running, at no cost to you.</div>
+    <div class="product-grid">
+      <a class="product-card" href="https://www.amazon.com/dp/B0D6SX8VLQ?tag=wifiwiseguys-20" target="_blank" rel="noopener"><div class="product-name">Echo Dot Max</div><div class="product-price">$74.99</div><div class="product-cta">View on Amazon →</div></a>
+      <a class="product-card" href="https://www.amazon.com/dp/B08GD3D9YJ?tag=wifiwiseguys-20" target="_blank" rel="noopener"><div class="product-name">Chamberlain myQ Smart Garage</div><div class="product-price">$29.98</div><div class="product-cta">View on Amazon →</div></a>
+      <a class="product-card" href="https://www.amazon.com/dp/B0G52DX5M3?tag=wifiwiseguys-20" target="_blank" rel="noopener"><div class="product-name">Homey Pro 2026</div><div class="product-price">$399.00</div><div class="product-cta">View on Amazon →</div></a>
+      <a class="product-card" href="https://www.amazon.com/dp/B0BVKZLT3B?tag=wifiwiseguys-20" target="_blank" rel="noopener"><div class="product-name">Leviton Decora Smart Switch</div><div class="product-price">$45.01</div><div class="product-cta">View on Amazon →</div></a>
+      <a class="product-card" href="https://www.amazon.com/dp/B0F151GFYR?tag=wifiwiseguys-20" target="_blank" rel="noopener"><div class="product-name">Ring Wired Doorbell Pro</div><div class="product-price">$249.99</div><div class="product-cta">View on Amazon →</div></a>
+      <a class="product-card" href="https://www.amazon.com/dp/B0C5DPSW5Y?tag=wifiwiseguys-20" target="_blank" rel="noopener"><div class="product-name">Echo Show 15</div><div class="product-price">$254.99</div><div class="product-cta">View on Amazon →</div></a>
+    </div>
+  </div>
+</div>
+
 <footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
+  <div class="footer-inner" style="grid-template-columns:1.5fr 1fr 1fr 1fr;">
+    <div class="footer-brand footer-col">
       <div class="footer-logo-text">WIFI WISE GUYS</div>
       <p>Real smart home guides from people who actually do this. Here to help — not just say we are.</p>
     </div>
@@ -132,9 +177,20 @@
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Recent Posts</h4>
+      <h4>Popular Topics</h4>
       <ul>
         <li><a href="blog-what-is-a-smart-home.html">What Is a Smart Home?</a></li>
+        <li><a href="setup-dashboard.html">Ring Setup Guides</a></li>
+        <li><a href="setup-dashboard.html">Legrand Setup Guides</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Community</h4>
+      <ul>
+        <li><a href="https://www.reddit.com/r/wifiwiseguys" target="_blank" rel="noopener">r/wifiwiseguys</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="mailto:smart@wifiwiseguys.com">Contact Us</a></li>
+        <li><span style="color:rgba(255,255,255,0.3);font-size:0.85rem;">smart@wifiwiseguys.com</span></li>
       </ul>
     </div>
   </div>
@@ -145,5 +201,11 @@
   <div class="footer-affiliate">Affiliate disclosure: Some links on this site may earn a commission at no cost to you.</div>
 </footer>
 
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('open')));
+</script>
 </body>
 </html>
