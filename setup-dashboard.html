@@ -75,11 +75,11 @@
       .featured-price { font-size: 0.95rem; }
     }
     /* AFFILIATE BANNER */
-    .aff-banner { width: 100%; background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 12px 16px; display: flex; align-items: center; gap: 12px; overflow-x: auto; scrollbar-width: none; }
+    .aff-banner { width: 100%; background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 12px 16px; display: flex; align-items: center; gap: 12px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; scroll-snap-type: x proximity; }
     .aff-banner::-webkit-scrollbar { display: none; }
     .aff-banner-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 600; color: var(--blue); letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; padding-right: 8px; border-right: 1px solid var(--border); }
     .aff-banner-items { display: flex; gap: 8px; align-items: center; }
-    .aff-banner-item { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-decoration: none; background: var(--blue-light); border: 1px solid var(--blue-mid); border-radius: 8px; padding: 8px 12px; white-space: nowrap; flex-shrink: 0; transition: background 0.15s, border-color 0.15s; min-width: 140px; }
+    .aff-banner-item { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-decoration: none; background: var(--blue-light); border: 1px solid var(--blue-mid); border-radius: 8px; padding: 8px 12px; white-space: nowrap; flex-shrink: 0; transition: background 0.15s, border-color 0.15s; min-width: 140px; scroll-snap-align: start; }
     .aff-banner-item:hover { background: var(--blue-mid); border-color: var(--blue); }
     .aff-banner-name { font-size: 0.78rem; font-weight: 700; color: var(--ink); line-height: 1.2; }
     .aff-banner-price { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--blue); }
@@ -1617,7 +1617,7 @@
 <!-- AD IN-FEED
 
 <!-- AD IN-FEED -->
-<div class="brand-section ad-infeed-slot" data-brand="" data-status="active" data-preferred="false" style="pointer-events:none">
+<div class="brand-section ad-infeed-slot" data-brand="" data-status="active" data-preferred="false">
   <div class="aff-banner">
   <div class="aff-banner-label">// Gear</div>
   <div class="aff-banner-items">
@@ -1929,7 +1929,7 @@
 </div>
 
 <!-- AD IN-FEED 2 -->
-<div class="brand-section ad-infeed-slot" data-brand="" data-status="active" data-preferred="false" style="pointer-events:none">
+<div class="brand-section ad-infeed-slot" data-brand="" data-status="active" data-preferred="false">
   <a class="featured-card" href="https://www.amazon.com/dp/B0G52DX5M3?tag=wifiwiseguys-20" target="_blank" rel="noopener" style="text-decoration:none;">
     <div class="featured-badge">// WWG Pick</div>
     <div class="featured-icon">🏠</div>
