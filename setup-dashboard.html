@@ -10,7 +10,7 @@
   gtag('config', 'G-2FLPTSSQRX');
 </script>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Setup Dashboard — WiFi Wise Guys</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,7 +25,7 @@
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Outfit', sans-serif; background: var(--white); color: var(--ink); overflow-x: hidden; }
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 70px; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 70px; overflow: hidden; }
     .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
     .nav-logo svg { width: 44px; height: 44px; }
     .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
@@ -238,7 +238,7 @@
     .affiliate-bar { background: var(--blue-light); border-bottom: 1px solid var(--blue-mid); text-align: center; padding: 10px 24px; font-size: 0.78rem; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; line-height: 1.5; margin-top: 70px; }
     .page-header { margin-top: 0; }
     /* HAMBURGER */
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; flex-shrink: 0; }
     .hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; transition: all 0.3s; }
     .mobile-menu { display: none; position: fixed; top: 70px; left: 0; right: 0; background: var(--white); border-bottom: 1px solid var(--border); z-index: 99; padding: 16px 20px; flex-direction: column; gap: 4px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
     .mobile-menu.open { display: flex; }
@@ -262,6 +262,13 @@
     .product-name { font-size: 0.87rem; font-weight: 700; color: var(--ink); line-height: 1.3; }
     .product-price { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--blue); font-weight: 600; }
     .product-cta { font-size: 0.78rem; font-weight: 700; color: var(--blue-dark); margin-top: auto; padding-top: 4px; }
+  
+    /* MOBILE NAV OVERRIDE */
+    @media screen and (max-width: 768px) {
+      nav { padding: 0 16px !important; }
+      .nav-links { display: none !important; }
+      .hamburger { display: flex !important; }
+    }
   </style>
 </head>
 <body>
