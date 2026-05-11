@@ -27,7 +27,7 @@
     body { font-family: 'Outfit', sans-serif; background: var(--white); color: var(--ink); overflow-x: hidden; }
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 70px; overflow: hidden; }
     .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0; }
-    .nav-logo img { width: 44px; height: 44px; }
+    .nav-logo svg { width: 44px; height: 44px; }
     .nav-logo-text { font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; white-space: nowrap; }
     .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
     .nav-links a { text-decoration: none; font-size: 0.95rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.02em; transition: color 0.2s; position: relative; }
@@ -276,7 +276,7 @@
 
 <nav>
   <a href="index.html" class="nav-logo">
-    <img src="images/logo.png" alt="WiFi Wise Guys logo" />
+    <svg viewBox="0 0 44 44" fill="none"><path d="M6 20L22 7L38 20V38H28V28H16V38H6V20Z" stroke="#0076c0" stroke-width="2.5" stroke-linejoin="round" fill="none"/><circle cx="6" cy="20" r="2.5" fill="#0076c0"/><circle cx="22" cy="7" r="2.5" fill="#0076c0"/><circle cx="38" cy="20" r="2.5" fill="#0076c0"/><circle cx="22" cy="30" r="2.5" fill="#0076c0"/><path d="M17 10.5 Q22 5 27 10.5" stroke="#0076c0" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
     <span class="nav-logo-text">wifiwiseguys</span>
   </a>
   <ul class="nav-links">
