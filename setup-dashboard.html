@@ -134,7 +134,6 @@
     .badge { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 100px; }
     .badge-active { background: #e0f5e9; color: #1a7a3a; border: 1px solid #b0dfc0; }
     .badge-eol { background: #fde8d0; color: var(--eol-badge); border: 1px solid var(--eol-border); }
-    .badge-preferred { background: var(--blue-light); color: var(--blue-dark); border: 1px solid var(--blue-mid); }
     .brand-meta { font-size: 0.85rem; color: var(--ink-muted); }
     .brand-toggle { width: 32px; height: 32px; border-radius: 8px; background: var(--blue-light); border: 1.5px solid var(--blue-mid); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s, transform 0.3s; color: var(--blue); }
     .brand-card.eol .brand-toggle { background: #fde8d0; border-color: var(--eol-border); color: var(--eol-badge); }
@@ -236,7 +235,7 @@
     @media(max-width:600px){
       .footer-inner{grid-template-columns:1fr}
     }
-    .affiliate-bar { background: var(--blue-light); border-top: 1px solid var(--blue-mid); text-align: center; padding: 10px 24px; font-size: 0.78rem; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; line-height: 1.5; }
+    .affiliate-bar { background: var(--blue-light); border-bottom: 1px solid var(--blue-mid); text-align: center; padding: 10px 24px; font-size: 0.78rem; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; line-height: 1.5; margin-top: 70px; }
     .page-header { margin-top: 0; }
     /* HAMBURGER */
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; flex-shrink: 0; }
@@ -297,7 +296,9 @@
   <a href="blog.html" class="mobile-cta">Read the Blog</a>
 </div>
 
-
+<div class="affiliate-bar">
+  Just a heads up — links on this site may earn WiFi Wise Guys a small commission if you make a purchase, at zero cost to you. Those commissions help keep the site updated with new products and devices. We only link to stuff we'd actually recommend.
+</div>
 
 <div class="page-header">
   <div class="page-header-inner">
@@ -355,7 +356,6 @@
     <div class="filter-tabs">
       <button class="filter-tab active" data-filter="all">All Brands</button>
       <button class="filter-tab" data-filter="active">Active</button>
-      <button class="filter-tab" data-filter="preferred">⭐ Preferred</button>
       <button class="filter-tab" data-filter="eol">End of Life</button>
     </div>
     <span class="results-count" id="results-count">Loading...</span>
@@ -366,12 +366,12 @@
 <div id="brand-list">
 
 <!-- RING -->
-<div class="brand-section" data-brand="ring doorbell camera security spotlight stick up floodlight alarm chime sensor lighting accessories" data-status="active" data-preferred="true">
+<div class="brand-section" data-brand="ring doorbell camera security spotlight stick up floodlight alarm chime sensor lighting accessories" data-status="active">
 <div class="brand-card">
   <div class="brand-header" onclick="toggleBrand(this)">
     <div class="brand-icon">🔔</div>
     <div class="brand-info">
-      <div class="brand-name">Ring <span class="badge badge-active">Active</span><span class="badge badge-preferred">⭐ Preferred</span></div>
+      <div class="brand-name">Ring <span class="badge badge-active">Active</span></div>
       <div class="brand-meta">Security cameras · Video doorbells · Alarm · Smart lighting · Accessories · App: Ring</div>
     </div>
     <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
@@ -1494,7 +1494,7 @@
 </div>
 
 <!-- LEGRAND -->
-<div class="brand-section" data-brand="legrand radiant smart switch dimmer plug outlet matter wifi" data-status="active" data-preferred="false">
+<div class="brand-section" data-brand="legrand radiant smart switch dimmer plug outlet matter wifi" data-status="active">
 <div class="brand-card">
   <div class="brand-header" onclick="toggleBrand(this)">
     <div class="brand-icon">💡</div>
@@ -1619,7 +1619,7 @@
   </div>
 
 <!-- TAPO -->
-<div class="brand-section" data-brand="tapo tp-link camera bulb plug doorbell matter switch dimmer sensor hub" data-status="active" data-preferred="false">
+<div class="brand-section" data-brand="tapo tp-link camera bulb plug doorbell matter switch dimmer sensor hub" data-status="active">
 <div class="brand-card">
   <div class="brand-header" onclick="toggleBrand(this)">
     <div class="brand-icon">📡</div>
@@ -1962,7 +1962,7 @@
 <!-- AD IN-FEED
 
 <!-- AD IN-FEED -->
-<div class="brand-section ad-infeed-slot" data-brand="" data-status="active" data-preferred="false">
+<div class="brand-section ad-infeed-slot" data-brand="" data-status="active">
   <div class="aff-banner">
   <div class="aff-banner-label">// Gear</div>
   <div class="aff-banner-items">
@@ -2001,12 +2001,12 @@
 </div>
 
 <!-- KASA -->
-<div class="brand-section" data-brand="kasa tp-link smart plug switch ep25 hs200" data-status="active" data-preferred="true">
+<div class="brand-section" data-brand="kasa tp-link smart plug switch ep25 hs200" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">🔌</div>
     <div class="brand-info">
-      <div class="brand-name">Kasa (TP-Link) <span class="badge badge-active">Active</span><span class="badge badge-preferred">⭐ Preferred</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
+      <div class="brand-name">Kasa (TP-Link) <span class="badge badge-active">Active</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
       <div class="brand-meta">Smart plugs · Switches · Bulbs · Cameras · App: Kasa Smart</div>
     </div>
     <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
@@ -2048,12 +2048,12 @@
 </div>
 
 <!-- EERO -->
-<div class="brand-section" data-brand="eero mesh wifi router 6 plus pro 6e" data-status="active" data-preferred="true">
+<div class="brand-section" data-brand="eero mesh wifi router 6 plus pro 6e" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">📶</div>
     <div class="brand-info">
-      <div class="brand-name">eero <span class="badge badge-active">Active</span><span class="badge badge-preferred">⭐ Preferred</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
+      <div class="brand-name">eero <span class="badge badge-active">Active</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
       <div class="brand-meta">Mesh WiFi systems · Built-in Zigbee hub · Thread border router · App: eero</div>
     </div>
     <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
@@ -2095,12 +2095,12 @@
 </div>
 
 <!-- ECOBEE -->
-<div class="brand-section" data-brand="ecobee thermostat premium eb-state6 smart temperature" data-status="active" data-preferred="true">
+<div class="brand-section" data-brand="ecobee thermostat premium eb-state6 smart temperature" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">🌡️</div>
     <div class="brand-info">
-      <div class="brand-name">ecobee <span class="badge badge-active">Active</span><span class="badge badge-preferred">⭐ Preferred</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
+      <div class="brand-name">ecobee <span class="badge badge-active">Active</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
       <div class="brand-meta">Smart thermostats · Sensors · App: ecobee</div>
     </div>
     <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
@@ -2128,12 +2128,12 @@
 </div>
 
 <!-- MY LEVITON -->
-<div class="brand-section" data-brand="leviton myleviton decora smart switch d215s" data-status="active" data-preferred="true">
+<div class="brand-section" data-brand="leviton myleviton decora smart switch d215s" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">💡</div>
     <div class="brand-info">
-      <div class="brand-name">My Leviton <span class="badge badge-active">Active</span><span class="badge badge-preferred">⭐ Preferred</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
+      <div class="brand-name">My Leviton <span class="badge badge-active">Active</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
       <div class="brand-meta">Smart switches · Dimmers · Outlets · App: My Leviton</div>
     </div>
     <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
@@ -2161,7 +2161,7 @@
 </div>
 
 <!-- PHILIPS HUE -->
-<div class="brand-section" data-brand="philips hue bulb bridge hub zigbee light color" data-status="active" data-preferred="false">
+<div class="brand-section" data-brand="philips hue bulb bridge hub zigbee light color" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">🌈</div>
@@ -2208,40 +2208,153 @@
 </div>
 
 <!-- HOMEY -->
-<div class="brand-section" data-brand="homey pro hub automation zigbee zwave matter thread ath-1000" data-status="active" data-preferred="false">
-<div class="brand-card locked">
-  <div class="brand-header" onclick="return false;">
+<div class="brand-section" data-brand="homey pro mini bridge hub automation zigbee zwave matter thread ath-1000 ath-500 ethernet adapter lg electronics athom" data-status="active">
+<div class="brand-card">
+  <div class="brand-header" onclick="toggleBrand(this)">
     <div class="brand-icon">🏠</div>
     <div class="brand-info">
-      <div class="brand-name">Homey <span class="badge badge-active">Active</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
-      <div class="brand-meta">Smart home hub · 8 protocols · 50,000+ devices · App: Homey</div>
+      <div class="brand-name">Homey <span class="badge badge-active">Active</span></div>
+      <div class="brand-meta">Smart home hub · 8 protocols · 50,000+ devices · 1,000+ brands · App: Homey</div>
     </div>
     <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
   </div>
   <div class="brand-body">
-    <div class="device-list">
-      <div class="device-item">
-        <div class="device-model">ATH-1000</div>
-        <div class="device-name">Homey Pro (Early 2023)</div>
-        <div class="device-desc">The most versatile smart home hub available. Supports 8 protocols: WiFi (2.4/5GHz), Zigbee, Z-Wave Plus, BLE, 433MHz RF, Infrared, Matter, and Thread. 50,000+ compatible devices from 1,000+ brands. Local processing — automations work without internet. No mandatory subscription. Software support guaranteed until June 2031. Optional Ethernet adapter and Homey Bridge satellite available.</div>
-        <div class="device-badges">
-          <span class="db db-wifi">📶 WiFi 2.4/5GHz</span><span class="db db-zigbee">🔶 Zigbee</span><span class="db db-zwave">🟢 Z-Wave Plus</span><span class="db db-thread">🟣 Thread</span><span class="db db-matter">🔷 Matter</span><span class="db db-ble">🩷 BLE</span><span class="db db-hub">🟡 IS the Hub</span><span class="db db-wired">🔌 Wired</span><span class="db db-voice">🗣️ Voice</span>
-        </div>
-        <div class="device-release">Release Date — Circa 2023</div>
-        <div class="device-actions">
-          <a href="https://support.homey.app/hc/en-us/articles/360015350174" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
-          <a href="https://support.homey.app/hc/en-us/articles/360015350194" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
-          <a href="https://homey.app/en-us/homey-pro/" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+    <p style="font-size:0.82rem;color:var(--ink-muted);font-family:'JetBrains Mono',monospace;margin-bottom:20px;">ℹ️ Homey was acquired by LG Electronics in 2024. Support and development continue under the Homey brand. All links verified May 2026.</p>
+
+    <!-- CURRENT LINEUP -->
+    <div class="cat-section">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <span class="cat-title">// Current Lineup<span class="cat-count">(4)</span></span>
+        <span class="cat-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </div>
+      <div class="cat-body">
+        <div class="device-list">
+
+          <div class="device-item">
+            <div class="device-model">ATH-1000-26</div>
+            <div class="device-name">Homey Pro (2026)</div>
+            <div class="device-desc">Flagship local-first hub. Supports 8 protocols: WiFi, Zigbee, Z-Wave Plus, Matter, Thread, BLE, 433MHz RF, and Infrared. 50,000+ compatible devices across 1,000+ brands. Automations run fully local — no internet required. 4GB RAM, 8GB storage, 1.5GHz quad-core. Supports 100+ apps. Released December 2025. Software support guaranteed through June 2031. Cloud backup optional at $0.99/mo. Apple HomeKit via experiment mode. $399.</div>
+            <div class="device-badges">
+              <span class="db db-wifi">📶 WiFi 2.4/5GHz</span><span class="db db-zigbee">🔶 Zigbee</span><span class="db db-zwave">🟢 Z-Wave Plus</span><span class="db db-thread">🟣 Thread</span><span class="db db-matter">🔷 Matter</span><span class="db db-ble">🩷 BLE</span><span class="db db-hub">🟡 IS the Hub</span><span class="db db-wired">🔌 USB-C Wired</span><span class="db db-voice">🗣️ Voice</span>
+            </div>
+            <div class="device-release">Release Date — December 2025</div>
+            <div class="device-actions">
+              <a href="https://support.homey.app/hc/en-us/articles/26751462248220-Set-up-your-Homey-Pro" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+              <a href="https://support.homey.app/hc/en-us/articles/7261843930396-Reset-Homey-Pro-to-factory-defaults" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+              <a href="https://homey.app/en-us/homey-pro/#buy" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+            </div>
+          </div>
+
+          <div class="device-item">
+            <div class="device-model">ATH-1000-23</div>
+            <div class="device-name">Homey Pro (Early 2023)</div>
+            <div class="device-desc">Same protocol support and app ecosystem as the 2026 model — WiFi, Zigbee, Z-Wave Plus, Matter, Thread, BLE, 433MHz RF, and Infrared. 2GB RAM with ~50 app capacity. Still sold through resellers. Software support guaranteed through June 2031. Good option if found discounted. $399 at retail. Cloud backup optional at $0.99/mo.</div>
+            <div class="device-badges">
+              <span class="db db-wifi">📶 WiFi 2.4/5GHz</span><span class="db db-zigbee">🔶 Zigbee</span><span class="db db-zwave">🟢 Z-Wave Plus</span><span class="db db-thread">🟣 Thread</span><span class="db db-matter">🔷 Matter</span><span class="db db-ble">🩷 BLE</span><span class="db db-hub">🟡 IS the Hub</span><span class="db db-wired">🔌 USB-C Wired</span><span class="db db-voice">🗣️ Voice</span>
+            </div>
+            <div class="device-release">Release Date — Early 2023</div>
+            <div class="device-actions">
+              <a href="https://support.homey.app/hc/en-us/articles/26751462248220-Set-up-your-Homey-Pro" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+              <a href="https://support.homey.app/hc/en-us/articles/7261843930396-Reset-Homey-Pro-to-factory-defaults" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+              <a href="https://homey.app/en-us/homey-pro/" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+            </div>
+          </div>
+
+          <div class="device-item">
+            <div class="device-model">Homey Pro mini</div>
+            <div class="device-name">Homey Pro mini</div>
+            <div class="device-desc">Compact wired hub with built-in Gigabit Ethernet (no WiFi). Supports Zigbee, Matter, and Thread natively. No Z-Wave, 433MHz, or IR built in — a Homey Bridge can be added as a satellite for those protocols. Good entry point for Matter-focused setups or smaller homes. More affordable than the full Homey Pro.</div>
+            <div class="device-badges">
+              <span class="db db-zigbee">🔶 Zigbee</span><span class="db db-thread">🟣 Thread</span><span class="db db-matter">🔷 Matter</span><span class="db db-hub">🟡 IS the Hub</span><span class="db db-wired">🔌 Ethernet Wired</span><span class="db db-voice">🗣️ Voice</span>
+            </div>
+            <div class="device-release">Release Date — 2024</div>
+            <div class="device-actions">
+              <a href="https://support.homey.app/hc/en-us/articles/26761137444508-Set-up-your-Homey-Pro-mini" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+              <a href="https://support.homey.app/hc/en-us/articles/18782777353884-Reset-Homey-Pro-mini-to-factory-defaults" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+              <a href="https://homey.app/en-us/homey-pro-mini/#buy" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+            </div>
+          </div>
+
+          <div class="device-item">
+            <div class="device-model">ATH-500</div>
+            <div class="device-name">Homey Bridge</div>
+            <div class="device-desc">Two use cases. Standalone: plug-in cloud hub supporting Zigbee, Z-Wave, WiFi, 433MHz RF, IR, and BLE — 5 devices free, $4.49/mo for unlimited. Satellite: extend Zigbee, Z-Wave, 433MHz, and IR coverage for an existing Homey Pro in large homes at no additional subscription cost. Works with Alexa and Google Home. No Apple HomeKit. $69.</div>
+            <div class="device-badges">
+              <span class="db db-wifi">📶 WiFi</span><span class="db db-zigbee">🔶 Zigbee</span><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-ble">🩷 BLE</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-wired">🔌 Plug-In</span><span class="db db-voice">🗣️ Voice</span>
+            </div>
+            <div class="device-release">Release Date — Circa 2022</div>
+            <div class="device-actions">
+              <a href="https://support.homey.app/hc/en-us/articles/26761002278556-Set-up-your-Homey-Bridge" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+              <a href="https://support.homey.app/hc/en-us/articles/360018715980-Reset-Homey-Bridge-to-factory-defaults" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+              <a href="https://homey.app/en-us/homey-bridge/" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
+
+    <!-- ACCESSORIES -->
+    <div class="cat-section">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <span class="cat-title">// Accessories<span class="cat-count">(1)</span></span>
+        <span class="cat-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </div>
+      <div class="cat-body">
+        <div class="device-list">
+
+          <div class="device-item">
+            <div class="device-model">Homey Pro Ethernet Adapter</div>
+            <div class="device-name">Homey Pro Ethernet Adapter</div>
+            <div class="device-desc">Adds wired Ethernet to Homey Pro 2023 or 2026. Plugs into the USB-C power port with USB-C passthrough for continued power. 480 Mbps. Recommended for larger installs where network stability matters. Not compatible with Homey Pro mini (which has built-in Ethernet). $29.</div>
+            <div class="device-badges">
+              <span class="db db-wired">🔌 USB-C Passthrough</span><span class="db db-hub">🟡 Requires Homey Pro ⭐</span>
+            </div>
+            <div class="device-release">Accessory — Current</div>
+            <div class="device-actions">
+              <a href="https://support.homey.app/hc/en-us/articles/7262533910300-Set-up-your-Homey-Pro-Ethernet-Adapter" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+              <a href="https://homey.app/en-us/homey-pro-ethernet-adapter/" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- LEGACY / EOL -->
+    <div class="cat-section">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <span class="cat-title">// Legacy &amp; End of Life<span class="cat-count">(1)</span></span>
+        <span class="cat-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </div>
+      <div class="cat-body">
+        <div class="device-list">
+
+          <div class="device-item">
+            <div class="device-model">ATH-1000-19</div>
+            <div class="device-name">Homey Pro (2019)</div>
+            <div class="device-desc">Still functional but no longer receives new features. Notable for having IR learning capability — a feature removed in the 2023 and 2026 models. Supports WiFi, Zigbee, Z-Wave, BLE, 433MHz, and IR. No Matter or Thread support. 512MB RAM. Do not recommend for new installs.</div>
+            <div class="device-badges">
+              <span class="db db-wifi">📶 WiFi</span><span class="db db-zigbee">🔶 Zigbee</span><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-ble">🩷 BLE</span><span class="db db-hub">🟡 IS the Hub</span><span class="db db-wired">🔌 Plug-In</span><span class="db db-voice">🗣️ Voice</span>
+            </div>
+            <div class="device-release">Release Date — 2019 | No new features</div>
+            <div class="device-actions">
+              <a href="https://support.homey.app/hc/en-us/articles/360009667354-Set-up-your-Homey-Pro-2016-2019" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+              <a href="https://support.homey.app/hc/en-us/articles/360024602314-Reset-Homey-Pro-2016-2019-to-factory-defaults" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
     <a href="https://support.homey.app" target="_blank" class="brand-mfr-link">↗ Visit Homey Support</a>
   </div>
 </div>
 </div>
 
 <!-- SAMSUNG SMARTTHINGS -->
-<div class="brand-section" data-brand="samsung smartthings hub gp-u999 zigbee zwave automation" data-status="active" data-preferred="false">
+<div class="brand-section" data-brand="samsung smartthings hub gp-u999 zigbee zwave automation" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">🔵</div>
@@ -2274,7 +2387,7 @@
 </div>
 
 <!-- AD IN-FEED 2 -->
-<div class="brand-section ad-infeed-slot" data-brand="" data-status="active" data-preferred="false">
+<div class="brand-section ad-infeed-slot" data-brand="" data-status="active">
   <a class="featured-card" href="https://www.amazon.com/dp/B0G52DX5M3?tag=wifiwiseguys-20" target="_blank" rel="noopener" style="text-decoration:none;">
     <div class="featured-badge">// WWG Pick</div>
     <div class="featured-icon">🏠</div>
@@ -2292,7 +2405,7 @@
 
 
 <!-- CHAMBERLAIN myQ -->
-<div class="brand-section" data-brand="chamberlain myq garage door controller myq-g0401" data-status="active" data-preferred="false">
+<div class="brand-section" data-brand="chamberlain myq garage door controller myq-g0401" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">🚗</div>
@@ -2325,7 +2438,7 @@
 </div>
 
 <!-- GOOGLE NEST -->
-<div class="brand-section" data-brand="google nest thermostat camera doorbell t3021us learning" data-status="active" data-preferred="false">
+<div class="brand-section" data-brand="google nest thermostat camera doorbell t3021us learning" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">🌿</div>
@@ -2358,7 +2471,7 @@
 </div>
 
 <!-- SCHLAGE -->
-<div class="brand-section" data-brand="schlage lock deadbolt door be489wb encode plus" data-status="active" data-preferred="false">
+<div class="brand-section" data-brand="schlage lock deadbolt door be489wb encode plus" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">🔒</div>
@@ -2391,7 +2504,7 @@
 </div>
 
 <!-- AMAZON ALEXA -->
-<div class="brand-section" data-brand="amazon alexa echo show hub astro robot display smart speaker" data-status="active" data-preferred="false">
+<div class="brand-section" data-brand="amazon alexa echo show hub astro robot display smart speaker" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">🔵</div>
@@ -2526,7 +2639,7 @@
 
 
 <!-- LUTRON CASETA -->
-<div class="brand-section" data-brand="lutron caseta smart dimmer switch pico clear connect lighting" data-status="active" data-preferred="false">
+<div class="brand-section" data-brand="lutron caseta smart dimmer switch pico clear connect lighting" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">🎛️</div>
@@ -2559,7 +2672,7 @@
 </div>
 
 <!-- ARLO -->
-<div class="brand-section" data-brand="arlo camera security doorbell pro essential wire-free" data-status="active" data-preferred="false">
+<div class="brand-section" data-brand="arlo camera security doorbell pro essential wire-free" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">📷</div>
@@ -2592,7 +2705,7 @@
 </div>
 
 <!-- AQARA -->
-<div class="brand-section" data-brand="aqara hub zigbee thread matter lock sensor switch m3 g4" data-status="active" data-preferred="false">
+<div class="brand-section" data-brand="aqara hub zigbee thread matter lock sensor switch m3 g4" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">🏡</div>
@@ -2625,7 +2738,7 @@
 </div>
 
 <!-- YALE -->
-<div class="brand-section" data-brand="yale smart lock deadbolt assure zwave matter touchscreen" data-status="active" data-preferred="false">
+<div class="brand-section" data-brand="yale smart lock deadbolt assure zwave matter touchscreen" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">🔐</div>
@@ -2658,7 +2771,7 @@
 </div>
 
 <!-- KWIKSET -->
-<div class="brand-section" data-brand="kwikset smart lock halo obsidian deadbolt zwave matter wifi" data-status="active" data-preferred="false">
+<div class="brand-section" data-brand="kwikset smart lock halo obsidian deadbolt zwave matter wifi" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">🗝️</div>
@@ -2691,7 +2804,7 @@
 </div>
 
 <!-- WYZE -->
-<div class="brand-section" data-brand="wyze cam bulb lock sensor plug v3 outdoor" data-status="active" data-preferred="false">
+<div class="brand-section" data-brand="wyze cam bulb lock sensor plug v3 outdoor" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">👁️</div>
@@ -2724,7 +2837,7 @@
 </div>
 
 <!-- NANOLEAF -->
-<div class="brand-section" data-brand="nanoleaf panels lines shapes matter thread light bulb essentials" data-status="active" data-preferred="false">
+<div class="brand-section" data-brand="nanoleaf panels lines shapes matter thread light bulb essentials" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">🎨</div>
@@ -2757,7 +2870,7 @@
 </div>
 
 <!-- GOVEE -->
-<div class="brand-section" data-brand="govee led strip light bulb outdoor ambient rgbic wifi bluetooth" data-status="active" data-preferred="false">
+<div class="brand-section" data-brand="govee led strip light bulb outdoor ambient rgbic wifi bluetooth" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">✨</div>
@@ -2790,7 +2903,7 @@
 </div>
 
 <!-- SENGLED -->
-<div class="brand-section" data-brand="sengled bulb zigbee wifi smart light a19 color white" data-status="active" data-preferred="false">
+<div class="brand-section" data-brand="sengled bulb zigbee wifi smart light a19 color white" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">💡</div>
@@ -2823,7 +2936,7 @@
 </div>
 
 <!-- IKEA DIRIGERA -->
-<div class="brand-section" data-brand="ikea dirigera tradfri bulb hub zigbee matter smart lighting" data-status="active" data-preferred="false">
+<div class="brand-section" data-brand="ikea dirigera tradfri bulb hub zigbee matter smart lighting" data-status="active">
 <div class="brand-card locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">🪴</div>
@@ -2858,7 +2971,7 @@
 <!-- ════ EOL ════ -->
 
 <!-- WEMO EOL -->
-<div class="brand-section" data-brand="wemo belkin plug switch f7c030 f7c063 end of life" data-status="eol" data-preferred="false">
+<div class="brand-section" data-brand="wemo belkin plug switch f7c030 f7c063 end of life" data-status="eol">
 <div class="brand-card eol locked">
   <div class="brand-header" onclick="return false;">
     <div class="brand-icon">⚠️</div>
@@ -3036,9 +3149,6 @@
     <span class="footer-logo-text">wifiwiseguys.com</span>
   </div>
   <div class="footer-affiliate">Affiliate disclosure: Some links on this site may earn a commission at no cost to you.</div>
-  <div class="affiliate-bar">
-    Just a heads up — links on this site may earn WiFi Wise Guys a small commission if you make a purchase, at zero cost to you. Those commissions help keep the site updated with new products and devices. We only link to stuff we'd actually recommend.
-  </div>
 </footer>
 
 <button class="back-to-top" id="backToTop" aria-label="Back to top">
@@ -3091,12 +3201,10 @@ function updateDashboard() {
   brandSections.forEach(section => {
     const matchSearch = q === '' || section.dataset.brand.toLowerCase().includes(q);
     const status = section.dataset.status;
-    const preferred = section.dataset.preferred === 'true';
     const matchFilter =
       currentFilter === 'all' ||
       (currentFilter === 'active' && status === 'active') ||
-      (currentFilter === 'eol' && status === 'eol') ||
-      (currentFilter === 'preferred' && preferred);
+      (currentFilter === 'eol' && status === 'eol');
     if (matchSearch && matchFilter) {
       section.style.display = '';
       visible++;
