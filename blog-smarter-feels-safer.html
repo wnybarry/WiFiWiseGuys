@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2FLPTSSQRX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-2FLPTSSQRX');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Smarter Feels Safer | WiFi Wise Guys Blog</title>
+  <meta name="description" content="Lights on when you pull in. An alert when something's wrong. A voice that can call for help. This is what a smart home really does." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue: #0076c0; --blue-dark: #005a92; --blue-light: #e8f4fc; --blue-mid: #cce8f7;
+      --white: #ffffff; --ink: #111111; --ink-soft: #444444; --ink-muted: #888888;
+      --border: #d6eaf8; --radius: 12px; --radius-lg: 20px;
+      --text: #1a1a2e; --rule: #c8d8ea;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Outfit', sans-serif; background: var(--white); color: var(--text); line-height: 1.75; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 70px; overflow: hidden; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+    .nav-logo svg { width: 44px; height: 44px; }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 0.95rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.02em; transition: color 0.2s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 2px; background: var(--blue); transform: scaleX(0); transition: transform 0.2s; }
+    .nav-links a:hover { color: var(--blue); } .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links a.active { color: var(--blue); } .nav-links a.active::after { transform: scaleX(1); }
+    .nav-cta { background: var(--blue) !important; color: var(--white) !important; padding: 10px 22px; border-radius: 8px; }
+    .nav-cta::after { display: none !important; } .nav-cta:hover { background: var(--blue-dark) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; flex-shrink: 0; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; }
+    .mobile-menu { display: none; position: fixed; top: 70px; left: 0; right: 0; background: var(--white); border-bottom: 1px solid var(--border); z-index: 99; padding: 16px 20px; flex-direction: column; gap: 4px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { text-decoration: none; font-size: 1rem; font-weight: 600; color: var(--ink-soft); padding: 12px 16px; border-radius: 8px; transition: background 0.2s, color 0.2s; }
+    .mobile-menu a:hover { background: var(--blue-light); color: var(--blue); }
+    .mobile-menu a.active { color: var(--blue); }
+    .mobile-menu .mobile-cta { background: var(--blue); color: var(--white) !important; text-align: center; margin-top: 8px; }
+
+    .affiliate-bar { background: var(--blue-light); border-bottom: 1px solid var(--blue-mid); text-align: center; padding: 10px 24px; font-size: 0.78rem; color: var(--ink-soft); font-family: 'JetBrains Mono', monospace; line-height: 1.5; margin-top: 70px; }
+
+    .blog-header { background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%); color: var(--white); padding: 60px 24px 48px; text-align: center; }
+    .blog-header .label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-bottom: 16px; }
+    .blog-header h1 { font-family: 'Outfit', sans-serif; font-size: clamp(2rem, 7vw, 3.5rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 20px; }
+    .blog-header .sub { font-family: 'Lora', serif; font-size: 1rem; color: rgba(255,255,255,0.75); max-width: 520px; margin: 0 auto; }
+
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 600; color: var(--blue); text-decoration: none; margin: 32px 24px 0; }
+    .back-link:hover { color: var(--blue-dark); }
+
+    article { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+    article p { font-family: 'Lora', serif; margin-bottom: 1.5rem; font-size: 1.05rem; color: var(--text); line-height: 1.8; }
+    article h2 { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--blue-dark); margin: 2.5rem 0 1rem; border-left: 4px solid var(--blue); padding-left: 14px; letter-spacing: -0.01em; }
+    .pullquote { border-left: 3px solid var(--blue); background: var(--blue-light); padding: 18px 22px; margin: 2rem 0; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--blue-dark); line-height: 1.6; }
+    .example-box { background: var(--blue-light); border: 1px solid var(--rule); border-radius: 8px; padding: 20px 24px; margin: 1.5rem 0; }
+    .example-box .device { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--blue); margin-bottom: 8px; }
+    .example-box p { margin-bottom: 0; font-size: 0.97rem; }
+    hr.section-rule { border: none; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+    .post-teaser { background: var(--ink); color: var(--white); border-radius: var(--radius-lg); padding: 28px 32px; margin: 48px 0 0; }
+    .post-teaser .teaser-label { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 10px; }
+    .post-teaser p { font-family: 'Lora', serif; font-size: 0.97rem; color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 0; }
+
+    .reddit-section { max-width: 720px; margin: 0 auto 60px; padding: 0 24px; }
+    .reddit-label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 600; color: var(--blue); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px; }
+    .reddit-fallback { background: var(--blue-light); border: 1.5px solid var(--blue-mid); border-radius: 12px; padding: 24px 28px; display: flex; align-items: center; gap: 20px; text-decoration: none; transition: border-color 0.2s, box-shadow 0.2s; }
+    .reddit-fallback:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(0,118,192,0.1); }
+    .reddit-icon { font-size: 2rem; flex-shrink: 0; }
+    .reddit-text-wrap { flex: 1; }
+    .reddit-thread-title { font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+    .reddit-thread-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--blue); }
+    .reddit-cta { font-size: 0.85rem; font-weight: 700; color: var(--blue-dark); white-space: nowrap; }
+
+    .affiliate-strip { background: var(--blue-light); border-top: 1px solid var(--blue-mid); border-bottom: 1px solid var(--blue-mid); padding: 40px; }
+    .affiliate-strip-inner { max-width: 1200px; margin: 0 auto; }
+    .strip-header { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 600; color: var(--blue); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 6px; }
+    .strip-subhead { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 28px; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
+    .product-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 18px 16px; text-decoration: none; display: flex; flex-direction: column; gap: 8px; transition: border-color 0.2s, box-shadow 0.2s; }
+    .product-card:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(0,118,192,0.1); }
+    .product-name { font-size: 0.87rem; font-weight: 700; color: var(--ink); line-height: 1.3; }
+    .product-price { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--blue); font-weight: 600; }
+    .product-cta { font-size: 0.78rem; font-weight: 700; color: var(--blue-dark); margin-top: auto; padding-top: 4px; }
+
+    footer { background: var(--ink); color: rgba(255,255,255,0.6); padding: 60px 40px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; }
+    .footer-brand p { font-size: 0.9rem; line-height: 1.7; margin-top: 16px; max-width: 280px; }
+    .footer-col h4 { font-size: 0.85rem; font-weight: 700; color: var(--white); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { text-decoration: none; color: rgba(255,255,255,0.5); font-size: 0.9rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom { max-width: 1200px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; flex-wrap: wrap; gap: 12px; }
+    .footer-logo-text { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: rgba(255,255,255,0.3); letter-spacing: 0.08em; }
+    .footer-affiliate { font-size: 0.75rem; color: rgba(255,255,255,0.3); max-width: 1200px; margin: 16px auto 0; font-family: 'JetBrains Mono', monospace; }
+
+    @media screen and (max-width: 768px) {
+      nav { padding: 0 16px !important; }
+      .nav-links { display: none !important; }
+      .hamburger { display: flex !important; }
+      .blog-header { padding: 40px 20px 36px; }
+      article { padding: 32px 20px 60px; }
+      .reddit-section { padding: 0 20px; }
+      .affiliate-strip { padding: 32px 20px; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .reddit-fallback { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .reddit-cta { display: none; }
+      .post-teaser { padding: 22px 20px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 36px; }
+    }
+    @media screen and (max-width: 480px) {
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg viewBox="0 0 44 44" fill="none"><path d="M6 20L22 7L38 20V38H28V28H16V38H6V20Z" stroke="#0076c0" stroke-width="2.5" stroke-linejoin="round" fill="none"/><circle cx="6" cy="20" r="2.5" fill="#0076c0"/><circle cx="22" cy="7" r="2.5" fill="#0076c0"/><circle cx="38" cy="20" r="2.5" fill="#0076c0"/><circle cx="22" cy="30" r="2.5" fill="#0076c0"/><path d="M17 10.5 Q22 5 27 10.5" stroke="#0076c0" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="setup-dashboard.html">Setup Dashboard</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="blog.html" class="nav-cta">Read the Blog</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="blog.html" class="active">Blog</a>
+  <a href="setup-dashboard.html">Setup Dashboard</a>
+  <a href="about.html">About</a>
+  <a href="blog.html" class="mobile-cta">Read the Blog</a>
+</div>
+
+<div class="affiliate-bar">
+  Just a heads up — links on this site may earn WiFi Wise Guys a small commission if you make a purchase, at zero cost to you. Those commissions help keep the site updated with new products and devices. We only link to stuff we'd actually recommend.
+</div>
+
+<a href="blog.html" class="back-link">← Back to Blog</a>
+
+<header class="blog-header">
+  <div class="label">WiFi Wise Guys — Blog</div>
+  <h1>Smarter Feels Safer</h1>
+  <p class="sub">Lights on when you pull in. An alert when something's wrong. A voice that can call for help. This is what a smart home really does.</p>
+</header>
+
+<article>
+
+  <p>It's late. You're pulling into the driveway after a long day — maybe it's dark, maybe you're tired, maybe you're just ready to be home. And before you even get to the door, the lights are already on.</p>
+
+  <p>You didn't flip a switch. You didn't open an app. Your home just knew you were close and got ready for you.</p>
+
+  <p>That feeling — that small, quiet moment of a house that's already waiting — is hard to explain until you've had it. It's not a party trick. It's not something you show off. It just feels right. And once you have it, coming home to a dark house feels like something's missing.</p>
+
+  <p>That's where this post starts. But it doesn't end there.</p>
+
+  <hr class="section-rule" />
+
+  <h2>The Home That Knows You're Coming</h2>
+
+  <p>Smart home devices can be set to respond to your location. When your phone gets close enough to home, things happen — lights come on, the thermostat adjusts, the garage door opens. When you leave, things turn off. The HVAC backs off. The house goes into away mode without you having to think about it.</p>
+
+  <p>No manual triggers. No remembering to hit a button. The home reads the situation and responds.</p>
+
+  <div class="example-box">
+    <div class="device">// Coming Home</div>
+    <p>Front porch light on. Living room at a comfortable temperature. All of it waiting — because your phone told your home you were almost there.</p>
+  </div>
+
+  <div class="example-box">
+    <div class="device">// Leaving Home</div>
+    <p>Thermostat backs off. Lights check off. Locks confirm closed. The house buttoned up — not because you remembered to do it, but because you left.</p>
+  </div>
+
+  <p>For most people this is a convenience. A nice-to-have. For others, it's the difference between a home that works for them and one that doesn't. We'll dig into exactly how this works — the technology behind it — in the next post. For now, just know that it exists, it works, and it's not complicated to set up.</p>
+
+  <hr class="section-rule" />
+
+  <h2>When the Alert Actually Matters</h2>
+
+  <p>One summer afternoon, I was nowhere near my house. The cats were home — just the cats. No people, no one checking in, just two animals and a thermostat doing its thing.</p>
+
+  <p>Except something happened. The AC shut off. I don't know exactly why — maybe a hiccup, maybe a breaker, maybe just one of those things. Whatever it was, nobody was home to notice.</p>
+
+  <p>But my Ecobee noticed. I had it set to send me an alert if the temperature climbed above 78 degrees, and that's exactly what it did. My phone buzzed, I opened the app, saw what happened, and turned the AC back on — from wherever I was, in about thirty seconds.</p>
+
+  <p>The cats were fine. The house never got uncomfortable. I didn't come home to a problem.</p>
+
+  <p>Now — if I hadn't had that alert configured? I'd have walked in to a hot house, two unhappy cats, and no idea how long it had been running warm. That's the version of the story most people live, because most people don't have a thermostat that texts them when something's off.</p>
+
+  <div class="pullquote">
+    The technology didn't save the day dramatically. It just caught something small before it had a chance to become something big.
+  </div>
+
+  <p>Smart smoke detectors work the same way. If something triggers while you're at work, at the store, or on vacation — you find out immediately. Not when you pull into the driveway and see something you can't fix. Right now, wherever you are, so you can actually do something about it.</p>
+
+  <hr class="section-rule" />
+
+  <h2>Seeing the Doorbell</h2>
+
+  <p>My mom and stepfather are deaf. For a while, when they first moved to Florida, they were staying with me. And one of the first things I realized was that a doorbell — the sound of it — means nothing to them.</p>
+
+  <p>So I set it up so that when someone rings the doorbell, certain lights in the house flash. Not an alarm, not something jarring — just a quick visual signal that someone's at the door.</p>
+
+  <p>It sounds like a small thing. But think about what it actually is: independence. Awareness. Not having to wait for someone else to tell you someone's there. Not missing a delivery, a neighbor, a visitor. Just knowing — the same way anyone else in the house would know — because the home found a way to communicate in a language that works for you.</p>
+
+  <p>That's not a luxury feature. That's accessibility. And it took maybe twenty minutes to configure.</p>
+
+  <div class="pullquote">
+    The technology didn't change. What it means to someone — that part's different.
+  </div>
+
+  <hr class="section-rule" />
+
+  <h2>She Fell. And She Could Get Help.</h2>
+
+  <p>There's an old commercial everyone of a certain age remembers. The woman on the floor. The line that became a cultural punchline for a generation.</p>
+
+  <p>But the situation it describes is completely real, and it happens every day. An elderly person living alone falls. Can't reach the phone. Can't get up. Just needs someone to know.</p>
+
+  <p>A voice assistant changes that math — but only if it's been set up first. That part is important and worth saying clearly: the device has to be there, it has to be connected, and the right settings have to be in place before you need them. None of this works in the moment if nobody did the five minutes of configuration beforehand.</p>
+
+  <div class="example-box">
+    <div class="device">// Alexa — Calling for Help</div>
+    <p>If your Amazon Echo is linked to your phone contacts, you can ask Alexa to call anyone in your contacts — no phone required, no screen to navigate. Just say the name. Amazon also offers an optional Alexa Together service (around $5/month) designed specifically for situations like this — it includes an urgent response feature that connects to a 24/7 helpline with a single voice request.</p>
+  </div>
+
+  <p>You don't have to subscribe to anything. If the device is linked to a cell phone, it can make calls to anyone in your contacts. That capability is already there — it just has to be configured. And that configuration takes about five minutes with someone who knows what they're doing.</p>
+
+  <p>For someone living alone — a parent, a grandparent, a neighbor you check in on — the difference between "Alexa, call my daughter" working and not working could be the difference between help arriving and it not arriving at all.</p>
+
+  <hr class="section-rule" />
+
+  <h2>Not Everything Is Life-Saving. Some of It Just Makes Life Better.</h2>
+
+  <p>Most of what a smart home does day to day isn't dramatic. Lights come on. The temperature adjusts. An alert fires. The house responds to who's home and who isn't.</p>
+
+  <p>None of that makes the news. None of it is a headline.</p>
+
+  <p>But stack it up — the lights that greet you, the alert that caught the AC before the cats noticed, the doorbell that flashes instead of rings, the voice that can call for help when you can't reach a phone — and what you have is a home that pays attention. One that responds to the people inside it, including the people who need it most.</p>
+
+  <p>Not everything a smart home does is life-saving. But some of it is. And the ones that are — they tend to work quietly, in the background, right up until the moment they matter.</p>
+
+  <p>That's worth setting up.</p>
+
+  <div class="post-teaser">
+    <div class="teaser-label">// Up Next</div>
+    <p>Your phone told your home you were on the way — but how, exactly, does that work? Geofencing explained: what it is, which apps support it, and the one setting most people forget to check before turning it on.</p>
+  </div>
+
+</article>
+
+<div class="reddit-section">
+  <div class="reddit-label">// Join the Conversation</div>
+  <a class="reddit-fallback" href="https://www.reddit.com/r/wifiwiseguys" target="_blank" rel="noopener">
+    <div class="reddit-icon">🤝</div>
+    <div class="reddit-text-wrap">
+      <div class="reddit-thread-title">Smarter Feels Safer — share your smart home story</div>
+      <div class="reddit-thread-sub">r/wifiwiseguys · Join the discussion</div>
+    </div>
+    <div class="reddit-cta">Comment on Reddit →</div>
+  </a>
+</div>
+
+<div class="affiliate-strip">
+  <div class="affiliate-strip-inner">
+    <div class="strip-header">// Gear We Actually Use</div>
+    <div class="strip-subhead">Affiliate links — commissions help keep the site running, at no cost to you.</div>
+    <div class="product-grid">
+      <a class="product-card" href="https://www.amazon.com/dp/B0D6SX8VLQ?tag=wifiwiseguys-20" target="_blank" rel="noopener"><div class="product-name">Echo Dot Max</div><div class="product-price">$74.99</div><div class="product-cta">View on Amazon →</div></a>
+      <a class="product-card" href="https://www.amazon.com/dp/B08GD3D9YJ?tag=wifiwiseguys-20" target="_blank" rel="noopener"><div class="product-name">Chamberlain myQ Smart Garage</div><div class="product-price">$29.98</div><div class="product-cta">View on Amazon →</div></a>
+      <a class="product-card" href="https://www.amazon.com/dp/B0G52DX5M3?tag=wifiwiseguys-20" target="_blank" rel="noopener"><div class="product-name">Homey Pro 2026</div><div class="product-price">$399.00</div><div class="product-cta">View on Amazon →</div></a>
+      <a class="product-card" href="https://www.amazon.com/dp/B0BVKZLT3B?tag=wifiwiseguys-20" target="_blank" rel="noopener"><div class="product-name">Leviton Decora Smart Switch</div><div class="product-price">$45.01</div><div class="product-cta">View on Amazon →</div></a>
+      <a class="product-card" href="https://www.amazon.com/dp/B0F151GFYR?tag=wifiwiseguys-20" target="_blank" rel="noopener"><div class="product-name">Ring Wired Doorbell Pro</div><div class="product-price">$249.99</div><div class="product-cta">View on Amazon →</div></a>
+      <a class="product-card" href="https://www.amazon.com/dp/B0C5DPSW5Y?tag=wifiwiseguys-20" target="_blank" rel="noopener"><div class="product-name">Echo Show 15</div><div class="product-price">$254.99</div><div class="product-cta">View on Amazon →</div></a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand footer-col">
+      <div class="footer-logo-text">WIFI WISE GUYS</div>
+      <p>Real smart home guides from people who actually do this. Here to help — not just say we are.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Site</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="setup-dashboard.html">Setup Dashboard</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>More Posts</h4>
+      <ul>
+        <li><a href="blog-what-is-a-smart-home.html">What Is a Smart Home?</a></li>
+        <li><a href="blog-simple-things.html">It's the Simple Things</a></li>
+        <li><a href="blog.html">← All Posts</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Community</h4>
+      <ul>
+        <li><a href="https://www.reddit.com/r/wifiwiseguys" target="_blank" rel="noopener">r/wifiwiseguys</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="mailto:smart@wifiwiseguys.com">Contact Us</a></li>
+        <li><span style="color:rgba(255,255,255,0.3);font-size:0.85rem;">smart@wifiwiseguys.com</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 WiFi Wise Guys. All rights reserved.</span>
+    <span class="footer-logo-text">wifiwiseguys.com</span>
+  </div>
+  <div class="footer-affiliate">Affiliate disclosure: Some links on this site may earn a commission at no cost to you.</div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('open')));
+</script>
+
+</body>
+</html>
