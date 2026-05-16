@@ -60,7 +60,7 @@
     .featured-name { font-size: 1.25rem; font-weight: 900; color: var(--white); letter-spacing: -0.01em; line-height: 1.1; margin-bottom: 8px; }
     .featured-desc { font-family: 'Lora', serif; font-size: 0.85rem; color: rgba(255,255,255,0.65); line-height: 1.55; max-width: 480px; }
     .featured-action { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; z-index: 1; }
-    .featured-price { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 700; color: var(--white); }
+
     .featured-btn { background: var(--white); color: var(--blue-dark); font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 800; padding: 10px 20px; border-radius: 8px; white-space: nowrap; transition: background 0.15s; }
     .featured-card:hover .featured-btn { background: var(--blue-light); }
     .featured-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: rgba(255,255,255,0.35); text-align: right; }
@@ -73,7 +73,7 @@
     }
     @media(max-width:600px) {
       .featured-icon { font-size: 2rem; }
-      .featured-price { font-size: 0.95rem; }
+
     }
     /* AFFILIATE BANNER */
     .aff-banner { width: 100%; background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 12px 16px; display: flex; align-items: center; gap: 12px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; scroll-snap-type: x proximity; }
@@ -83,8 +83,8 @@
     .aff-banner-item { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-decoration: none; background: var(--blue-light); border: 1px solid var(--blue-mid); border-radius: 8px; padding: 8px 12px; white-space: nowrap; flex-shrink: 0; transition: background 0.15s, border-color 0.15s; min-width: 140px; scroll-snap-align: start; }
     .aff-banner-item:hover { background: var(--blue-mid); border-color: var(--blue); }
     .aff-banner-name { font-size: 0.78rem; font-weight: 700; color: var(--ink); line-height: 1.2; }
-    .aff-banner-price { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--blue); }
-    .aff-banner-cta { font-size: 0.68rem; font-weight: 700; color: var(--blue-dark); }
+
+    .aff-banner-cta { font-size: 0.68rem; font-weight: 700; color: var(--blue); text-decoration: underline; }
     .legend-bar { background: var(--white); border-bottom: 1px solid var(--border); padding: 20px 40px; }
     .legend-inner { max-width: 1200px; margin: 0 auto; }
     .legend-title { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 600; color: var(--blue); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
@@ -260,7 +260,7 @@
     .product-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 18px 16px; text-decoration: none; display: flex; flex-direction: column; gap: 8px; transition: border-color 0.2s, box-shadow 0.2s; }
     .product-card:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(0,118,192,0.1); }
     .product-name { font-size: 0.87rem; font-weight: 700; color: var(--ink); line-height: 1.3; }
-    .product-price { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--blue); font-weight: 600; }
+
     .product-cta { font-size: 0.78rem; font-weight: 700; color: var(--blue-dark); margin-top: auto; padding-top: 4px; }
   
     /* MOBILE NAV OVERRIDE */
@@ -269,6 +269,16 @@
       .nav-links { display: none !important; }
       .hamburger { display: flex !important; }
     }
+
+    .brand-shop-strip { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .brand-shop-label { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 600; color: var(--blue); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px; }
+    .brand-shop-items { display: flex; gap: 8px; flex-wrap: wrap; }
+    .brand-shop-item { display: flex; flex-direction: column; gap: 3px; text-decoration: none; background: var(--blue-light); border: 1px solid var(--blue-mid); border-radius: 10px; padding: 10px 14px; transition: background 0.15s, border-color 0.15s, transform 0.15s; flex: 1; min-width: 140px; max-width: 220px; }
+    .brand-shop-item:hover { background: var(--blue-mid); border-color: var(--blue); transform: translateY(-1px); }
+    .brand-shop-name { font-size: 0.82rem; font-weight: 700; color: var(--ink); line-height: 1.2; }
+    .brand-shop-desc { font-size: 0.72rem; color: var(--ink-muted); line-height: 1.3; }
+    .brand-shop-cta { font-size: 0.7rem; font-weight: 700; color: var(--blue); margin-top: 4px; }
+    @media (max-width: 600px) { .brand-shop-item { min-width: 100%; max-width: 100%; } }
   </style>
 </head>
 <body>
@@ -314,7 +324,6 @@
       <div class="featured-desc">Amazon's most powerful compact smart speaker yet — bigger sound, deeper bass, and the same Alexa you already know. The newest addition to the Echo Dot family, and the one worth upgrading to.</div>
     </div>
     <div class="featured-action">
-      <div class="featured-price">$74.99</div>
       <div class="featured-btn">View on Amazon →</div>
     </div>
   </a>
@@ -1484,7 +1493,32 @@
     </div>
   </div>
 </div>
-    <a href="https://support.ring.com/hc/en-us/articles/360050108052-Ring-Device-Manuals-" target="_blank" class="brand-mfr-link">↗ Ring Device Manuals — All PDFs</a>
+    <div class="brand-shop-strip">
+      <div class="brand-shop-label">// Shop Ring on Amazon</div>
+      <div class="brand-shop-items">
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B08CKHPP52?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">Video Doorbell Wired</span>
+          <span class="brand-shop-desc">Amazon's #1 bestselling doorbell</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B09WZBPX7K?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">Spotlight Cam Plus, Battery</span>
+          <span class="brand-shop-desc">HD video, color night vision, siren</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B0F151GFYR?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">Wired Doorbell Pro</span>
+          <span class="brand-shop-desc">Retinal 4K, 10x zoom, top-rated</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B09W9C9Z87?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">Ring Chime</span>
+          <span class="brand-shop-desc">In-home alerts, plug-in, any Ring</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+      </div>
+    </div>
+        <a href="https://support.ring.com/hc/en-us/articles/360050108052-Ring-Device-Manuals-" target="_blank" class="brand-mfr-link">↗ Ring Device Manuals — All PDFs</a>
   </div>
 </div>
 </div>
@@ -1611,7 +1645,32 @@
       </div>
       </div>
     </div>
-    <a href="https://www.legrand.us/radiant/smart-home" target="_blank" class="brand-mfr-link">↗ Visit Legrand Smart Home</a>
+    <div class="brand-shop-strip">
+      <div class="brand-shop-label">// Shop Legrand on Amazon</div>
+      <div class="brand-shop-items">
+        <a class="brand-shop-item" href="https://www.amazon.com/s?k=legrand+radiant+smart+switch&tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">radiant® Smart Switch</span>
+          <span class="brand-shop-desc">Wi-Fi, Matter-enabled, no hub</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+        <a class="brand-shop-item" href="https://www.amazon.com/s?k=legrand+radiant+smart+dimmer&tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">radiant® Smart Dimmer</span>
+          <span class="brand-shop-desc">Wi-Fi, Matter-enabled, no hub</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+        <a class="brand-shop-item" href="https://www.amazon.com/s?k=legrand+radiant+smart+outlet&tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">radiant® Smart Outlet</span>
+          <span class="brand-shop-desc">Wi-Fi, Matter-enabled, no hub</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+        <a class="brand-shop-item" href="https://www.amazon.com/s?k=legrand+radiant+smart+plug&tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">radiant® Smart Plug</span>
+          <span class="brand-shop-desc">Compact, Wi-Fi, voice control</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+      </div>
+    </div>
+        <a href="https://www.legrand.us/radiant/smart-home" target="_blank" class="brand-mfr-link">↗ Visit Legrand Smart Home</a>
   </div>
 
 <!-- TAPO -->
@@ -1664,7 +1723,7 @@
         <div class="device-item">
           <div class="device-model">C120</div>
           <div class="device-name">Indoor/Outdoor Security Camera</div>
-          <div class="device-desc">Budget indoor/outdoor plug-in camera. 1080p, IP67, color night vision via starlight sensor. CNET Best of 2025, PCMag Editor's Choice. Around $30 — strong value pick. No subscription required for basic features.</div>
+          <div class="device-desc">Budget indoor/outdoor plug-in camera. 1080p, IP67, color night vision via starlight sensor. CNET Best of 2025, PCMag Editor's Choice. strong value pick. No subscription required for basic features.</div>
           <div class="device-badges"><span class="db db-wifi">📶 WiFi 2.4GHz</span><span class="db db-nohub">✅ No Hub</span><span class="db db-plugin">🔌 Plug-In</span><span class="db db-voice">🗣️ Voice</span><span class="db db-nosub">💚 No Sub Required</span></div>
           <div class="device-release">Release Date — 2023</div>
           <div class="device-actions">
@@ -1792,7 +1851,7 @@
         <div class="device-item">
           <div class="device-model">P105</div>
           <div class="device-name">Mini Smart Wi-Fi Plug</div>
-          <div class="device-desc">Entry mini plug with basic on/off control. No energy monitoring. Compact design. Good for lamps, fans, and simple automations. Around $10.</div>
+          <div class="device-desc">Entry mini plug with basic on/off control. No energy monitoring. Compact design. Good for lamps, fans, and simple automations. </div>
           <div class="device-badges"><span class="db db-wifi">📶 WiFi 2.4GHz</span><span class="db db-nohub">✅ No Hub</span><span class="db db-plugin">🔌 Plug-In</span><span class="db db-voice">🗣️ Voice</span><span class="db db-nosub">💚 No Sub Required</span></div>
           <div class="device-release">Release Date — 2020</div>
           <div class="device-actions">
@@ -1818,7 +1877,7 @@
         <div class="device-item">
           <div class="device-model">P125M</div>
           <div class="device-name">Mini Smart Wi-Fi Plug (Matter)</div>
-          <div class="device-desc">Matter-certified plug — works with Apple Home, Google Home, Alexa, and any Matter controller. Wirecutter and PCMag picks. Among the first Matter plugs at Best Buy. WWG recommend for Matter-ready homes. Around $15.</div>
+          <div class="device-desc">Matter-certified plug — works with Apple Home, Google Home, Alexa, and any Matter controller. Wirecutter and PCMag picks. Among the first Matter plugs at Best Buy. WWG recommend for Matter-ready homes. </div>
           <div class="device-badges"><span class="db db-matter">🔷 Matter</span><span class="db db-wifi">📶 WiFi 2.4GHz</span><span class="db db-nohub">✅ No Hub</span><span class="db db-plugin">🔌 Plug-In</span><span class="db db-voice">🗣️ Voice</span><span class="db db-apple">🍎 Apple Home</span></div>
           <div class="device-release">Release Date — 2023</div>
           <div class="device-actions">
@@ -1948,7 +2007,32 @@
       </div><!-- end cat-body plugs -->
     </div><!-- end cat-section plugs -->
 
-    <a href="https://www.tapo.com/us/support/" target="_blank" class="brand-mfr-link">↗ Visit Tapo Support</a>
+    <div class="brand-shop-strip">
+      <div class="brand-shop-label">// Shop Tapo on Amazon</div>
+      <div class="brand-shop-items">
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B07RQMTM8P?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">Tapo C100</span>
+          <span class="brand-shop-desc">1080p indoor cam, Amazon bestseller</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B09S3Q5P49?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">Tapo P115 (4-Pack)</span>
+          <span class="brand-shop-desc">Smart plug, energy monitoring</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B0B3H6RSQM?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">Tapo P125M</span>
+          <span class="brand-shop-desc">Matter smart plug, universal compat</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B0B5QQ1GHP?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">Tapo H100</span>
+          <span class="brand-shop-desc">Smart hub with built-in chime</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+      </div>
+    </div>
+        <a href="https://www.tapo.com/us/support/" target="_blank" class="brand-mfr-link">↗ Visit Tapo Support</a>
   </div>
 </div>
 </div>
@@ -1964,33 +2048,27 @@
   <div class="aff-banner-items">
     <a class="aff-banner-item" href="https://www.amazon.com/dp/B0D6SX8VLQ?tag=wifiwiseguys-20" target="_blank" rel="noopener">
       <span class="aff-banner-name">Echo Dot Max</span>
-      <span class="aff-banner-price">$74.99</span>
-      <span class="aff-banner-cta">Amazon →</span>
+      <span class="aff-banner-cta">Check Pricing on Amazon</span>
     </a>
     <a class="aff-banner-item" href="https://www.amazon.com/dp/B08GD3D9YJ?tag=wifiwiseguys-20" target="_blank" rel="noopener">
       <span class="aff-banner-name">Chamberlain myQ</span>
-      <span class="aff-banner-price">$29.98</span>
-      <span class="aff-banner-cta">Amazon →</span>
+      <span class="aff-banner-cta">Check Pricing on Amazon</span>
     </a>
     <a class="aff-banner-item" href="https://www.amazon.com/dp/B0G52DX5M3?tag=wifiwiseguys-20" target="_blank" rel="noopener">
       <span class="aff-banner-name">Homey Pro 2026</span>
-      <span class="aff-banner-price">$399.00</span>
-      <span class="aff-banner-cta">Amazon →</span>
+      <span class="aff-banner-cta">Check Pricing on Amazon</span>
     </a>
     <a class="aff-banner-item" href="https://www.amazon.com/dp/B0BVKZLT3B?tag=wifiwiseguys-20" target="_blank" rel="noopener">
       <span class="aff-banner-name">Leviton Decora Switch</span>
-      <span class="aff-banner-price">$45.01</span>
-      <span class="aff-banner-cta">Amazon →</span>
+      <span class="aff-banner-cta">Check Pricing on Amazon</span>
     </a>
     <a class="aff-banner-item" href="https://www.amazon.com/dp/B0F151GFYR?tag=wifiwiseguys-20" target="_blank" rel="noopener">
       <span class="aff-banner-name">Ring Wired Doorbell Pro</span>
-      <span class="aff-banner-price">$249.99</span>
-      <span class="aff-banner-cta">Amazon →</span>
+      <span class="aff-banner-cta">Check Pricing on Amazon</span>
     </a>
     <a class="aff-banner-item" href="https://www.amazon.com/dp/B0C5DPSW5Y?tag=wifiwiseguys-20" target="_blank" rel="noopener">
       <span class="aff-banner-name">Echo Show 15</span>
-      <span class="aff-banner-price">$254.99</span>
-      <span class="aff-banner-cta">Amazon →</span>
+      <span class="aff-banner-cta">Check Pricing on Amazon</span>
     </a>
   </div>
 </div>
@@ -2244,54 +2322,380 @@
       </div>
     </div>
 
-    <a href="https://www.kasasmart.com/us/support" target="_blank" class="brand-mfr-link">↗ Visit Kasa Support</a>
+    <div class="brand-shop-strip">
+      <div class="brand-shop-label">// Shop Kasa on Amazon</div>
+      <div class="brand-shop-items">
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B08LN3C7WK?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">Kasa EP25 Smart Plug</span>
+          <span class="brand-shop-desc">Slim, energy monitoring, top pick</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B07RCNB2L3?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">Kasa EP10 Mini (4-Pack)</span>
+          <span class="brand-shop-desc">Ultra compact, 15A, Alexa & Google</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B07G95FFN3?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">Kasa Smart Power Strip</span>
+          <span class="brand-shop-desc">6 smart outlets, USB ports</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B07ZCGYXGS?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">Kasa KS240 Dimmer</span>
+          <span class="brand-shop-desc">3-way smart dimmer switch</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+      </div>
+    </div>
+        <a href="https://www.kasasmart.com/us/support" target="_blank" class="brand-mfr-link">↗ Visit Kasa Support</a>
   </div>
 </div>
 </div>
 
 <!-- EERO -->
-<div class="brand-section" data-brand="eero mesh wifi router 6 plus pro 6e" data-status="active">
-<div class="brand-card locked">
-  <div class="brand-header" onclick="return false;">
+<div class="brand-section" data-brand="eero mesh wifi router 7 pro max outdoor poe signal 6 6e 6plus accessories" data-status="active">
+<div class="brand-card">
+  <div class="brand-header" onclick="toggleBrand(this)">
     <div class="brand-icon">📶</div>
     <div class="brand-info">
-      <div class="brand-name">eero <span class="badge badge-active">Active</span> <span class="coming-soon-badge">🔒 Links Coming Soon</span></div>
-      <div class="brand-meta">Mesh WiFi systems · Built-in Zigbee hub · Thread border router · App: eero</div>
+      <div class="brand-name">eero <span class="badge badge-active">Active</span></div>
+      <div class="brand-meta">Mesh WiFi systems · Built-in Zigbee hub · Thread border router · Matter controller · App: eero</div>
     </div>
     <div class="brand-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
   </div>
   <div class="brand-body">
-    <div class="device-list">
-      <div class="device-item">
-        <div class="device-model">J010001</div>
-        <div class="device-name">eero 6+</div>
-        <div class="device-desc">Dual-band WiFi 6, up to 1,500 sq ft per unit, 75+ devices. Built-in Zigbee hub and Thread border router. Functions as a Matter controller. Alexa primary voice assistant. Optional eero Secure+ for advanced security and parental controls.</div>
-        <div class="device-badges">
-          <span class="db db-wifi">📶 WiFi 6</span><span class="db db-zigbee">🔶 Zigbee Hub</span><span class="db db-thread">🟣 Thread</span><span class="db db-matter">🔷 Matter</span><span class="db db-nohub">✅ No Hub Needed</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 Secure+ Optional ⭐</span><span class="db db-voice">🗣️ Voice (Alexa)</span>
+
+    <div class="cat-section">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <span class="cat-title">// Wi-Fi 7 — Current Lineup<span class="cat-count">(5)</span></span>
+        <span class="cat-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </div>
+      <div class="cat-body">
+      <div class="device-list">
+        <div class="device-item">
+          <div class="device-model">eero</div>
+          <div class="device-name">eero 7</div>
+          <div class="device-desc">Entry-level Wi-Fi 7. Dual-band (2.4/5GHz). Built-in Zigbee hub, Thread border router, Matter controller. Up to 2,000 sq ft per unit. 2x 2.5GbE ports + USB-C. 200+ devices. 1.8 Gbps wireless. Released Feb 2025.</div>
+          <div class="device-badges">
+            <span class="db db-wifi">📶 WiFi 7</span><span class="db db-zigbee">🔶 Zigbee Hub</span><span class="db db-thread">🟣 Thread</span><span class="db db-matter">🔷 Matter</span><span class="db db-nohub">✅ No Hub Needed</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 eero Plus Optional</span><span class="db db-voice">🗣️ Voice (Alexa)</span><span class="db db-star">⚡ Simple Setup</span>
+          </div>
+          <div class="device-release">Release Date — February 2025</div>
+          <div class="device-actions">
+            <a href="https://support.eero.com/hc/en-us/articles/207937603-How-do-I-set-up-eero" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+            <a href="https://support.eero.com/hc/en-us/articles/215473703-How-do-I-reboot-or-reset-my-eero" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+            <a href="https://support.eero.com/hc/en-us/articles/26542515361563-How-do-I-use-eero-Simple-Setup" target="_blank" class="device-btn device-btn-ghost">⚡ Simple Setup</a>
+            <a href="https://www.eero.com/shop/eero-7" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+          </div>
         </div>
-        <div class="device-release">Release Date — Circa 2022</div>
-        <div class="device-actions">
-          <a href="https://support.eero.com/hc/en-us/articles/207621116" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
-          <a href="https://support.eero.com/hc/en-us/articles/207621226" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
-          <a href="https://eero.com/shop/eero-6-plus" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+        <div class="device-item">
+          <div class="device-model">eero</div>
+          <div class="device-name">eero Pro 7</div>
+          <div class="device-desc">Tri-band Wi-Fi 7 (2.4/5/6GHz). Built-in Zigbee hub, Thread border router, Matter controller. Up to 2,000 sq ft per unit. 2x 5GbE ports + USB-C. 200+ devices. 3.9 Gbps wireless. Best balance of performance and price in the lineup. Released Feb 2025.</div>
+          <div class="device-badges">
+            <span class="db db-wifi">📶 WiFi 7 Tri-Band</span><span class="db db-zigbee">🔶 Zigbee Hub</span><span class="db db-thread">🟣 Thread</span><span class="db db-matter">🔷 Matter</span><span class="db db-nohub">✅ No Hub Needed</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 eero Plus Optional</span><span class="db db-voice">🗣️ Voice (Alexa)</span><span class="db db-star">⚡ Simple Setup</span>
+          </div>
+          <div class="device-release">Release Date — February 2025</div>
+          <div class="device-actions">
+            <a href="https://support.eero.com/hc/en-us/articles/207937603-How-do-I-set-up-eero" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+            <a href="https://support.eero.com/hc/en-us/articles/215473703-How-do-I-reboot-or-reset-my-eero" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+            <a href="https://support.eero.com/hc/en-us/articles/26542515361563-How-do-I-use-eero-Simple-Setup" target="_blank" class="device-btn device-btn-ghost">⚡ Simple Setup</a>
+            <a href="https://www.eero.com/shop/eero-pro-7" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+          </div>
+        </div>
+        <div class="device-item">
+          <div class="device-model">eero</div>
+          <div class="device-name">eero Max 7</div>
+          <div class="device-desc">Flagship tri-band Wi-Fi 7. 4x4 MIMO on 5GHz and 6GHz bands. 9.4 Gbps wired throughput, 4.3 Gbps wireless. 2x 10GbE + 2x 2.5GbE ports per unit. Up to 2,500 sq ft per unit. 250+ devices. The serious upsell for power users and large homes.</div>
+          <div class="device-badges">
+            <span class="db db-wifi">📶 WiFi 7 Tri-Band</span><span class="db db-zigbee">🔶 Zigbee Hub</span><span class="db db-thread">🟣 Thread</span><span class="db db-nohub">✅ No Hub Needed</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 eero Plus Optional</span><span class="db db-voice">🗣️ Voice (Alexa)</span><span class="db db-star">⚡ Simple Setup</span>
+          </div>
+          <div class="device-release">Release Date — September 2023</div>
+          <div class="device-actions">
+            <a href="https://support.eero.com/hc/en-us/articles/207937603-How-do-I-set-up-eero" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+            <a href="https://support.eero.com/hc/en-us/articles/215473703-How-do-I-reboot-or-reset-my-eero" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+            <a href="https://support.eero.com/hc/en-us/articles/26542515361563-How-do-I-use-eero-Simple-Setup" target="_blank" class="device-btn device-btn-ghost">⚡ Simple Setup</a>
+            <a href="https://www.eero.com/shop/eero-max-7" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+          </div>
+        </div>
+        <div class="device-item">
+          <div class="device-model">eero</div>
+          <div class="device-name">eero Outdoor 7</div>
+          <div class="device-desc">Outdoor-rated mesh node. IP66 weather resistance. Wi-Fi 7 dual-band. Up to 15,000 sq ft of outdoor coverage per unit. Point-to-point bridge support — extends WiFi to outbuildings without Ethernet cables. 2.1 Gbps wireless. Wired or PoE powered. Released Oct 2024.</div>
+          <div class="device-badges">
+            <span class="db db-wifi">📶 WiFi 7</span><span class="db db-zigbee">🔶 Zigbee Hub</span><span class="db db-thread">🟣 Thread</span><span class="db db-matter">🔷 Matter</span><span class="db db-nohub">✅ No Hub Needed</span><span class="db db-wired">🔌 Wired / PoE</span><span class="db db-sub">💳 eero Plus Optional</span><span class="db db-voice">🗣️ Voice (Alexa)</span><span class="db db-star">⚡ Simple Setup</span>
+          </div>
+          <div class="device-release">Release Date — October 2024</div>
+          <div class="device-actions">
+            <a href="https://support.eero.com/hc/en-us/articles/207937603-How-do-I-set-up-eero" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+            <a href="https://support.eero.com/hc/en-us/articles/215473703-How-do-I-reboot-or-reset-my-eero" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+            <a href="https://support.eero.com/hc/en-us/articles/26542515361563-How-do-I-use-eero-Simple-Setup" target="_blank" class="device-btn device-btn-ghost">⚡ Simple Setup</a>
+            <a href="https://www.eero.com/shop/eero-outdoor-7" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+          </div>
+        </div>
+        <div class="device-item">
+          <div class="device-model">eero</div>
+          <div class="device-name">eero PoE 7</div>
+          <div class="device-desc">Ceiling or wall-mount PoE access point. Tri-band Wi-Fi 7. 3.9 Gbps wireless, 9.4 Gbps wired throughput. 1x 10GbE + 1x 10GbE PoE+ port. Up to 2,000 sq ft. 200+ devices. Built for professional and commercial installs. Pairs with eero PoE Gateway.</div>
+          <div class="device-badges">
+            <span class="db db-wifi">📶 WiFi 7 Tri-Band</span><span class="db db-zigbee">🔶 Zigbee Hub</span><span class="db db-thread">🟣 Thread</span><span class="db db-matter">🔷 Matter</span><span class="db db-nohub">✅ No Hub Needed</span><span class="db db-wired">🔌 PoE</span><span class="db db-sub">💳 eero Plus Optional</span><span class="db db-voice">🗣️ Voice (Alexa)</span><span class="db db-star">⚡ Simple Setup</span>
+          </div>
+          <div class="device-release">Release Date — November 2025</div>
+          <div class="device-actions">
+            <a href="https://support.eero.com/hc/en-us/articles/207937603-How-do-I-set-up-eero" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+            <a href="https://support.eero.com/hc/en-us/articles/215473703-How-do-I-reboot-or-reset-my-eero" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+            <a href="https://support.eero.com/hc/en-us/articles/26542515361563-How-do-I-use-eero-Simple-Setup" target="_blank" class="device-btn device-btn-ghost">⚡ Simple Setup</a>
+            <a href="https://www.eero.com/shop/eero-poe-7" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+          </div>
         </div>
       </div>
-      <div class="device-item">
-        <div class="device-model">B010001</div>
-        <div class="device-name">eero Pro 6E</div>
-        <div class="device-desc">Tri-band WiFi 6E (2.4/5/6GHz), up to 2,000 sq ft per unit, 100+ devices. Built-in Zigbee hub, Thread border router, Matter controller. 2.5 GbE port for multi-gig internet plans.</div>
-        <div class="device-badges">
-          <span class="db db-wifi">📶 WiFi 6E Tri-Band</span><span class="db db-zigbee">🔶 Zigbee Hub</span><span class="db db-thread">🟣 Thread</span><span class="db db-matter">🔷 Matter</span><span class="db db-nohub">✅ No Hub Needed</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 Secure+ Optional ⭐</span><span class="db db-voice">🗣️ Voice (Alexa)</span>
-        </div>
-        <div class="device-release">Release Date — Circa 2022</div>
-        <div class="device-actions">
-          <a href="https://support.eero.com/hc/en-us/articles/207621116" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
-          <a href="https://support.eero.com/hc/en-us/articles/207621226" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
-          <a href="https://eero.com/shop/eero-pro-6e" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
-        </div>
       </div>
     </div>
+
+    <div class="cat-section">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <span class="cat-title">// Wi-Fi 6E<span class="cat-count">(1)</span></span>
+        <span class="cat-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </div>
+      <div class="cat-body">
+      <div class="device-list">
+        <div class="device-item">
+          <div class="device-model">eero</div>
+          <div class="device-name">eero Pro 6E</div>
+          <div class="device-desc">Tri-band Wi-Fi 6E (2.4/5/6GHz). Built-in Zigbee hub, Thread border router, Matter controller. 1.6 Gbps wireless. 2x 2.5GbE ports. Up to 2,000 sq ft per unit. Still widely sold and a solid budget alternative to the Wi-Fi 7 lineup.</div>
+          <div class="device-badges">
+            <span class="db db-wifi">📶 WiFi 6E Tri-Band</span><span class="db db-zigbee">🔶 Zigbee Hub</span><span class="db db-thread">🟣 Thread</span><span class="db db-matter">🔷 Matter</span><span class="db db-nohub">✅ No Hub Needed</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 eero Plus Optional</span><span class="db db-voice">🗣️ Voice (Alexa)</span><span class="db db-star">⚡ Simple Setup</span>
+          </div>
+          <div class="device-release">Release Date — Circa 2022</div>
+          <div class="device-actions">
+            <a href="https://support.eero.com/hc/en-us/articles/207937603-How-do-I-set-up-eero" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+            <a href="https://support.eero.com/hc/en-us/articles/215473703-How-do-I-reboot-or-reset-my-eero" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+            <a href="https://support.eero.com/hc/en-us/articles/26542515361563-How-do-I-use-eero-Simple-Setup" target="_blank" class="device-btn device-btn-ghost">⚡ Simple Setup</a>
+            <a href="https://www.eero.com/shop/eero-pro-6e" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="cat-section">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <span class="cat-title">// Wi-Fi 6<span class="cat-count">(4)</span></span>
+        <span class="cat-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </div>
+      <div class="cat-body">
+      <div class="device-list">
+        <div class="device-item">
+          <div class="device-model">eero</div>
+          <div class="device-name">eero 6+</div>
+          <div class="device-desc">Dual-band Wi-Fi 6 with 160MHz channels. Built-in Zigbee hub. Up to 1,500 sq ft per unit. 1 Gbps wireless. Still widely sold — solid entry-level option for budget installs.</div>
+          <div class="device-badges">
+            <span class="db db-wifi">📶 WiFi 6</span><span class="db db-zigbee">🔶 Zigbee Hub</span><span class="db db-nohub">✅ No Hub Needed</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 eero Plus Optional</span><span class="db db-voice">🗣️ Voice (Alexa)</span><span class="db db-star">⚡ Simple Setup</span>
+          </div>
+          <div class="device-release">Release Date — Circa 2022</div>
+          <div class="device-actions">
+            <a href="https://support.eero.com/hc/en-us/articles/207937603-How-do-I-set-up-eero" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+            <a href="https://support.eero.com/hc/en-us/articles/215473703-How-do-I-reboot-or-reset-my-eero" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+            <a href="https://support.eero.com/hc/en-us/articles/26542515361563-How-do-I-use-eero-Simple-Setup" target="_blank" class="device-btn device-btn-ghost">⚡ Simple Setup</a>
+            <a href="https://www.eero.com/shop/eero-6-plus" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+          </div>
+        </div>
+        <div class="device-item">
+          <div class="device-model">eero</div>
+          <div class="device-name">eero 6</div>
+          <div class="device-desc">Entry-level Wi-Fi 6. No Zigbee hub. Up to 1,500 sq ft per unit. 500 Mbps wireless. Budget pick — note that without a built-in hub, Zigbee and Matter devices will need a separate hub.</div>
+          <div class="device-badges">
+            <span class="db db-wifi">📶 WiFi 6</span><span class="db db-nohub">✅ No Hub Needed</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 eero Plus Optional</span><span class="db db-voice">🗣️ Voice (Alexa)</span>
+          </div>
+          <div class="device-release">Release Date — Circa 2021</div>
+          <div class="device-actions">
+            <a href="https://support.eero.com/hc/en-us/articles/207937603-How-do-I-set-up-eero" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+            <a href="https://support.eero.com/hc/en-us/articles/215473703-How-do-I-reboot-or-reset-my-eero" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+            <a href="https://www.eero.com/shop/eero-6" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+          </div>
+        </div>
+        <div class="device-item">
+          <div class="device-model">eero</div>
+          <div class="device-name">eero Pro 6</div>
+          <div class="device-desc">Tri-band Wi-Fi 6 with Zigbee hub. Up to 2,000 sq ft per unit. 1 Gbps wireless. Being phased out but still available. Consider the Pro 6E or Pro 7 for new installs.</div>
+          <div class="device-badges">
+            <span class="db db-wifi">📶 WiFi 6 Tri-Band</span><span class="db db-zigbee">🔶 Zigbee Hub</span><span class="db db-nohub">✅ No Hub Needed</span><span class="db db-wired">🔌 Wired</span><span class="db db-sub">💳 eero Plus Optional</span><span class="db db-voice">🗣️ Voice (Alexa)</span>
+          </div>
+          <div class="device-release">Release Date — Circa 2021</div>
+          <div class="device-actions">
+            <a href="https://support.eero.com/hc/en-us/articles/207937603-How-do-I-set-up-eero" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+            <a href="https://support.eero.com/hc/en-us/articles/215473703-How-do-I-reboot-or-reset-my-eero" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+            <a href="https://www.eero.com/shop/eero-pro-6" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+          </div>
+        </div>
+        <div class="device-item">
+          <div class="device-model">eero</div>
+          <div class="device-name">eero PoE 6</div>
+          <div class="device-desc">PoE ceiling or wall-mount access point. Wi-Fi 6 dual-band. 1.6 Gbps wireless. Up to 2,000 sq ft. No Zigbee hub. Built for professional and commercial installs. Pairs with eero PoE Gateway.</div>
+          <div class="device-badges">
+            <span class="db db-wifi">📶 WiFi 6</span><span class="db db-nohub">✅ No Hub Needed</span><span class="db db-wired">🔌 PoE</span><span class="db db-sub">💳 eero Plus Optional</span><span class="db db-voice">🗣️ Voice (Alexa)</span><span class="db db-star">⚡ Simple Setup</span>
+          </div>
+          <div class="device-release">Release Date — Circa 2022</div>
+          <div class="device-actions">
+            <a href="https://support.eero.com/hc/en-us/articles/207937603-How-do-I-set-up-eero" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+            <a href="https://support.eero.com/hc/en-us/articles/215473703-How-do-I-reboot-or-reset-my-eero" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+            <a href="https://support.eero.com/hc/en-us/articles/26542515361563-How-do-I-use-eero-Simple-Setup" target="_blank" class="device-btn device-btn-ghost">⚡ Simple Setup</a>
+            <a href="https://www.eero.com/shop/eero-poe-6" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="cat-section">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <span class="cat-title">// Infrastructure &amp; Backup<span class="cat-count">(2)</span></span>
+        <span class="cat-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </div>
+      <div class="cat-body">
+      <div class="device-list">
+        <div class="device-item">
+          <div class="device-model">eero</div>
+          <div class="device-name">eero PoE Gateway</div>
+          <div class="device-desc">Wired eero router combined with a 10-port PoE+ switch. 2x 10GbE + 8x 2.5GbE PoE+ ports. 9.4 Gbps wired throughput. Designed to pair with eero PoE 6 and PoE 7 access points. Rack and closet installs.</div>
+          <div class="device-badges">
+            <span class="db db-wired">🔌 Wired</span><span class="db db-nohub">✅ No Hub Needed</span><span class="db db-sub">💳 eero Plus Optional</span><span class="db db-voice">🗣️ Voice (Alexa)</span>
+          </div>
+          <div class="device-release">Release Date — Circa 2023</div>
+          <div class="device-actions">
+            <a href="https://support.eero.com/hc/en-us/articles/16778664658331-eero-PoE-Gateway-setup" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+            <a href="https://support.eero.com/hc/en-us/articles/215473703-How-do-I-reboot-or-reset-my-eero" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+            <a href="https://www.eero.com/shop/eero-poe-gateway" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+          </div>
+        </div>
+        <div class="device-item">
+          <div class="device-model">eero</div>
+          <div class="device-name">eero Signal 4G LTE</div>
+          <div class="device-desc">Cellular internet backup for eero networks. Plugs into the USB-C port on any compatible eero (Wi-Fi 6 and up). Built-in eSIM automatically connects to a local cellular network when your wired internet goes down. eero Plus subscription required for data. Available Feb 2026.</div>
+          <div class="device-badges">
+            <span class="db db-wifi">📶 4G LTE</span><span class="db db-nohub">✅ No Hub Needed</span><span class="db db-sub">💳 eero Plus Required</span><span class="db db-voice">🗣️ Voice (Alexa)</span>
+          </div>
+          <div class="device-release">Release Date — February 2026</div>
+          <div class="device-actions">
+            <a href="https://support.eero.com/hc/en-us/articles/38988445457563-How-do-I-set-up-eero-Signal" target="_blank" class="device-btn device-btn-primary">📖 Setup Guide</a>
+            <a href="https://www.eero.com/shop/eero-signal" target="_blank" class="device-btn device-btn-mfr">↗ Manufacturer</a>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="cat-section">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <span class="cat-title">// Accessories<span class="cat-count">(2)</span></span>
+        <span class="cat-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </div>
+      <div class="cat-body">
+      <div class="device-list">
+        <div class="device-item">
+          <div class="device-model">eero</div>
+          <div class="device-name">eero Power Adapters</div>
+          <div class="device-desc">Replacement and additional power adapters for eero devices. USB-C models for newer hardware, barrel connectors for older models. Compatible with North American outlets. 1-year limited warranty.</div>
+          <div class="device-badges">
+            <span class="db db-wired">🔌 USB-C / Barrel</span>
+          </div>
+          <div class="device-actions">
+            <a href="https://www.amazon.com/s?k=eero+power+adapter&tag=wifiwiseguys-20" target="_blank" class="device-btn device-btn-mfr">↗ Find on Amazon</a>
+          </div>
+        </div>
+        <div class="device-item">
+          <div class="device-model">eero</div>
+          <div class="device-name">eero Ethernet Cables</div>
+          <div class="device-desc">Premium CAT6a Ethernet cables branded by eero. Supports 10 Gigabit+ speeds. RJ45 connectors. Available in multiple colors and lengths. Good upsell for customers setting up wired backhaul between nodes.</div>
+          <div class="device-badges">
+            <span class="db db-wired">🔌 CAT6a</span>
+          </div>
+          <div class="device-actions">
+            <a href="https://www.amazon.com/Amazon-eero-CAT6a-Ethernet-cable/dp/B0CGW39394?tag=wifiwiseguys-20" target="_blank" class="device-btn device-btn-mfr">↗ Find on Amazon</a>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="cat-section">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <span class="cat-title">// Legacy / EOL — Do Not Recommend for New Installs<span class="cat-count">(4)</span></span>
+        <span class="cat-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </div>
+      <div class="cat-body">
+      <div class="device-list">
+        <div class="device-item" style="opacity:0.65;">
+          <div class="device-model">eero</div>
+          <div class="device-name">eero (1st Gen) <span class="badge" style="background:#888;color:#fff;font-size:0.65rem;padding:2px 6px;border-radius:4px;">EOL</span></div>
+          <div class="device-desc">Original eero. No guaranteed software updates since Sep 2022. Still functional — support existing installs only.</div>
+          <div class="device-badges"><span class="db db-wifi">📶 WiFi 5</span><span class="db db-wired">🔌 Wired</span></div>
+          <div class="device-actions">
+            <a href="https://support.eero.com/hc/en-us/articles/207937603-How-do-I-set-up-eero" target="_blank" class="device-btn device-btn-ghost">📖 Setup Guide</a>
+            <a href="https://support.eero.com/hc/en-us/articles/215473703-How-do-I-reboot-or-reset-my-eero" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          </div>
+        </div>
+        <div class="device-item" style="opacity:0.65;">
+          <div class="device-model">eero</div>
+          <div class="device-name">eero (2nd Gen) <span class="badge" style="background:#888;color:#fff;font-size:0.65rem;padding:2px 6px;border-radius:4px;">EOL</span></div>
+          <div class="device-desc">Amazon-era redesign. Still functional. EOL — do not recommend for new installs.</div>
+          <div class="device-badges"><span class="db db-wifi">📶 WiFi 5</span><span class="db db-wired">🔌 Wired</span></div>
+          <div class="device-actions">
+            <a href="https://support.eero.com/hc/en-us/articles/207937603-How-do-I-set-up-eero" target="_blank" class="device-btn device-btn-ghost">📖 Setup Guide</a>
+            <a href="https://support.eero.com/hc/en-us/articles/215473703-How-do-I-reboot-or-reset-my-eero" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          </div>
+        </div>
+        <div class="device-item" style="opacity:0.65;">
+          <div class="device-model">eero</div>
+          <div class="device-name">eero Pro (2nd Gen) <span class="badge" style="background:#888;color:#fff;font-size:0.65rem;padding:2px 6px;border-radius:4px;">EOL</span></div>
+          <div class="device-desc">Tri-band Wi-Fi 5 with dedicated wireless backhaul. Still functional but EOL. Do not recommend for new installs.</div>
+          <div class="device-badges"><span class="db db-wifi">📶 WiFi 5 Tri-Band</span><span class="db db-wired">🔌 Wired</span></div>
+          <div class="device-actions">
+            <a href="https://support.eero.com/hc/en-us/articles/207937603-How-do-I-set-up-eero" target="_blank" class="device-btn device-btn-ghost">📖 Setup Guide</a>
+            <a href="https://support.eero.com/hc/en-us/articles/215473703-How-do-I-reboot-or-reset-my-eero" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          </div>
+        </div>
+        <div class="device-item" style="opacity:0.65;">
+          <div class="device-model">eero</div>
+          <div class="device-name">eero Beacon <span class="badge" style="background:#888;color:#fff;font-size:0.65rem;padding:2px 6px;border-radius:4px;">EOL</span></div>
+          <div class="device-desc">Compact plug-in extender for legacy eero networks. No Ethernet ports. EOL — legacy support only.</div>
+          <div class="device-badges"><span class="db db-wifi">📶 WiFi 5</span><span class="db db-wired">🔌 Plug-In</span></div>
+          <div class="device-actions">
+            <a href="https://support.eero.com/hc/en-us/articles/207937603-How-do-I-set-up-eero" target="_blank" class="device-btn device-btn-ghost">📖 Setup Guide</a>
+            <a href="https://support.eero.com/hc/en-us/articles/215473703-How-do-I-reboot-or-reset-my-eero" target="_blank" class="device-btn device-btn-ghost">🔄 Reset</a>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="brand-shop-strip">
+      <div class="brand-shop-label">// Shop eero on Amazon</div>
+      <div class="brand-shop-items">
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B0CHWZ8G1X?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">eero 7</span>
+          <span class="brand-shop-desc">Entry Wi-Fi 7 mesh router</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B0CQY2HXVJ?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">eero Pro 7</span>
+          <span class="brand-shop-desc">Tri-band Wi-Fi 7, best value</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B09HJJ3Q6Z?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">eero Max 7</span>
+          <span class="brand-shop-desc">Flagship — 10GbE, 9.4 Gbps</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B0BZBFNPTJ?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">eero Outdoor 7</span>
+          <span class="brand-shop-desc">IP66, 15,000 sq ft outdoor</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+      </div>
+    </div>
+
     <a href="https://support.eero.com" target="_blank" class="brand-mfr-link">↗ Visit eero Support</a>
+    <a href="https://support.eero.com/hc/en-us/articles/26542515361563-How-do-I-use-eero-Simple-Setup" target="_blank" class="brand-mfr-link">⚡ eero Simple Setup Guide</a>
   </div>
 </div>
 </div>
@@ -2724,7 +3128,27 @@
       </div>
     </div>
 
-    <a href="https://www.leviton.com/en/support" target="_blank" class="brand-mfr-link">↗ Visit Leviton Support</a>
+    <div class="brand-shop-strip">
+      <div class="brand-shop-label">// Shop Leviton on Amazon</div>
+      <div class="brand-shop-items">
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B0BVKZLT3B?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">Decora Smart Switch</span>
+          <span class="brand-shop-desc">Wi-Fi, Matter, no hub required</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+        <a class="brand-shop-item" href="https://www.amazon.com/s?k=leviton+decora+smart+dimmer+matter&tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">Decora Smart Dimmer</span>
+          <span class="brand-shop-desc">Wi-Fi, Matter, no hub required</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B07ZPB9M5W?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">Decora Smart Plug-In (D215P)</span>
+          <span class="brand-shop-desc">Matter certified, handles motors</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+      </div>
+    </div>
+        <a href="https://www.leviton.com/en/support" target="_blank" class="brand-mfr-link">↗ Visit Leviton Support</a>
   </div>
 </div>
 </div>
@@ -2802,7 +3226,7 @@
           <div class="device-item">
             <div class="device-model">ATH-1000-26</div>
             <div class="device-name">Homey Pro (2026)</div>
-            <div class="device-desc">Flagship local-first hub. Supports 8 protocols: WiFi, Zigbee, Z-Wave Plus, Matter, Thread, BLE, 433MHz RF, and Infrared. 50,000+ compatible devices across 1,000+ brands. Automations run fully local — no internet required. 4GB RAM, 8GB storage, 1.5GHz quad-core. Supports 100+ apps. Released December 2025. Software support guaranteed through June 2031. Cloud backup optional at $0.99/mo. Apple HomeKit via experiment mode. $399.</div>
+            <div class="device-desc">Flagship local-first hub. Supports 8 protocols: WiFi, Zigbee, Z-Wave Plus, Matter, Thread, BLE, 433MHz RF, and Infrared. 50,000+ compatible devices across 1,000+ brands. Automations run fully local — no internet required. 4GB RAM, 8GB storage, 1.5GHz quad-core. Supports 100+ apps. Released December 2025. Software support guaranteed through June 2031. Cloud backup optional at $0.99/mo. Apple HomeKit via experiment mode..</div>
             <div class="device-badges">
               <span class="db db-wifi">📶 WiFi 2.4/5GHz</span><span class="db db-zigbee">🔶 Zigbee</span><span class="db db-zwave">🟢 Z-Wave Plus</span><span class="db db-thread">🟣 Thread</span><span class="db db-matter">🔷 Matter</span><span class="db db-ble">🩷 BLE</span><span class="db db-hub">🟡 IS the Hub</span><span class="db db-wired">🔌 USB-C Wired</span><span class="db db-voice">🗣️ Voice</span>
             </div>
@@ -2817,7 +3241,7 @@
           <div class="device-item">
             <div class="device-model">ATH-1000-23</div>
             <div class="device-name">Homey Pro (Early 2023)</div>
-            <div class="device-desc">Same protocol support and app ecosystem as the 2026 model — WiFi, Zigbee, Z-Wave Plus, Matter, Thread, BLE, 433MHz RF, and Infrared. 2GB RAM with ~50 app capacity. Still sold through resellers. Software support guaranteed through June 2031. Good option if found discounted. $399 at retail. Cloud backup optional at $0.99/mo.</div>
+            <div class="device-desc">Same protocol support and app ecosystem as the 2026 model — WiFi, Zigbee, Z-Wave Plus, Matter, Thread, BLE, 433MHz RF, and Infrared. 2GB RAM with ~50 app capacity. Still sold through resellers. Software support guaranteed through June 2031. Good option if found discounted.. Cloud backup optional at $0.99/mo.</div>
             <div class="device-badges">
               <span class="db db-wifi">📶 WiFi 2.4/5GHz</span><span class="db db-zigbee">🔶 Zigbee</span><span class="db db-zwave">🟢 Z-Wave Plus</span><span class="db db-thread">🟣 Thread</span><span class="db db-matter">🔷 Matter</span><span class="db db-ble">🩷 BLE</span><span class="db db-hub">🟡 IS the Hub</span><span class="db db-wired">🔌 USB-C Wired</span><span class="db db-voice">🗣️ Voice</span>
             </div>
@@ -2847,7 +3271,7 @@
           <div class="device-item">
             <div class="device-model">ATH-500</div>
             <div class="device-name">Homey Bridge</div>
-            <div class="device-desc">Two use cases. Standalone: plug-in cloud hub supporting Zigbee, Z-Wave, WiFi, 433MHz RF, IR, and BLE — 5 devices free, $4.49/mo for unlimited. Satellite: extend Zigbee, Z-Wave, 433MHz, and IR coverage for an existing Homey Pro in large homes at no additional subscription cost. Works with Alexa and Google Home. No Apple HomeKit. $69.</div>
+            <div class="device-desc">Two use cases. Standalone: plug-in cloud hub supporting Zigbee, Z-Wave, WiFi, 433MHz RF, IR, and BLE — 5 devices free, $4.49/mo for unlimited. Satellite: extend Zigbee, Z-Wave, 433MHz, and IR coverage for an existing Homey Pro in large homes at no additional subscription cost. Works with Alexa and Google Home. No Apple HomeKit..</div>
             <div class="device-badges">
               <span class="db db-wifi">📶 WiFi</span><span class="db db-zigbee">🔶 Zigbee</span><span class="db db-zwave">🟢 Z-Wave</span><span class="db db-ble">🩷 BLE</span><span class="db db-sub">💳 Subscription ⭐</span><span class="db db-wired">🔌 Plug-In</span><span class="db db-voice">🗣️ Voice</span>
             </div>
@@ -2875,7 +3299,7 @@
           <div class="device-item">
             <div class="device-model">Homey Pro Ethernet Adapter</div>
             <div class="device-name">Homey Pro Ethernet Adapter</div>
-            <div class="device-desc">Adds wired Ethernet to Homey Pro 2023 or 2026. Plugs into the USB-C power port with USB-C passthrough for continued power. 480 Mbps. Recommended for larger installs where network stability matters. Not compatible with Homey Pro mini (which has built-in Ethernet). $29.</div>
+            <div class="device-desc">Adds wired Ethernet to Homey Pro 2023 or 2026. Plugs into the USB-C power port with USB-C passthrough for continued power. 480 Mbps. Recommended for larger installs where network stability matters. Not compatible with Homey Pro mini (which has built-in Ethernet)..</div>
             <div class="device-badges">
               <span class="db db-wired">🔌 USB-C Passthrough</span><span class="db db-hub">🟡 Requires Homey Pro ⭐</span>
             </div>
@@ -2917,7 +3341,27 @@
       </div>
     </div>
 
-    <a href="https://support.homey.app" target="_blank" class="brand-mfr-link">↗ Visit Homey Support</a>
+    <div class="brand-shop-strip">
+      <div class="brand-shop-label">// Shop Homey on Amazon</div>
+      <div class="brand-shop-items">
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B0G52DX5M3?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">Homey Pro 2026</span>
+          <span class="brand-shop-desc">8 protocols, 50,000+ devices, local</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B0C5F2H7MK?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">Homey Pro 2023</span>
+          <span class="brand-shop-desc">Same protocols, 2GB RAM, still sold</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+        <a class="brand-shop-item" href="https://www.amazon.com/dp/B0C5F2JHN5?tag=wifiwiseguys-20" target="_blank" rel="noopener">
+          <span class="brand-shop-name">Homey Bridge</span>
+          <span class="brand-shop-desc">Cloud hub or Pro satellite extender</span>
+          <span class="brand-shop-cta">Check Pricing on Amazon</span>
+        </a>
+      </div>
+    </div>
+        <a href="https://support.homey.app" target="_blank" class="brand-mfr-link">↗ Visit Homey Support</a>
   </div>
 </div>
 </div>
@@ -2966,7 +3410,6 @@
       <div class="featured-desc">Zigbee, Z-Wave, Matter, Thread, WiFi, Bluetooth, and IR — all in one hub, no subscriptions required. If you're serious about a unified smart home that doesn't depend on any one brand, this is the one to build around.</div>
     </div>
     <div class="featured-action">
-      <div class="featured-price">$399.00</div>
       <div class="featured-btn">View on Amazon →</div>
     </div>
   </a>
@@ -3606,33 +4049,27 @@
   <div class="aff-banner-items">
     <a class="aff-banner-item" href="https://www.amazon.com/dp/B0D6SX8VLQ?tag=wifiwiseguys-20" target="_blank" rel="noopener">
       <span class="aff-banner-name">Echo Dot Max</span>
-      <span class="aff-banner-price">$74.99</span>
-      <span class="aff-banner-cta">Amazon →</span>
+      <span class="aff-banner-cta">Check Pricing on Amazon</span>
     </a>
     <a class="aff-banner-item" href="https://www.amazon.com/dp/B08GD3D9YJ?tag=wifiwiseguys-20" target="_blank" rel="noopener">
       <span class="aff-banner-name">Chamberlain myQ</span>
-      <span class="aff-banner-price">$29.98</span>
-      <span class="aff-banner-cta">Amazon →</span>
+      <span class="aff-banner-cta">Check Pricing on Amazon</span>
     </a>
     <a class="aff-banner-item" href="https://www.amazon.com/dp/B0G52DX5M3?tag=wifiwiseguys-20" target="_blank" rel="noopener">
       <span class="aff-banner-name">Homey Pro 2026</span>
-      <span class="aff-banner-price">$399.00</span>
-      <span class="aff-banner-cta">Amazon →</span>
+      <span class="aff-banner-cta">Check Pricing on Amazon</span>
     </a>
     <a class="aff-banner-item" href="https://www.amazon.com/dp/B0BVKZLT3B?tag=wifiwiseguys-20" target="_blank" rel="noopener">
       <span class="aff-banner-name">Leviton Decora Switch</span>
-      <span class="aff-banner-price">$45.01</span>
-      <span class="aff-banner-cta">Amazon →</span>
+      <span class="aff-banner-cta">Check Pricing on Amazon</span>
     </a>
     <a class="aff-banner-item" href="https://www.amazon.com/dp/B0F151GFYR?tag=wifiwiseguys-20" target="_blank" rel="noopener">
       <span class="aff-banner-name">Ring Wired Doorbell Pro</span>
-      <span class="aff-banner-price">$249.99</span>
-      <span class="aff-banner-cta">Amazon →</span>
+      <span class="aff-banner-cta">Check Pricing on Amazon</span>
     </a>
     <a class="aff-banner-item" href="https://www.amazon.com/dp/B0C5DPSW5Y?tag=wifiwiseguys-20" target="_blank" rel="noopener">
       <span class="aff-banner-name">Echo Show 15</span>
-      <span class="aff-banner-price">$254.99</span>
-      <span class="aff-banner-cta">Amazon →</span>
+      <span class="aff-banner-cta">Check Pricing on Amazon</span>
     </a>
   </div>
 </div>
@@ -3647,32 +4084,26 @@
     <div class="product-grid">
       <a class="product-card" href="https://www.amazon.com/dp/B0D6SX8VLQ?tag=wifiwiseguys-20" target="_blank" rel="noopener">
         <div class="product-name">Echo Dot Max</div>
-        <div class="product-price">$74.99</div>
         <div class="product-cta">View on Amazon →</div>
       </a>
       <a class="product-card" href="https://www.amazon.com/dp/B08GD3D9YJ?tag=wifiwiseguys-20" target="_blank" rel="noopener">
         <div class="product-name">Chamberlain myQ Smart Garage</div>
-        <div class="product-price">$29.98</div>
         <div class="product-cta">View on Amazon →</div>
       </a>
       <a class="product-card" href="https://www.amazon.com/dp/B0G52DX5M3?tag=wifiwiseguys-20" target="_blank" rel="noopener">
         <div class="product-name">Homey Pro 2026</div>
-        <div class="product-price">$399.00</div>
         <div class="product-cta">View on Amazon →</div>
       </a>
       <a class="product-card" href="https://www.amazon.com/dp/B0BVKZLT3B?tag=wifiwiseguys-20" target="_blank" rel="noopener">
         <div class="product-name">Leviton Decora Smart Switch</div>
-        <div class="product-price">$45.01</div>
         <div class="product-cta">View on Amazon →</div>
       </a>
       <a class="product-card" href="https://www.amazon.com/dp/B0F151GFYR?tag=wifiwiseguys-20" target="_blank" rel="noopener">
         <div class="product-name">Ring Wired Doorbell Pro</div>
-        <div class="product-price">$249.99</div>
         <div class="product-cta">View on Amazon →</div>
       </a>
       <a class="product-card" href="https://www.amazon.com/dp/B0C5DPSW5Y?tag=wifiwiseguys-20" target="_blank" rel="noopener">
         <div class="product-name">Echo Show 15</div>
-        <div class="product-price">$254.99</div>
         <div class="product-cta">View on Amazon →</div>
       </a>
     </div>
