@@ -124,35 +124,20 @@
     .dashboard-cta p { font-family: 'Lora', serif; font-size: 1.05rem; color: rgba(255,255,255,0.8); line-height: 1.7; max-width: 520px; }
 
     /* AFFILIATE STRIP */
-    .wwg-affiliate-strip { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 72px 40px; }
+    .wwg-affiliate-strip { background: var(--blue-light); border-top: 1px solid var(--blue-mid); border-bottom: 1px solid var(--blue-mid); padding: 40px; }
     .wwg-aff-inner { max-width: 1200px; margin: 0 auto; }
-    .wwg-aff-header { text-align: center; margin-bottom: 48px; }
-    .wwg-aff-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; }
-    .wwg-aff-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; color: var(--ink); letter-spacing: -0.02em; margin-bottom: 12px; }
-    .wwg-aff-sub { font-size: 0.95rem; color: var(--ink-soft); max-width: 520px; margin: 0 auto; line-height: 1.6; }
-    .wwg-aff-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px; }
-    .wwg-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 24px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 8px; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
-    .wwg-card:hover { border-color: var(--blue); box-shadow: 0 8px 32px rgba(0,118,192,0.12); transform: translateY(-3px); }
-    .wwg-card--featured { border-color: var(--blue); background: linear-gradient(135deg, #f0f8ff 0%, #fff 100%); }
-    .wwg-card-badge { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; background: var(--ink); color: #fff; padding: 3px 8px; border-radius: 4px; width: fit-content; }
-    .wwg-badge--pro { background: var(--blue); }
-    .wwg-badge--pick { background: #1a7a3a; }
-    .wwg-card-icon { font-size: 1.8rem; line-height: 1; }
-    .wwg-card-brand { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); }
-    .wwg-card-name { font-size: 1rem; font-weight: 800; color: var(--ink); line-height: 1.25; }
-    .wwg-card-desc { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.6; flex: 1; }
-    .wwg-card-desc em { color: var(--ink-muted); font-style: normal; font-size: 0.8rem; }
-    .wwg-card-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding-top: 8px; border-top: 1px solid var(--border); }
-    .wwg-card-stars { font-size: 0.78rem; color: #e07b00; font-weight: 600; }
-    .wwg-card-stars .count { color: var(--ink-muted); font-weight: 400; font-size: 0.72rem; }
-    .wwg-card-volume { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--ink-muted); }
-    .wwg-card-price { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-    .wwg-price-now { font-size: 1.25rem; font-weight: 900; color: var(--ink); }
-    .wwg-price-was { font-size: 0.82rem; color: var(--ink-muted); text-decoration: line-through; }
-    .wwg-price-save { font-size: 0.75rem; font-weight: 700; color: #b91c1c; background: #fef2f2; padding: 2px 6px; border-radius: 4px; }
-    .wwg-card-cta { font-size: 0.85rem; font-weight: 700; color: var(--blue); margin-top: 4px; }
-    .wwg-card:hover .wwg-card-cta { color: var(--blue-dark); }
-    .wwg-aff-disclosure { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--ink-muted); text-align: center; line-height: 1.6; max-width: 700px; margin: 0 auto; }
+    .wwg-aff-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; }
+    .wwg-aff-sub { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 28px; }
+    .wwg-aff-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+    .wwg-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 0; text-decoration: none; display: flex; flex-direction: column; overflow: hidden; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
+    .wwg-card:hover { border-color: var(--blue); box-shadow: 0 6px 24px rgba(0,118,192,0.13); transform: translateY(-2px); }
+    .wwg-card-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: #f5f8fb; display: block; }
+    .wwg-card-body { padding: 14px 14px 0; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+    .wwg-card-name { font-size: 0.85rem; font-weight: 700; color: var(--ink); line-height: 1.3; }
+    .wwg-card-desc { font-size: 0.78rem; color: var(--ink-soft); line-height: 1.5; }
+    .wwg-card-msrp { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--ink-muted); }
+    .wwg-card-btn { display: block; margin: 10px 14px 14px; background: var(--blue); color: var(--white); font-size: 0.78rem; font-weight: 700; text-align: center; padding: 8px 12px; border-radius: 7px; transition: background 0.2s; }
+    .wwg-card:hover .wwg-card-btn { background: var(--blue-dark); }
 
     /* FOOTER */
     footer { background: var(--ink); color: rgba(255,255,255,0.6); padding: 60px 40px; }
@@ -343,114 +328,71 @@
 <!-- AFFILIATE PRODUCTS -->
 <section class="wwg-affiliate-strip">
   <div class="wwg-aff-inner">
-    <div class="wwg-aff-header">
-      <div class="wwg-aff-eyebrow">// Gear We Recommend</div>
-      <h2 class="wwg-aff-title">Shop Smart Home Essentials</h2>
-      <p class="wwg-aff-sub">Products we use, configure, and actually stand behind.</p>
-    </div>
+    <div class="wwg-aff-eyebrow">// Gear We Actually Use</div>
+    <div class="wwg-aff-sub">Affiliate links — commissions help keep the site running, at no cost to you.</div>
     <div class="wwg-aff-grid">
 
       <a class="wwg-card" href="https://www.amazon.com/dp/B0D6SX8VLQ?tag=wifiwiseguys-20" target="_blank" rel="noopener sponsored">
-        <div class="wwg-card-badge">Amazon's Choice</div>
-        <div class="wwg-card-icon">🔊</div>
-        <div class="wwg-card-brand">Amazon</div>
-        <div class="wwg-card-name">Echo Dot Max</div>
-        <div class="wwg-card-desc">Room-filling sound, built-in smart home hub, designed for Alexa+. Nearly 3x the bass of standard Echo Dot.</div>
-        <div class="wwg-card-meta">
-          <div class="wwg-card-stars">★★★★½ <span class="count">(3,187)</span></div>
-          <div class="wwg-card-volume">7K+ bought/mo</div>
+        <img class="wwg-card-img" src="https://m.media-amazon.com/images/I/61sSNSQEnCL._AC_SL1000_.jpg" alt="Echo Dot Max" loading="lazy" />
+        <div class="wwg-card-body">
+          <div class="wwg-card-name">Echo Dot Max</div>
+          <div class="wwg-card-desc">Room-filling sound with built-in smart home hub. Amazon's most powerful compact speaker yet.</div>
+          <div class="wwg-card-msrp">MSRP $74.99</div>
         </div>
-        <div class="wwg-card-price">
-          <span class="wwg-price-now">$74.99</span>
-          <span class="wwg-price-was">$99.99</span>
-          <span class="wwg-price-save">-25%</span>
-        </div>
-        <div class="wwg-card-cta">View on Amazon →</div>
+        <div class="wwg-card-btn">Check Current Price →</div>
       </a>
 
       <a class="wwg-card" href="https://www.amazon.com/dp/B08GD3D9YJ?tag=wifiwiseguys-20" target="_blank" rel="noopener sponsored">
-        <div class="wwg-card-badge">Amazon's Choice</div>
-        <div class="wwg-card-icon">🏠</div>
-        <div class="wwg-card-brand">Chamberlain</div>
-        <div class="wwg-card-name">myQ Smart Garage Control</div>
-        <div class="wwg-card-desc">Open, close, and monitor your garage from anywhere. Works with Amazon Key for in-garage package delivery — no more porch pirates.</div>
-        <div class="wwg-card-meta">
-          <div class="wwg-card-stars">★★★★¼ <span class="count">(60,435)</span></div>
-          <div class="wwg-card-volume">10K+ bought/mo</div>
+        <img class="wwg-card-img" src="https://embed.widencdn.net/img/cgi/0vshcvg4zp/420px/MYQG0401_hero_1.png" alt="Chamberlain myQ Smart Garage Controller" loading="lazy" />
+        <div class="wwg-card-body">
+          <div class="wwg-card-name">Chamberlain myQ Smart Garage</div>
+          <div class="wwg-card-desc">Open, close, and monitor your garage from anywhere. Works with Amazon Key.</div>
+          <div class="wwg-card-msrp">MSRP $29.99</div>
         </div>
-        <div class="wwg-card-price">
-          <span class="wwg-price-now">$29.98</span>
-        </div>
-        <div class="wwg-card-cta">View on Amazon →</div>
+        <div class="wwg-card-btn">Check Current Price →</div>
       </a>
 
-      <a class="wwg-card wwg-card--featured" href="https://www.amazon.com/dp/B0G52DX5M3?tag=wifiwiseguys-20" target="_blank" rel="noopener sponsored">
-        <div class="wwg-card-badge wwg-badge--pro">WWG Install Pick</div>
-        <div class="wwg-card-icon">🌐</div>
-        <div class="wwg-card-brand">Homey</div>
-        <div class="wwg-card-name">Homey Pro (2026)</div>
-        <div class="wwg-card-desc">The hub that unifies everything — Zigbee, Z-Wave, Matter, Thread, Wi-Fi, BLE, and IR. 50,000+ compatible devices, one app.</div>
-        <div class="wwg-card-meta">
-          <div class="wwg-card-stars">★★★½ <span class="count">(22)</span></div>
-          <div class="wwg-card-volume">New 2026 model</div>
+      <a class="wwg-card" href="https://www.amazon.com/dp/B0G52DX5M3?tag=wifiwiseguys-20" target="_blank" rel="noopener sponsored">
+        <img class="wwg-card-img" src="https://homey.app/img/pages/home/intro/homey-pro/homey-pro-landscape.png" alt="Homey Pro 2026" loading="lazy" />
+        <div class="wwg-card-body">
+          <div class="wwg-card-name">Homey Pro 2026</div>
+          <div class="wwg-card-desc">Zigbee, Z-Wave, Matter, Thread, Wi-Fi, BLE, and IR. 50,000+ devices, one app.</div>
+          <div class="wwg-card-msrp">MSRP $399.00</div>
         </div>
-        <div class="wwg-card-price">
-          <span class="wwg-price-now">$399.00</span>
-        </div>
-        <div class="wwg-card-cta">View on Amazon →</div>
+        <div class="wwg-card-btn">Check Current Price →</div>
       </a>
 
       <a class="wwg-card" href="https://www.amazon.com/dp/B0BVKZLT3B?tag=wifiwiseguys-20" target="_blank" rel="noopener sponsored">
-        <div class="wwg-card-icon">💡</div>
-        <div class="wwg-card-brand">Leviton</div>
-        <div class="wwg-card-name">Decora Smart Switch Wi-Fi 2nd Gen</div>
-        <div class="wwg-card-desc">Matter-certified. Works with Alexa, Google, Apple HomeKit, and Siri. No hub required. <em>Note: neutral wire required — not in all homes.</em></div>
-        <div class="wwg-card-meta">
-          <div class="wwg-card-stars">★★★★¾ <span class="count">(406)</span></div>
-          <div class="wwg-card-volume">1K+ bought/mo</div>
+        <img class="wwg-card-img" src="https://www.leviton.com/content/dam/leviton/en/products/images/DW15S-1BZ.jpg" alt="Leviton Decora Smart Switch" loading="lazy" />
+        <div class="wwg-card-body">
+          <div class="wwg-card-name">Leviton Decora Smart Switch</div>
+          <div class="wwg-card-desc">Matter-certified. Works with Alexa, Google, HomeKit, and Siri. No hub required.</div>
+          <div class="wwg-card-msrp">MSRP $45.01</div>
         </div>
-        <div class="wwg-card-price">
-          <span class="wwg-price-now">$45.01</span>
-        </div>
-        <div class="wwg-card-cta">View on Amazon →</div>
+        <div class="wwg-card-btn">Check Current Price →</div>
       </a>
 
       <a class="wwg-card" href="https://www.amazon.com/dp/B0F151GFYR?tag=wifiwiseguys-20" target="_blank" rel="noopener sponsored">
-        <div class="wwg-card-badge">Amazon's Choice</div>
-        <div class="wwg-card-icon">🔔</div>
-        <div class="wwg-card-brand">Ring</div>
-        <div class="wwg-card-name">Wired Doorbell Pro (newest model)</div>
-        <div class="wwg-card-desc">Retinal 4K video, 10x enhanced zoom, Low-Light Sight. No battery swaps ever. <em>Requires existing doorbell wiring — check compatibility before buying.</em></div>
-        <div class="wwg-card-meta">
-          <div class="wwg-card-stars">★★★★¼ <span class="count">(883)</span></div>
-          <div class="wwg-card-volume">6K+ bought/mo</div>
+        <img class="wwg-card-img" src="https://images.ctfassets.net/a3peezndovsu/3gjfLsAnG7SwdB6Z5oA2sD/282c8d4a9582f349c92cdd4236dd828b/ring_wired_doorbell_pro_4k_1500x1500__1_.jpg" alt="Ring Wired Doorbell Pro" loading="lazy" />
+        <div class="wwg-card-body">
+          <div class="wwg-card-name">Ring Wired Doorbell Pro</div>
+          <div class="wwg-card-desc">4K video, 10x enhanced zoom, Low-Light Sight. No battery swaps ever.</div>
+          <div class="wwg-card-msrp">MSRP $249.99</div>
         </div>
-        <div class="wwg-card-price">
-          <span class="wwg-price-now">$249.99</span>
-        </div>
-        <div class="wwg-card-cta">View on Amazon →</div>
+        <div class="wwg-card-btn">Check Current Price →</div>
       </a>
 
       <a class="wwg-card" href="https://www.amazon.com/dp/B0C5DPSW5Y?tag=wifiwiseguys-20" target="_blank" rel="noopener sponsored">
-        <div class="wwg-card-badge wwg-badge--pick">Overall Pick</div>
-        <div class="wwg-card-icon">📺</div>
-        <div class="wwg-card-brand">Amazon</div>
-        <div class="wwg-card-name">Echo Show 15 (newest model)</div>
-        <div class="wwg-card-desc">15.6" Full HD kitchen hub with built-in Fire TV. Calendars, recipes, YouTube, smart home controls — all on your wall.</div>
-        <div class="wwg-card-meta">
-          <div class="wwg-card-stars">★★★★½ <span class="count">(5,378)</span></div>
-          <div class="wwg-card-volume">6K+ bought/mo</div>
+        <img class="wwg-card-img" src="https://m.media-amazon.com/images/I/71e10jyCTLL._AC_SL1000_.jpg" alt="Echo Show 15" loading="lazy" />
+        <div class="wwg-card-body">
+          <div class="wwg-card-name">Echo Show 15</div>
+          <div class="wwg-card-desc">15.6" Full HD kitchen hub with Fire TV. Calendars, recipes, smart home controls on your wall.</div>
+          <div class="wwg-card-msrp">MSRP $254.99</div>
         </div>
-        <div class="wwg-card-price">
-          <span class="wwg-price-now">$254.99</span>
-          <span class="wwg-price-was">$299.99</span>
-          <span class="wwg-price-save">-15%</span>
-        </div>
-        <div class="wwg-card-cta">View on Amazon →</div>
+        <div class="wwg-card-btn">Check Current Price →</div>
       </a>
 
     </div>
-
   </div>
 </section>
 
