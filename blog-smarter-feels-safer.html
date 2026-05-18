@@ -81,12 +81,15 @@
     .affiliate-strip-inner { max-width: 1200px; margin: 0 auto; }
     .strip-header { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 600; color: var(--blue); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 6px; }
     .strip-subhead { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 28px; }
-    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
-    .product-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 18px 16px; text-decoration: none; display: flex; flex-direction: column; gap: 8px; transition: border-color 0.2s, box-shadow 0.2s; }
-    .product-card:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(0,118,192,0.1); }
-    .product-name { font-size: 0.87rem; font-weight: 700; color: var(--ink); line-height: 1.3; }
-    .product-price { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--blue); font-weight: 600; }
-    .product-cta { font-size: 0.78rem; font-weight: 700; color: var(--blue-dark); margin-top: auto; padding-top: 4px; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+    .product-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 0; text-decoration: none; display: flex; flex-direction: column; overflow: hidden; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
+    .product-card:hover { border-color: var(--blue); box-shadow: 0 6px 24px rgba(0,118,192,0.13); transform: translateY(-2px); }
+    .product-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: #f5f8fb; display: block; }
+    .product-body { padding: 14px 14px 0; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+    .product-name { font-size: 0.85rem; font-weight: 700; color: var(--ink); line-height: 1.3; }
+    .product-msrp { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--ink-muted); font-weight: 400; }
+    .product-btn { display: block; margin: 10px 14px 14px; background: var(--blue); color: var(--white); font-size: 0.78rem; font-weight: 700; text-align: center; padding: 8px 12px; border-radius: 7px; transition: background 0.2s; }
+    .product-card:hover .product-btn { background: var(--blue-dark); }
 
     footer { background: var(--ink); color: rgba(255,255,255,0.6); padding: 60px 40px; }
     .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; }
@@ -140,10 +143,6 @@
   <a href="setup-dashboard.html">Setup Dashboard</a>
   <a href="about.html">About</a>
   <a href="blog.html" class="mobile-cta">Read the Blog</a>
-</div>
-
-<div class="affiliate-bar">
-  Just a heads up — links on this site may earn WiFi Wise Guys a small commission if you make a purchase, at zero cost to you. Those commissions help keep the site updated with new products and devices. We only link to stuff we'd actually recommend.
 </div>
 
 <a href="blog.html" class="back-link">← Back to Blog</a>
@@ -277,12 +276,46 @@
     <div class="strip-header">// Gear We Actually Use</div>
     <div class="strip-subhead">Affiliate links — commissions help keep the site running, at no cost to you.</div>
     <div class="product-grid">
-      <a class="product-card" href="https://www.amazon.com/dp/B0D6SX8VLQ?tag=wifiwiseguys-20" target="_blank" rel="noopener"><div class="product-name">Echo Dot Max</div><div class="product-price">$74.99</div><div class="product-cta">View on Amazon →</div></a>
-      <a class="product-card" href="https://www.amazon.com/dp/B08GD3D9YJ?tag=wifiwiseguys-20" target="_blank" rel="noopener"><div class="product-name">Chamberlain myQ Smart Garage</div><div class="product-price">$29.98</div><div class="product-cta">View on Amazon →</div></a>
-      <a class="product-card" href="https://www.amazon.com/dp/B0G52DX5M3?tag=wifiwiseguys-20" target="_blank" rel="noopener"><div class="product-name">Homey Pro 2026</div><div class="product-price">$399.00</div><div class="product-cta">View on Amazon →</div></a>
-      <a class="product-card" href="https://www.amazon.com/dp/B0BVKZLT3B?tag=wifiwiseguys-20" target="_blank" rel="noopener"><div class="product-name">Leviton Decora Smart Switch</div><div class="product-price">$45.01</div><div class="product-cta">View on Amazon →</div></a>
-      <a class="product-card" href="https://www.amazon.com/dp/B0F151GFYR?tag=wifiwiseguys-20" target="_blank" rel="noopener"><div class="product-name">Ring Wired Doorbell Pro</div><div class="product-price">$249.99</div><div class="product-cta">View on Amazon →</div></a>
-      <a class="product-card" href="https://www.amazon.com/dp/B0C5DPSW5Y?tag=wifiwiseguys-20" target="_blank" rel="noopener"><div class="product-name">Echo Show 15</div><div class="product-price">$254.99</div><div class="product-cta">View on Amazon →</div></a>
+      <a class="product-card" href="https://www.kqzyfj.com/click-101754542-15641043" target="_blank" rel="noopener sponsored">
+        <img class="product-img" src="https://us.store.tapo.com/cdn/shop/files/image_1_7c3a4186-0491-44b3-80be-8851b195459c.jpg?v=1693303553&width=1220" alt="Tapo C211 Pan/Tilt Indoor Camera" loading="lazy" />
+        <div class="product-body">
+          <div class="product-name">Tapo C211 Pan/Tilt Indoor Cam</div>
+          <div class="product-msrp">MSRP $34.99</div>
+        </div>
+        <div class="product-btn">Check Current Price →</div>
+      </a>
+      <a class="product-card" href="https://www.jdoqocy.com/click-101754542-15641052" target="_blank" rel="noopener sponsored">
+        <img class="product-img" src="https://us.store.tapo.com/cdn/shop/files/PRODUCT--C425-1PK.jpg?v=1764599606&width=1220" alt="Tapo C425 Wire-Free Outdoor Camera" loading="lazy" />
+        <div class="product-body">
+          <div class="product-name">Tapo C425 Wire-Free Outdoor Cam</div>
+          <div class="product-msrp">MSRP $129.99</div>
+        </div>
+        <div class="product-btn">Check Current Price →</div>
+      </a>
+      <a class="product-card" href="https://www.amazon.com/dp/B0F151GFYR?tag=wifiwiseguys-20" target="_blank" rel="noopener sponsored">
+        <img class="product-img" src="https://images.ctfassets.net/a3peezndovsu/3gjfLsAnG7SwdB6Z5oA2sD/282c8d4a9582f349c92cdd4236dd828b/ring_wired_doorbell_pro_4k_1500x1500__1_.jpg" alt="Ring Wired Doorbell Pro" loading="lazy" />
+        <div class="product-body">
+          <div class="product-name">Ring Wired Doorbell Pro</div>
+          <div class="product-msrp">MSRP $249.99</div>
+        </div>
+        <div class="product-btn">Check Current Price →</div>
+      </a>
+      <a class="product-card" href="https://www.amazon.com/dp/B0G52DX5M3?tag=wifiwiseguys-20" target="_blank" rel="noopener sponsored">
+        <img class="product-img" src="https://homey.app/img/pages/home/intro/homey-pro/homey-pro-landscape.png" alt="Homey Pro 2026" loading="lazy" />
+        <div class="product-body">
+          <div class="product-name">Homey Pro 2026</div>
+          <div class="product-msrp">MSRP $399.00</div>
+        </div>
+        <div class="product-btn">Check Current Price →</div>
+      </a>
+      <a class="product-card" href="https://www.amazon.com/dp/B08GD3D9YJ?tag=wifiwiseguys-20" target="_blank" rel="noopener sponsored">
+        <img class="product-img" src="https://embed.widencdn.net/img/cgi/0vshcvg4zp/420px/MYQG0401_hero_1.png" alt="Chamberlain myQ Smart Garage Controller" loading="lazy" />
+        <div class="product-body">
+          <div class="product-name">Chamberlain myQ Smart Garage</div>
+          <div class="product-msrp">MSRP $29.99</div>
+        </div>
+        <div class="product-btn">Check Current Price →</div>
+      </a>
     </div>
   </div>
 </div>
@@ -324,7 +357,9 @@
     <span>&copy; 2026 WiFi Wise Guys. All rights reserved.</span>
     <span class="footer-logo-text">wifiwiseguys.com</span>
   </div>
-  <div class="footer-affiliate">Affiliate disclosure: Some links on this site may earn a commission at no cost to you.</div>
+  <div class="affiliate-bar">
+    Just a heads up — links on this site may earn WiFi Wise Guys a small commission if you make a purchase, at zero cost to you. Those commissions help keep the site updated with new products and devices. We only link to stuff we'd actually recommend.
+  </div>
 </footer>
 
 <script>
